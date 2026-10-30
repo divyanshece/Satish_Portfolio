@@ -1,0 +1,110 @@
+---
+/**
+ * The illustration that sits beside a page heading in its opening band.
+ *
+ * These come from his own UFIS deck — the same set the diagram on /group/ is
+ * built from — so the site is not importing a new visual language, it is
+ * re-using one it already carries. Only four of the deck's twenty-seven are
+ * usable at this size: the rest are flat clipart with a white box baked in,
+ * third-party social marks, or research figures that already appear elsewhere.
+ *
+ * Each one is mounted on the site's own figure plate rather than floated on
+ * the band. A coloured illustration dropped straight onto the deep ground
+ * reads as a sticker; on a plate it reads as a mounted figure, which is what
+ * every other image on this site sits on.
+ */
+export interface Props {
+  /** Which band this is. Picks the file and the reading of it. */
+  art: "research" | "products" | "students" | "raft";
+}
+const { art } = Astro.props;
+
+const ART: Record<Props["art"], { w: number; h: number; alt: string }> = {
+  research: {
+    w: 773, h: 773,
+    alt: "An illustration of a printed newspaper, unrolled, its columns of type " +
+         "and a photograph laid out across the page.",
+  },
+  products: {
+    w: 1167, h: 656,
+    alt: "An illustration of software in use: a desktop screen, a phone and a tablet " +
+         "surrounded by charts, files and the small marks of an interface.",
+  },
+  students: {
+    w: 267, h: 229,
+    alt: "An illustration of a crowd of people, each with a card floating above them.",
+  },
+  raft: {
+    w: 708, h: 1000,
+    alt: "A hand-drawn illustration of a flooded Indian street in the rain. People wade " +
+         "through knee-deep water past shops and a parked scooter, a child floats paper " +
+         "boats beside a tree, and in the foreground a young woman in a yellow kurta " +
+         "lettered VarshaMitra photographs the scene on her phone.",
+  },
+};
+
+const it = ART[art];
+---
+
+<figure class:list={["band-art", { upright: art === "raft", broad: art === "products" }]}>
+  <div class:list={["mount", { plate: art === "raft" }]}>
+    <img
+      src={`/img/band/${art}.webp`}
+      alt={it.alt}
+      width={it.w}
+      height={it.h}
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</figure>
+
+<style>
+  .band-art { margin: 0; justify-self: end; width: 19rem; }
+
+  /* No plate. These three are cut out, so they sit on the band itself rather
+     than in a white box that would hide the fact that they were cut out at
+     all. The box is now only a size: one height, and each picture fitted
+     inside it, so the set still lines up across pages. */
+  /* No place-items: centre. Centring stops the grid item stretching, which
+     leaves block-size: 100% on the picture resolving against nothing and the
+     drawing spilling out of the box it is meant to sit in. Stretched, the
+     image box IS the box, and object-fit does the centring. */
+  .mount {
+    block-size: 16rem;
+    display: grid;
+    /* minmax(0, 1fr), not auto: an auto row is sized to its content, so the
+       picture's block-size: 100% resolved against the picture's own height
+       and the tall drawings grew straight out of the box. */
+    grid-template-rows: minmax(0, 1fr);
+  }
+  /* width/height, not the logical pair: global.css sets `img { height: auto }`,
+     and the logical block-size did not override it here — the drawings came
+     out at their natural aspect and spilled past the box. Same property
+     channel, same cascade, no surprise. */
+  .mount img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  /* The commissioned drawing is the exception twice over: it is upright, and
+     it is an opaque picture rather than a cut-out, so it keeps the plate every
+     other photograph and figure on this site sits on. */
+  /* The products drawing is the widest of the set, so it is width-limited in
+     the standard box and came out smaller than the rest. It gets its own. */
+  .broad { width: 28rem; }
+  .broad .mount { block-size: 18rem; }
+
+  .upright { width: 15rem; }
+  .upright .mount { block-size: 19rem; padding: var(--s-3); }
+
+  @media (max-width: 62rem) {
+    .band-art { justify-self: start; width: 15rem; }
+    .mount { block-size: 13rem; }
+    .broad { width: 17rem; }
+    .broad .mount { block-size: 13rem; }
+    .upright { width: 11rem; }
+    .upright .mount { block-size: 14rem; padding: var(--s-2); }
+  }
+</style>

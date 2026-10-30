@@ -1,0 +1,109 @@
+[
+  {
+    "slug": "snapflood",
+    "name": "SnapFlood",
+    "kind": "Mobile app",
+    "status": "live",
+    "audience": "Anyone with a phone",
+    "blurb": "Photograph a flooded street, upload it with a location, and it joins an archive of where water actually stood — in any city on earth. It began as the VarshaMitra campaign in 2023 and became an app.",
+    "state_lines": [
+      "Mobile app",
+      "Live",
+      "100+ installs"
+    ],
+    "links": [
+      {
+        "label": "Google Play",
+        "url": "https://play.google.com/store/apps/details?id=com.snapflood"
+      },
+      {
+        "label": "App Store",
+        "url": "https://apps.apple.com/ca/app/snapflood/id6746365714"
+      },
+      {
+        "label": "On the web",
+        "url": "https://snapflood-web.netlify.app/"
+      }
+    ],
+    "page": true,
+    "order": 10
+  },
+  {
+    "slug": "varshaanalytics",
+    "name": "VarshaAnalytics",
+    "kind": "Web app",
+    "status": "development",
+    "audience": "Researchers and planners",
+    "blurb": "Extract, analyse and visualise rainfall data for any period and any region in India.",
+    "state_lines": [
+      "Web app",
+      "In development"
+    ],
+    "absent_note": "Not yet public",
+    "page": false,
+    "order": 40
+  },
+  {
+    "slug": "hydro-emos",
+    "name": "Hydro-EMOS",
+    "kind": "R / Shiny",
+    "status": "slow",
+    "audience": "Forecasters and hydrologists",
+    "blurb": "Diagnostics and statistical post-processing for streamflow forecasts — the ensemble methods from the NOAA years, in a browser.",
+    "state_lines": [
+      "R / Shiny",
+      "Live",
+      "Slow first load"
+    ],
+    "links": [
+      {
+        "label": "Open Hydro-EMOS",
+        "url": "https://satishregonda.shinyapps.io/HydroEMOS/"
+      }
+    ],
+    "page": false,
+    "order": 50
+  },
+  {
+    "slug": "extreme-climate-analysis",
+    "name": "Extreme Climate Analysis",
+    "kind": "R / Shiny",
+    "status": "slow",
+    "audience": "Researchers",
+    "blurb": "Climate extremes for the Serayu and Krishna river basins, from the Asia-Pacific Network project with Jenderal Soedirman University in Java. Code by T. S. S. S. Prasad.",
+    "state_lines": [
+      "R / Shiny",
+      "Live",
+      "Slow first load"
+    ],
+    "links": [
+      {
+        "label": "Open the tool",
+        "url": "https://satishregondaiith.shinyapps.io/ExtremeClimateAnalysis_Serayu_Krishna_RiverBasins/"
+      }
+    ],
+    "page": false,
+    "order": 60
+  },
+  {
+    "slug": "poverty-visualisation",
+    "name": "Poverty Visualisation",
+    "kind": "R / Shiny",
+    "status": "slow",
+    "audience": "Researchers",
+    "blurb": "Visualising and analysing poverty indicators alongside water and consumption data.",
+    "state_lines": [
+      "R / Shiny",
+      "Live",
+      "Slow first load"
+    ],
+    "links": [
+      {
+        "label": "Open the tool",
+        "url": "https://satishregonda.shinyapps.io/PvrtyAppV03/"
+      }
+    ],
+    "page": false,
+    "order": 70
+  }
+]

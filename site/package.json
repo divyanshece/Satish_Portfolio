@@ -1,0 +1,26 @@
+{
+  "name": "satishregonda-in",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Personal academic site for Dr. Satish Kumar Regonda, IIT Hyderabad",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "sync": "node scripts/sync-from-google.mjs",
+    "grep-check": "node scripts/grep-check.mjs",
+    "seo-check": "node scripts/seo-check.mjs",
+    "rivers": "node scripts/rivers.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.14.1",
+    "sharp": "^0.34.4",
+    "zod": "^4.5.4"
+  },
+  "devDependencies": {
+    "googleapis": "^161.0.0"
+  }
+}

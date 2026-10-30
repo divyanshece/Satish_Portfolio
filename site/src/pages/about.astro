@@ -1,0 +1,697 @@
+---
+/**
+ * The record behind the person: who he is, where he has worked, what he
+ * studied, what has been funded, and how to reach him.
+ *
+ * The home page carries the arc — one paragraph, the trajectory and the
+ * portrait. This page carries the record, so nothing here is a summary: the
+ * appointments are all of them, the education is all of it, and the funded
+ * projects are set out as a record rather than crammed into a table that
+ * scrolls sideways on a phone.
+ */
+import Base from "../layouts/Base.astro";
+import PersonJsonLd from "../components/PersonJsonLd.astro";
+import { settings, positions, projects, counts, prose, talksOfKind } from "../lib/content";
+import { hydronyms, span, year } from "../lib/text";
+
+/* Positions arrive sorted by their order field; filtering preserves it. */
+const appointments = positions.filter((p) => p.kind === "appointment");
+const education = positions.filter((p) => p.kind === "education");
+
+/** A degree row carries the same year twice. Print it once. */
+function years(p: { start: string; end: string }): string {
+  if (!p.end) return span(p.start, p.end);
+  return year(p.start) === year(p.end) ? year(p.start) : span(p.start, p.end);
+}
+
+/**
+ * Employers, in the form the page shows them.
+ *
+ * positions.json stores an org string per role, and the two NOAA posts are
+ * filed under different ones — "NWS / NOAA" and "NOAA" — because that is how
+ * they were typed. Grouping forces them to agree, so the mapping lives here
+ * rather than being pushed back into a sheet he edits.
+ *
+ * The marks are nominative: they say where he worked. Provenance and the
+ * trademark position are in public/img/org/CREDITS.md.
+ */
+type Org = { key: string; name: string; logo: string | null; logoW?: number; abbr?: string };
+
+/* Every organisation here now has its own mark. The short-form fallback below
+   stays for anything added later that does not. */
+const ORGS: Record<string, Org> = {
+  "IIT Hyderabad":            { key: "iith",      name: "Indian Institute of Technology Hyderabad", logo: "iith",      logoW: 180 },
+  "Johns Hopkins University": { key: "jhu",       name: "Johns Hopkins University",                 logo: "jhu",       logoW: 790 },
+  "World Bank":               { key: "worldbank", name: "The World Bank",                           logo: "worldbank", logoW: 951 },
+  "NWS / NOAA":               { key: "noaa",      name: "NOAA · National Weather Service",          logo: "noaa",      logoW: 192 },
+  "NOAA":                     { key: "noaa",      name: "NOAA · National Weather Service",          logo: "noaa",      logoW: 192 },
+  "University of Colorado Boulder": { key: "cub", name: "University of Colorado Boulder",           logo: "cuboulder", logoW: 950 },
+  "IIT Kanpur":               { key: "iitk",      name: "Indian Institute of Technology Kanpur",    logo: "iitk",      logoW: 199 },
+  "Kakatiya Institute of Technology and Sciences, Warangal":
+                              { key: "kitsw",     name: "Kakatiya Institute of Technology and Sciences, Warangal", logo: "kitsw", logoW: 139 },
+};
+
+/** Roles gathered under the organisation that held them, newest group first. */
+function byOrg(list: typeof appointments) {
+  const seen = new Map<string, { name: string; logo: string | null; logoW?: number; abbr?: string; city?: string; roles: typeof list }>();
+  for (const p of list) {
+    const o = ORGS[p.org] ?? { key: p.org, name: p.org, logo: null, abbr: p.org.slice(0, 4).toUpperCase() };
+    if (!seen.has(o.key)) seen.set(o.key, { name: o.name, logo: o.logo, logoW: o.logoW, abbr: o.abbr, city: p.city, roles: [] as any });
+    const g = seen.get(o.key)!;
+    g.roles.push(p);
+    if (!g.city && p.city) g.city = p.city;
+  }
+  /* Newest post first inside an employer, and newest employer first overall —
+     by the date it started, not by the order field, which is a sheet's idea of
+     sequence and had the 2022 professorship above the 2023 chairpersonship. */
+  const start = (r: { start: string }) => r.start;
+  for (const g of seen.values()) g.roles.sort((a, b) => start(b).localeCompare(start(a)));
+  return [...seen.values()].sort((a, b) =>
+    start(b.roles[0]).localeCompare(start(a.roles[0])));
+}
+
+/**
+ * The whole span at one employer: earliest start to latest end, open if any
+ * role is. An open span reads "2017–present", the way an employment record is
+ * written. The funded-projects table below says "ongoing" instead, because a
+ * project runs rather than continues.
+ */
+function spanOf(roles: { start: string; end: string }[]): string {
+  const starts = roles.map((r) => Number(year(r.start)));
+  const from = Math.min(...starts);
+  if (roles.some((r) => !r.end)) return `${from}–present`;
+  const to = Math.max(...roles.map((r) => Number(year(r.end))));
+  return from === to ? `${from}` : `${from}–${to}`;
+}
+
+/** "Head of Department, Department of Climate Change" — the post, then where. */
+function splitRole(role: string): [string, string | null] {
+  const at = role.indexOf(", ");
+  return at === -1 ? [role, null] : [role.slice(0, at), role.slice(at + 2)];
+}
+
+const funded = [
+  ...projects.filter((p) => p.status === "ongoing"),
+  ...projects.filter((p) => p.status === "completed"),
+];
+
+/**
+ * Null on both ends is a gap in the record, not a zero.
+ *
+ * An open-ended project reads "2024–ongoing" rather than leaving a dash
+ * hanging off the cell. Where neither year is recorded the cell is empty —
+ * this table is not split by status, so "Ongoing" alone is the one thing it
+ * can still say for a running project with no dates at all.
+ */
+function period(p: { start_year?: number | null; end_year?: number | null; status: string }): string {
+  if (p.start_year && p.end_year) return `${p.start_year}–${p.end_year}`;
+  if (p.start_year) return `${p.start_year}–ongoing`;
+  if (p.status === "ongoing") return "Ongoing";
+  return "";
+}
+
+/* The band's facts, all counted rather than typed. */
+const iithFrom = appointments
+  .filter((p) => p.org === settings.institution)
+  .map((p) => Number(year(p.start)))
+  .reduce((a, b) => Math.min(a, b), 9999);
+const departmentsLine = `Departments of ${settings.departments.join(" & ")}`;
+
+const conferences = talksOfKind("conference");
+const seminars = talksOfKind("seminar");
+const service = talksOfKind("service");
+
+/** "Regonda, S. K." set apart from his co-authors, as in the record. */
+const SELF = "Regonda, S. K.";
+
+const PORTRAIT_ALT =
+  "Satish Regonda standing outside the Knowledge Resource Centre at IIT Hyderabad, " +
+  "the library's arched front and students on the steps behind him.";
+---
+
+<Base
+  title="About"
+  description="Dr. Satish K. Regonda of IIT Hyderabad: appointments from NOAA and the World Bank to Hyderabad, education, funded projects and contact."
+  ogType="profile"
+>
+  <Fragment slot="head"><PersonJsonLd page="/about/" /></Fragment>
+
+  <div class="band band-deep">
+    <div class="wide">
+      <div class="ident">
+          <div class="who">
+          <h1>{settings.name_display ?? settings.name_full}</h1>
+          <p class="post">
+            {settings.title}<br />
+            {departmentsLine}<br />
+            {settings.institution}
+          </p>
+          {/* One orienting fact, and no tally. The counted row that used to
+              stand here — papers, students supervised — was the same shape he
+              struck off the home page for reading as selling himself. */}
+          <p class="band-facts micro">
+            <span>At <b>{settings.institution}</b> since {iithFrom}</span>
+          </p>
+
+          <nav class="jump" aria-label="On this page">
+            <a href="#h-employment">Employment</a>
+            <a href="#h-education">Education</a>
+            {funded.length > 0 && <a href="#h-projects">Funded projects</a>}
+            {conferences.length > 0 && <a href="#h-talks">Conferences</a>}
+            <a href="#h-contact">Contact</a>
+          </nav>
+                </div>
+
+          <figure class="port">
+            <div class="plate">
+              <img
+                src="/img/portrait-campus.webp"
+                alt={PORTRAIT_ALT}
+                width="1000"
+                height="1250"
+                decoding="async"
+              />
+            </div>
+          </figure>
+</div>
+    </div>
+  </div>
+
+  <div class="wide">
+    <section class="bio">
+      {prose.bio_home.map((para, i) => (
+        <p class:list={{ lede: i === 0 }} set:html={hydronyms(para)}></p>
+      ))}
+    </section>
+
+    {appointments.length > 0 && (
+      <section class="rec" aria-labelledby="h-employment">
+        <h2 id="h-employment">Employment</h2>
+        <ol class="orgs">
+          {byOrg(appointments).map((g) => (
+            <li class="org">
+              <div class:list={["mark", `m-${g.logo ?? "none"}`]}>
+                {g.logo ? (
+                  <img
+                    src={`/img/org/${g.logo}.webp`}
+                    alt={`${g.name} logo`}
+                    width={g.logoW}
+                    height="192"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="initials">{g.abbr}</span>
+                )}
+              </div>
+
+              <div class="body">
+                <h3>{g.name}</h3>
+                <p class="span micro">
+                  {spanOf(g.roles)}
+                  {g.city && <span class="city">{g.city}</span>}
+                </p>
+
+                <ol class="roles">
+                  {g.roles.map((p) => {
+                    const [post, unit] = splitRole(p.role);
+                    return (
+                      <li class:list={{ now: !p.end }}>
+                        <b>{post}</b>
+                        {unit && <span class="unit">{unit}</span>}
+                        {/* With one role the span above already carries the
+                            years; printing them again says it twice. */}
+                        {g.roles.length > 1 && <span class="when micro">{years(p)}</span>}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {education.length > 0 && (
+      <section class="rec" aria-labelledby="h-education">
+        <h2 id="h-education">Education</h2>
+        <ol class="orgs">
+          {byOrg(education).map((g) => (
+            <li class="org">
+              <div class:list={["mark", `m-${g.logo ?? "none"}`]}>
+                {g.logo ? (
+                  <img
+                    src={`/img/org/${g.logo}.webp`}
+                    alt={`${g.name} logo`}
+                    width={g.logoW}
+                    height="192"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span class="initials">{g.abbr}</span>
+                )}
+              </div>
+
+              <div class="body">
+                <h3>{g.name}</h3>
+                <p class="span micro">
+                  {spanOf(g.roles)}
+                  {g.city && <span class="city">{g.city}</span>}
+                </p>
+
+                <ol class="roles">
+                  {g.roles.map((p) => {
+                    const [post, unit] = splitRole(p.role);
+                    return (
+                      <li>
+                        <b>{post}</b>
+                        {unit && <span class="unit">{unit}</span>}
+                        {p.note && <span class="unit thesis">{p.note}</span>}
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {funded.length > 0 && (
+      <section class="rec" aria-labelledby="h-projects">
+        <h2 id="h-projects">Funded projects</h2>
+        <div class="tw">
+          <table class="grants">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Funded by</th>
+                <th scope="col">Role</th>
+                <th scope="col">Period</th>
+              </tr>
+            </thead>
+            <tbody>
+              {funded.map((p) => (
+                <tr>
+                  <td class="strong" set:html={hydronyms(p.title)}></td>
+                  <td>{p.funder}</td>
+                  <td>{p.role}</td>
+                  <td class="n">{period(p)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+    {conferences.length > 0 && (
+      <section class="rec" aria-labelledby="h-talks">
+        <h2 id="h-talks">Conference presentations</h2>
+        <ol class="talks">
+          {conferences.map((t) => (
+            <li>
+              <p class="t-when micro">{t.when}</p>
+              <div>
+                <h3>{t.title}</h3>
+                {t.authors && (
+                  <p class="t-who">
+                    {t.authors.map((a, i) => (
+                      <>{i > 0 && ", "}<span class={a === SELF ? "me" : undefined}>{a}</span></>
+                    ))}
+                  </p>
+                )}
+                <p class="t-where">
+                  {t.venue}{t.where && <span class="city">{t.where}</span>}
+                </p>
+                {t.note && <p class="t-note">{t.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {seminars.length > 0 && (
+      <section class="rec" aria-labelledby="h-seminars">
+        <h2 id="h-seminars">Invited seminars</h2>
+        <ol class="talks">
+          {seminars.map((t) => (
+            <li>
+              <p class="t-when micro">{t.when}</p>
+              <div>
+                <h3>{t.title}</h3>
+                <p class="t-where">
+                  {t.venue}{t.where && <span class="city">{t.where}</span>}
+                </p>
+                {t.note && <p class="t-note">{t.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    {service.length > 0 && (
+      <section class="rec" aria-labelledby="h-service">
+        <h2 id="h-service">Scientific activities</h2>
+        <ol class="talks">
+          {service.map((t) => (
+            <li>
+              <p class="t-when micro">{t.when}</p>
+              <div>
+                <h3>{t.title}</h3>
+                <p class="t-where">
+                  {t.role && <>{t.role}, </>}{t.venue}{t.where && <span class="city">{t.where}</span>}
+                </p>
+                {t.note && <p class="t-note">{t.note}</p>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+  </div>
+
+  <div class="band band-tint reach">
+    <div class="wide">
+      <h2 id="h-contact">Contact</h2>
+      <dl class="contact">
+        <div>
+          <dt class="micro">Office</dt>
+          <dd>{settings.office}</dd>
+        </div>
+        <div>
+          <dt class="micro">Post</dt>
+          <dd>{settings.address}</dd>
+        </div>
+        <div>
+          <dt class="micro">Email</dt>
+          <dd><a href={`mailto:${settings.email}`}>{settings.email}</a></dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</Base>
+
+<style>
+  /* ---------- who he is ---------- */
+
+  /* His name and post on the left, him on the right. */
+  .ident {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: var(--s-8);
+    align-items: center;
+  }
+  .who { display: flex; flex-direction: column; }
+  .port { margin: 0; justify-self: end; }
+  .port img { width: 100%; height: auto; }
+
+  .post {
+    font-size: var(--t-lead);
+    line-height: 1.4;
+    color: var(--tint);
+    margin-top: var(--s-5);
+  }
+  .ident .band-facts { margin-top: var(--s-7); }
+
+  /* ---------- the bio ---------- */
+
+  /* The two paragraphs do different jobs, so they are set differently and
+     side by side: the first is the account of a career, the second is a
+     catalogue of what he works on. Stacking them left the page half empty. */
+  .bio {
+    padding-block: var(--s-8) var(--s-7);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: var(--s-8);
+    align-items: start;
+  }
+  .lede { font-size: var(--t-lead); line-height: 1.5; letter-spacing: -.006em; }
+  .bio p:not(.lede) {
+    font-size: var(--t-small);
+    line-height: 1.6;
+    color: var(--ink-mute);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ---------- employment ---------- */
+
+  /* One block per employer, the mark on the left and the posts held there
+     stacked on the right. Four roles at IIT Hyderabad were four separate rows
+     before this; grouped, the promotions read as one continuous appointment
+     instead of as four unrelated jobs. */
+  .orgs { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .org {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: var(--s-5);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  /* The marks sit on the page itself — no tile, no frame. They are 0.9:1,
+     4.1:1, 5:1 and 1:1, so they are fitted inside one invisible box and pinned
+     to its left edge; that keeps the organisation names in a straight column
+     while each mark keeps its own proportions. */
+  /* Pinned to the RIGHT of their column, not the left. The marks run from 0.9:1
+     to 5:1, so left-aligning them left a square emblem sitting 120px away from
+     its own name while a wordmark sat right against it. Aligned right, every
+     mark ends the same distance from the text. */
+  .mark {
+    display: grid;
+    justify-items: end;
+    align-content: start;
+  }
+  .mark img {
+    inline-size: 100%;
+    block-size: 2.75rem;
+    object-fit: contain;
+    object-position: right center;
+  }
+  /* Set by eye, not by rule: an emblem and a wordmark of the same height do
+     not read as the same size, because one fills its box and the other is a
+     line of type. The near-square marks are given more height so all four
+     carry the same weight down the column. */
+  .m-iith img { block-size: 3.5rem; }
+  .m-noaa img { block-size: 3.4rem; }
+  .m-jhu img { block-size: 2.5rem; }
+  .m-worldbank img { block-size: 2.1rem; }
+  .m-cuboulder img { block-size: 2.3rem; }
+  .m-iitk img { block-size: 3.4rem; }
+  .m-kitsw img { block-size: 3.6rem; }
+  /* The short form where no usable mark exists. Sized and weighted to sit at
+     the same optical level as the logos beside it. */
+  .initials {
+    font-family: var(--mono);
+    font-size: var(--t-small);
+    font-weight: 600;
+    letter-spacing: .04em;
+    font-variation-settings: "wdth" 85;
+    color: var(--ink-mute);
+    line-height: 2.75rem;
+  }
+
+  .org h3 { font-size: 1.25rem; line-height: 1.3; letter-spacing: -.008em; }
+  .span {
+    color: var(--ink-mute); margin-top: var(--s-2);
+    display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: baseline;
+  }
+  .span .city::before {
+    content: ""; display: inline-block; width: .85rem; margin-right: var(--s-3);
+    vertical-align: .2em; border-top: 1px solid var(--rule-strong);
+  }
+
+  /* The posts. A rule down the left ties them to the employer above. */
+  .roles { list-style: none; margin: var(--s-5) 0 0; padding: 0 0 0 var(--s-5); border-left: 1px solid var(--rule); }
+  .roles li { padding-block: 0 var(--s-4); }
+  .roles li:last-child { padding-bottom: 0; }
+  .roles b { font-weight: 600; font-size: var(--t-small); line-height: 1.4; }
+  .roles .now b { color: var(--accent); }
+  .roles .unit { display: block; font-size: var(--t-small); color: var(--ink-mute); line-height: 1.4; }
+  /* The flow below sets .when right-aligned for its year gutter. Here the date
+     sits under its own role, so it is put back to the left explicitly. */
+  .roles .when {
+    display: block;
+    text-align: left;
+    color: var(--ink-mute);
+    margin-top: .25rem;
+    padding-top: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- the flow ---------- */
+
+  .rec { padding-block: var(--s-7); border-top: 1px solid var(--rule); scroll-margin-top: 5rem; }
+  .rec h2 { font-size: 1.75rem; letter-spacing: -.016em; margin-bottom: var(--s-6); }
+
+  /* One post per stop, threaded on a single line, because a career is a
+     sequence and this is the one place on the site where that is the point.
+     The marker is square: nothing on this site has a round corner, and a
+     circle here would be the only one. */
+  .flow { list-style: none; margin: 0; padding: 0; }
+  .flow li {
+    display: grid;
+    grid-template-columns: 7.5rem 1.5rem minmax(0, 1fr);
+    gap: 0 var(--s-4);
+  }
+
+  .when {
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-mute);
+    white-space: nowrap;
+    text-align: right;
+    padding-top: .1rem;
+  }
+
+  /* The thread runs the full height of the cell, so the gap between stops is
+     carried by .what's padding rather than by the row — that is what keeps
+     the line unbroken from one stop to the next. */
+  .node { position: relative; }
+  .node::before {
+    content: "";
+    position: absolute;
+    left: calc(50% - .5px);
+    top: 1.1rem;
+    bottom: 0;
+    width: 1px;
+    background: var(--rule-strong);
+  }
+  .flow li:last-child .node::before { display: none; }
+  .node::after {
+    content: "";
+    position: absolute;
+    left: calc(50% - 4px);
+    top: .3rem;
+    width: 8px;
+    height: 8px;
+    background: var(--rule-strong);
+  }
+  /* The post he holds now. The only stop that is filled in the live colour. */
+  .flow li.now .node::after {
+    left: calc(50% - 6px);
+    top: .2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--signal);
+  }
+
+  .what { padding-bottom: var(--s-6); }
+  .flow li:last-child .what { padding-bottom: 0; }
+  .what b { font-weight: 600; font-size: var(--t-body); line-height: 1.35; }
+  .flow li.now .what b { color: var(--accent); }
+  .what .unit {
+    display: block;
+    font-size: var(--t-small);
+    color: var(--ink-mute);
+    line-height: 1.45;
+    margin-top: .15rem;
+  }
+  .what .thesis { font-style: italic; max-width: 44rem; }
+  .where {
+    display: block;
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 75;
+    color: var(--ink);
+    margin-top: var(--s-2);
+  }
+  .where .city { color: var(--ink-mute); }
+  .where .city::before {
+    content: "";
+    display: inline-block;
+    width: .8rem;
+    margin: 0 .5rem;
+    vertical-align: .2em;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  /* ---------- funded projects ---------- */
+
+  .grants th:nth-child(1) { width: 44%; }
+  .grants th:nth-child(2) { width: 24%; }
+  .grants th:nth-child(3) { width: 14%; }
+
+  /* ---------- talks, seminars, service ---------- */
+
+  /* Date on the left in the mono, the talk on the right — the same two-column
+     record the employment blocks use, so the page reads as one document. */
+  .talks { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .talks li {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--s-5);
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+  .t-when { color: var(--ink-mute); font-variant-numeric: tabular-nums; }
+  .talks h3 { font-size: var(--t-small); line-height: 1.4; font-weight: 600; max-width: 44rem; }
+  .t-who { font-size: var(--t-small); color: var(--ink-mute); margin-top: .2rem; max-width: 44rem; }
+  .t-who .me { color: var(--ink); font-weight: 600; }
+  .t-where {
+    font-family: var(--mono); font-size: var(--t-micro);
+    letter-spacing: .04em; text-transform: uppercase;
+    font-variation-settings: "wdth" 75;
+    color: var(--ink-mute); margin-top: var(--s-2); max-width: 44rem; line-height: 1.5;
+  }
+  .t-where .city::before {
+    content: ""; display: inline-block; width: .8rem; margin: 0 .5rem;
+    vertical-align: .2em; border-top: 1px solid var(--rule-strong);
+  }
+  .t-note {
+    font-size: var(--t-small); font-style: italic; color: var(--ink-mute);
+    margin-top: var(--s-2); max-width: 44rem; line-height: 1.5;
+  }
+
+  /* ---------- how to reach him ---------- */
+
+  .reach { margin-top: var(--s-8); scroll-margin-top: 5rem; }
+  .reach h2 { font-size: var(--t-h2); margin-bottom: var(--s-5); }
+
+  /* Three cells across the band, each one field of the address. Elsewhere is
+     deliberately absent: the footer carries those four links on every page,
+     and repeating them directly above it said nothing twice. */
+  .contact {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr) 16rem;
+    gap: var(--s-6);
+    margin: 0;
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--rule-strong);
+  }
+  .contact dt { color: var(--ink-mute); }
+  .contact dd {
+    margin: var(--s-3) 0 0;
+    font-size: var(--t-small);
+    line-height: 1.5;
+  }
+  .contact a { color: var(--ink); text-decoration-color: var(--rule-strong); }
+  .contact a:hover { color: var(--accent); }
+
+  @media (max-width: 62rem) {
+    .flow li { grid-template-columns: 5.5rem 1.25rem minmax(0, 1fr); }
+    .talks li { grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+    .org { grid-template-columns: 6.5rem minmax(0, 1fr); gap: var(--s-4); }
+    .mark img { block-size: 2.25rem; }
+    .m-iith img { block-size: 2.9rem; }
+    .m-noaa img { block-size: 2.8rem; }
+    .m-iitk img { block-size: 2.8rem; }
+    .m-kitsw img { block-size: 3rem; }
+    .bio { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+    .contact { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-5); }
+  }
+  @media (max-width: 640px) {
+    .contact { grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+  }
+</style>

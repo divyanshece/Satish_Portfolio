@@ -1,0 +1,141 @@
+---
+/**
+ * The application form. It posts to the /exec address of apps-script/Form.gs,
+ * which emails every answer to him. The page decides whether to render it:
+ * with no address, /join/ shows his own "how to write" paragraph instead.
+ */
+export interface Props { action: string }
+const { action } = Astro.props;
+
+/* The questions are his, in his order: the four things his own invitation
+   asks an applicant to describe. Nothing is asked here that he did not ask. */
+const ASKS = [
+  { name: "interests",  label: "Your research interests" },
+  { name: "background", label: "Your relevant background and skills" },
+  { name: "why",        label: "Why you would like to work with us" },
+  { name: "hopes",      label: "What you hope to learn and contribute" },
+];
+
+/* Whom his invitation welcomes: interns, prospective PhD students and
+   postdoctoral researchers. */
+const ROLES = ["PhD", "Postdoctoral research", "Internship"];
+---
+<form class="form" method="post" action={action} accept-charset="UTF-8">
+  <div class="pair">
+    <div class="field">
+      <label for="f-name">Your name</label>
+      <input id="f-name" name="name" type="text" autocomplete="name" maxlength="200" required />
+    </div>
+    <div class="field">
+      <label for="f-email">Your email</label>
+      <input id="f-email" name="email" type="email" autocomplete="email" maxlength="200" required />
+    </div>
+  </div>
+
+  <fieldset class="field">
+    <legend>You are applying for</legend>
+    <div class="opts">
+      {ROLES.map((r) => (
+        <label class="opt">
+          <input type="radio" name="role" value={r} required />
+          <span>{r}</span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  {ASKS.map((a) => (
+    <div class="field">
+      <label for={`f-${a.name}`}>{a.label}</label>
+      <textarea id={`f-${a.name}`} name={a.name} rows="4" maxlength="4000" required></textarea>
+    </div>
+  ))}
+
+  <div class="field">
+    <label for="f-cv">A link to your CV or profile <span class="opt-note">optional</span></label>
+    <input id="f-cv" name="cv_url" type="url" inputmode="url" placeholder="https://" maxlength="500" />
+  </div>
+
+  <div class="hp" aria-hidden="true">
+    <label for="f-hp">Leave this field empty</label>
+    <input id="f-hp" name="website" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="send">
+    <button class="act" type="submit">Send to Dr. Regonda</button>
+    <p class="form-note">Your answers go to him by email.</p>
+  </div>
+</form>
+
+<style>
+  .form { margin: 0; }
+  /* Name and email are one line each and belong together. */
+  .pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 var(--s-5); }
+  .field { margin: 0 0 var(--s-5); }
+  fieldset.field { border: 0; padding: 0; min-width: 0; }
+  .field label, .field legend {
+    display: block;
+    padding: 0;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  /* Every answer is needed but one, so the exception is what gets marked. */
+  .opt-note { font-weight: 400; color: var(--ink-mute); margin-inline-start: .35em; }
+
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="url"],
+  .field textarea {
+    display: block;
+    width: 100%;
+    margin-top: var(--s-2);
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    color: var(--ink);
+    background: var(--plate);
+    border: 1px solid var(--rule-strong);
+    border-radius: 0;
+    padding: .6rem .75rem;
+    appearance: none;
+  }
+  .field textarea { min-height: 7rem; resize: vertical; }
+  .field input:focus-visible,
+  .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+  /* Three choices, all visible at once, rather than a dropdown that hides two
+     of them. The native radio stays in place, invisible, over its label, so
+     keyboard, validation and screen readers all work as normal. */
+  .opts { display: flex; flex-wrap: wrap; gap: var(--s-2); margin-top: var(--s-2); }
+  .opts .opt { position: relative; display: block; font-weight: 400; }
+  .opt input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .opt span {
+    display: block;
+    padding: .55rem 1rem;
+    font-size: 1rem;
+    line-height: 1.3;
+    background: var(--plate);
+    border: 1px solid var(--rule-strong);
+  }
+  .opt:hover span { border-color: var(--ink); }
+  .opt input:checked + span { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  .opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .send {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-4) var(--s-5);
+    margin-top: var(--s-6);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--rule);
+  }
+  .form-note { margin: 0; font-size: .9375rem; line-height: 1.5; color: var(--ink-mute); }
+
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  @media (max-width: 560px) {
+    .pair { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -1,0 +1,66 @@
+---
+/**
+ * The intake notice on the home page. The sentence is his (settings.
+ * recruiting_status); the closing date shows while there is one. Once the
+ * date has passed, recruitingLine() swaps in the standing admissions sentence
+ * and the date goes with it, so the page never advertises a closed intake.
+ * The publish workflow rebuilds twice a day, which is what makes that true
+ * without anyone touching it.
+ */
+import { recruitingLine } from "../lib/content";
+import { longDate } from "../lib/text";
+
+export interface Props { today?: string }
+const today = Astro.props.today ?? new Date().toISOString().slice(0, 10);
+const line = recruitingLine(new Date(today));
+---
+<section class="intake" aria-labelledby="h-intake">
+  <div>
+    <h2 id="h-intake">Join the group</h2>
+    <p class="call">{line.text}</p>
+  </div>
+
+  <div class="next">
+    {line.deadline && (
+      <p class="closes">
+        <span>Applications close</span>
+        <time datetime={line.deadline}>{longDate(line.deadline)}</time>
+      </p>
+    )}
+    <a class="act" href="/join/">How to apply</a>
+  </div>
+</section>
+
+<style>
+  /* A notice, not a banner. A heavy ink rule opens it, as the wire strip it
+     replaces was ruled, and a hairline closes it. No fill and no card: the one
+     filled thing here is the control, and that is ink, never the accent. */
+  .intake {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-6) var(--s-8);
+    align-items: end;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding-block: var(--s-5) var(--s-7);
+  }
+  /* A small standing head, the way /group/ heads its theme list: the sentence
+     under it is the thing to read. */
+  .intake h2 { font-size: var(--t-small); font-weight: 600; letter-spacing: 0; margin: 0 0 var(--s-5); }
+  .call {
+    margin: 0;
+    max-width: 30rem;
+    font-size: clamp(1.625rem, 1.2rem + 1.4vw, 2.25rem);
+    line-height: 1.2;
+    letter-spacing: -.014em;
+    text-wrap: balance;
+  }
+  .next { display: grid; justify-items: start; gap: var(--s-4); }
+  .closes { margin: 0; display: grid; gap: .1rem; line-height: 1.35; }
+  .closes span { font-size: var(--t-small); color: var(--ink-mute); }
+  .closes time { font-size: var(--t-lead); }
+
+  @media (max-width: 760px) {
+    .intake { grid-template-columns: minmax(0, 1fr); align-items: start; gap: var(--s-5); }
+  }
+</style>

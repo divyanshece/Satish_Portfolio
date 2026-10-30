@@ -1,0 +1,24 @@
+[
+  { "code": "CE3400", "title": "Engineering Hydrology", "credits": 2, "level": "", "status": "now", "order": 10 },
+  { "code": "CE4400", "title": "Water Resource Engineering", "credits": 2, "level": "", "status": "now", "order": 20 },
+  { "code": "CE6501", "title": "Applied Computational Laboratory", "credits": 2, "level": "", "status": "now", "order": 30 },
+
+  { "code": "CE3011", "title": "Remote Sensing and GIS Laboratory", "credits": 1, "level": "", "status": "also", "order": 100 },
+  { "code": "CE3420", "title": "Fundamentals of GIS and Remote Sensing", "credits": 2, "level": "", "status": "also", "order": 110 },
+  { "code": "CE3501", "title": "Hydraulic Engineering Laboratory", "credits": 1, "level": "", "status": "also", "order": 120 },
+  { "code": "CE3510", "title": "Open Channel Hydraulics", "credits": 1.5, "level": "", "status": "also", "order": 130 },
+  { "code": "CE5106", "title": "Industrial Seminar", "credits": 1, "level": "", "status": "also", "order": 140 },
+  { "code": "CE6500", "title": "Engineering Hydrology and Hydrologic Systems", "credits": 3, "level": "", "status": "also", "order": 150 },
+  { "code": "CE6511", "title": "Hydraulic and Hydrologic Simulation Laboratory", "credits": 2, "level": "", "status": "also", "order": 160 },
+  { "code": "CE6610", "title": "Remote Sensing and GIS Applications in Water Resources", "credits": 3, "level": "", "status": "also", "note": "Co-taught", "order": 170 },
+
+  { "code": "CC1010", "title": "Introduction to Climate Change", "credits": 1, "level": "", "status": "also", "order": 200 },
+  { "code": "CC5030", "title": "Climate Dynamics-I", "credits": 1, "level": "", "status": "also", "order": 210 },
+  { "code": "CC5040", "title": "Climate Dynamics-II", "credits": 1, "level": "", "status": "also", "order": 220 },
+  { "code": "CC5120", "title": "Climate Monitoring and Variability", "credits": 2, "level": "", "status": "also", "order": 230 },
+  { "code": "CC5160", "title": "Industry Lecture", "credits": 1, "level": "", "status": "also", "order": 240 },
+  { "code": "CC5200", "title": "Remote Sensing, GIS and Climate Change", "credits": 3, "level": "", "status": "also", "order": 250 },
+
+  { "code": "CE6511", "title": "Soft Computing Laboratory", "credits": 2, "level": "", "status": "past", "order": 300 },
+  { "title": "Fluid Mechanics Laboratory", "level": "", "status": "past", "order": 310 }
+]

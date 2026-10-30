@@ -1,0 +1,31 @@
+---
+/**
+ * One piece of artwork on the UFIS board: the still, plus its video when one
+ * exists in public/ufis/video/. The wrapper takes the slide's box (see
+ * src/styles/ufis-coords.css); the media fills it.
+ *
+ * Alt text is empty on purpose — every piece sits next to its own label in
+ * the DOM, so a screen reader hears the label once rather than twice.
+ */
+import { ART, videoFor } from "../lib/ufis";
+
+export interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: extra } = Astro.props;
+const size = ART[id];
+if (!size) throw new Error(`UfisArt: no artwork registered for "${id}"`);
+const [w, h] = size;
+const src = `/ufis/${id}.webp`;
+const mp4 = videoFor(id);
+const cls = ["art", `k-${id}`, mp4 ? "has-video" : "", extra ?? ""].filter(Boolean).join(" ");
+---
+
+<span class={cls}>
+  <img src={src} width={w} height={h} alt="" loading="lazy" decoding="async" />
+  {mp4 && (
+    <video src={mp4} poster={src} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  )}
+</span>

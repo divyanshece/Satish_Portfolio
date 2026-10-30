@@ -1,0 +1,178 @@
+---
+import Base from "../layouts/Base.astro";
+import JoinForm from "../components/JoinForm.astro";
+import { settings, prose, fill, recruitingLine } from "../lib/content";
+import { longDate } from "../lib/text";
+
+/**
+ * His invitation, from his old site, set as a page rather than as two
+ * paragraphs. Every sentence is his, and each appears once:
+ *
+ *   - the band carries the intake and its closing date;
+ *   - his research areas become a ruled index, beside his sentence on what
+ *     the group does with them;
+ *   - his sentence on whom he welcomes is kept whole and in order, with the
+ *     three kinds of applicant it names set large in the middle of it;
+ *   - the four things he asks an applicant to describe are asked once, by the
+ *     form. Email is the backup, and says how to write, never what to write.
+ *
+ * Until the form's receiver is deployed (PUBLIC_JOIN_FORM_URL empty), his own
+ * "how to write" paragraph stands where the form would be, and nothing else
+ * repeats it. The headings and the email note are labels, not his words.
+ */
+const action = import.meta.env.PUBLIC_JOIN_FORM_URL ?? "";
+const line = recruitingLine(new Date());
+const how = fill(prose.join_how, { email: settings.email });
+const howHtml = how.replace(settings.email, `<a href="mailto:${settings.email}">${settings.email}</a>`);
+const areas = prose.join_areas;
+const roles = prose.join_welcome;
+---
+
+<Base
+  title="Join the group"
+  description="How to get in touch about a PhD, an internship or a postdoc with Dr. Satish K. Regonda at IIT Hyderabad."
+>
+  <div class="band band-deep">
+    <div class="wide">
+      <h1>Join the group</h1>
+      <p class="standfirst">{line.text}</p>
+      {line.deadline && (
+        <p class="band-facts micro">
+          <span>Applications close <b><time datetime={line.deadline}>{longDate(line.deadline)}</time></b></span>
+        </p>
+      )}
+
+      <nav class="jump" aria-label="On this page">
+        {areas.length > 0 && <a href="#h-areas">Research areas</a>}
+        {roles.length > 0 && <a href="#h-positions">Positions</a>}
+        <a href="#h-apply">Apply</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wide">
+    {areas.length > 0 && (
+      <section class="areas" aria-labelledby="h-areas">
+        <h2 id="h-areas">Research areas</h2>
+        <ul class="area-list">
+          {areas.map((a) => <li>{a}</li>)}
+        </ul>
+        <p class="aim">{prose.join_aim}</p>
+      </section>
+    )}
+
+    {roles.length > 0 && (
+      <section class="welcome" aria-labelledby="h-positions">
+        <h2 id="h-positions">Positions</h2>
+        <p class="wel">{prose.join_welcome_before}</p>
+        {/* The list is the middle of his sentence. The commas and the "and"
+            it loses visually are kept for anyone listening to the page. */}
+        <ul class="roles">
+          {roles.map((r, i) => (
+            <li>{r}{i < roles.length - 1 && (
+              <span class="visually-hidden">{i === roles.length - 2 ? ", and" : ","}</span>
+            )}</li>
+          ))}
+        </ul>
+        <p class="wel">{prose.join_welcome_after}</p>
+      </section>
+    )}
+
+    <section class="apply" aria-labelledby="h-apply">
+      <h2 id="h-apply">Apply</h2>
+      {action ? (
+        <div class="apply-grid">
+          <JoinForm action={action} />
+          <aside class="by-mail" aria-labelledby="h-by-mail">
+            <h3 id="h-by-mail">Prefer email?</h3>
+            <p>
+              Write to <a href={`mailto:${settings.email}`}>{settings.email}</a> with the
+              subject &ldquo;Looking for an Opportunity&rdquo; and the same four answers.
+            </p>
+          </aside>
+        </div>
+      ) : (
+        <p class="prose how" set:html={howHtml} />
+      )}
+    </section>
+  </div>
+</Base>
+
+<style>
+  /* ---- Research areas: the index, and what it is for ------------------ */
+  .areas {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 0 var(--s-9);
+    align-items: start;
+  }
+  .areas h2 { grid-column: 1 / -1; margin: 0 0 var(--s-5); }
+  /* Ruled like the index of what he works on, on the home page. */
+  .area-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .area-list li {
+    padding-block: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--t-lead);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .aim {
+    margin: 0;
+    padding-top: var(--s-3);
+    max-width: 32rem;
+    font-size: clamp(1.375rem, 1.05rem + 1vw, 1.75rem);
+    line-height: 1.4;
+    letter-spacing: -.008em;
+  }
+
+  /* ---- Positions: his sentence, whole, with its subject set large ----- */
+  /* The two halves of the sentence are quiet so the three kinds of applicant
+     between them carry it, and the sentence still reads straight through. */
+  .welcome h2 { margin: 0 0 var(--s-5); }
+  .wel { margin: 0; max-width: 42rem; font-size: var(--t-lead); line-height: 1.45; color: var(--ink-mute); }
+  .roles {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: var(--s-5) 0;
+    padding: var(--s-5) 0;
+    border-block: 1px solid var(--ink);
+  }
+  .roles li {
+    padding-inline: var(--s-6);
+    border-inline-start: 1px solid var(--rule);
+    font-size: clamp(1.75rem, 1.2rem + 1.6vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -.016em;
+  }
+  .roles li:first-child { padding-inline-start: 0; border-inline-start: 0; }
+
+  /* ---- Apply ----------------------------------------------------------- */
+  .apply h2 { margin: 0 0 var(--s-6); }
+  .apply-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 40rem) minmax(0, 17rem);
+    justify-content: space-between;
+    gap: var(--s-7) var(--s-8);
+    align-items: start;
+  }
+  /* The same heavy rule that opens the intake notice on the home page. It
+     stays in view beside a long form, so the other way to apply is never more
+     than a glance away. */
+  .by-mail { position: sticky; top: 6rem; border-top: 3px solid var(--ink); padding-top: var(--s-4); }
+  .by-mail h3 { font-size: var(--t-small); font-weight: 600; margin: 0 0 var(--s-2); }
+  .by-mail p { margin: 0; font-size: var(--t-small); line-height: 1.55; }
+  .how { margin: 0; }
+
+  @media (max-width: 62rem) {
+    /* Stacked, the heading's own margin is the only gap above the list. */
+    .areas { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .aim { padding-top: var(--s-6); }
+    .apply-grid { grid-template-columns: minmax(0, 1fr); }
+    .by-mail { position: static; }
+  }
+  @media (max-width: 760px) {
+    .roles { flex-direction: column; gap: var(--s-2); }
+    .roles li { padding-inline: 0; border-inline-start: 0; }
+  }
+</style>

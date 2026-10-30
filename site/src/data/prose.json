@@ -1,0 +1,47 @@
+{
+  "_note": "Verbatim text from his own site. His phrasing is kept exactly as he wrote it, including constructions a copy-editor would change ('after masters at the IIT Kanpur', 'I involved in'). Only the obfuscated email has been made into a real address. Edit this file to change what the site says; nothing here is written by anyone but him.",
+  "_drafts": "research_overview was drafted by the developer at the client's request on 2026-09-06 (his original sentence was judged too narrow) and awaits Dr. Regonda's approval; everything else here is his.",
+  "bio_home": [
+    "In brief, after masters at the IIT Kanpur, I pursued PhD at the University of Colorado at Boulder. Later, I worked with a group of scientists at the National Weather Service (NWS), NOAA, Washington DC. Then, had a short stint with the World Bank and Johns Hopkins university before joining the Civil Engineering department at the IIT Hyderabad in Feb 2017. Over the last few years, I involved in flood/seasonal water supply forecasting, climate and statistics as well as both in research- and real-time environments. I interacted with research scientists, policy makers and operational forecasters of both data-rich and data-poor regions.",
+    "The main element of my research evolves around surface water, however, a holistic approach for better scientific understanding of surface hydrology and developing efficient solutions/tools that makes human life better at both short- and long- time scales are the chief thrust for my research. Currently, I am working on the Urban Flood Modeling, however, the following are a few more areas that I have interest/expertise, i.e., hydrologic data base development in India, scientific understanding of hydroclimatologic processes under changing/new regimes, increase water awareness across various stakeholders, hydrologic forecasting techniques/systems, products to assist in decision making, urban climate, statistics, R, Shiny, Drones and Google Earth Engine (GEE)."
+  ],
+  "raft_name": "RAFT Waters",
+  "raft_mission": [
+    "Advancing flood science through rainfall analysis, forecasting, AI/ML, remote sensing, and hydroinformatics via developing products & services to aid in decision-making."
+  ],
+  "raft_goal": "The RAFT (Rainfall-runoff Analysis, Modelling & Forecasting Tools) Research Team at IIT Hyderabad, led by Dr. Satish Regonda, works at the intersection of science, engineering, and policy to better understand rainfall and flooding, with a particular focus on rapidly evolving urban flood events. Using advanced technologies, we develop innovative products & tools to help in decision-making and improve resilience. Our initiatives include SnapFlood®, a citizen-powered platform that transforms on-the-ground flood observations into valuable information. We actively collaborate with academia, government agencies, industry, and communities to translate research into real-world impact.",
+  "join_areas": [
+    "Hydroclimatology",
+    "Rainfall and flood forecasting and modelling",
+    "Data science",
+    "AI/ML",
+    "The development of useful weather- and hydrology-related products"
+  ],
+  "join_aim": "We aim to translate our research into information and decision-support tools for scientists, engineers, operational agencies, and policymakers.",
+  "join_welcome_before": "We welcome sincere, enthusiastic, and self-motivated",
+  "join_welcome": [
+    "interns",
+    "prospective PhD students",
+    "postdoctoral researchers"
+  ],
+  "join_welcome_after": "interested in contributing to the scientific, engineering, product-development, or policy dimensions of our work.",
+  "join_how": "If you are interested in working with us, please email {email} with the subject \"Looking for an Opportunity.\" Briefly describe your research interests, relevant background and skills, why you would like to work with us, and what you hope to learn and contribute.",
+  "snapflood_upload": "If you want to upload flood relevant media, you can use one of these: the SnapFlood mobile application, the SnapFlood form, or X.",
+  "research_overview": "Our work is on how rainfall becomes runoff and flooding, and on turning that understanding into forecasts and tools that people can act on. It spans hydrology and hydroclimatology, rainfall and flood modelling and forecasting, and the use of remote sensing, GIS and AI/ML alongside physics-based methods. Current projects include urban flood modelling for Hyderabad City, riverine flood modelling for the Brahmaputra, Godavari and Narmada river basins, and rainfall forecasting.",
+  "urban_flood": "'Urban Flooding' has been getting much attention off late, and it will be an issue for many countries including India posing a wide variety of challenges for a variety of reasons. We, at the IIT Hyderabad, are working to address the issue. As part of our systematic approach, we came up with SnapFlood and Sixer Tweet. We are trying to address the global issues with local efforts, and if you want to be part of it reach us.",
+  "raft_tagline": "Rainfall-runoff Analysis, Modelling & Forecasting Tools (RAFT) Research Team — IIT Hyderabad",
+  "raft_themes": [
+    "Urban Floods",
+    "Rainfall-runoff Modelling",
+    "Weather Forecasting",
+    "AI & Machine Learning",
+    "GIS",
+    "Remote Sensing",
+    "Hydrology",
+    "Climate Risk",
+    "Decision Support Systems",
+    "Citizen Science",
+    "Automated Pipelines",
+    "Software Tools"
+  ]
+}

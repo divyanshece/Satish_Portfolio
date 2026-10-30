@@ -1,0 +1,45 @@
+---
+import { ext } from "../lib/links";
+export interface Props { product: any; headingLevel?: 2 | 3 }
+const { product, headingLevel = 3 } = Astro.props;
+const H = `h${headingLevel}`;
+const detail = product.page ? `/products/${product.slug}/` : null;
+---
+<article class="prod">
+  <div>
+    <H>{product.name}</H>
+    <p>{product.blurb}</p>
+    <div class="prod-links">
+      {product.links.map((l: any) => <a href={l.url} {...ext(l.url)}>{l.label}</a>)}
+      {detail && <a href={detail}>Read more<span class="visually-hidden"> about {product.name}</span></a>}
+      {product.absent_note && <span class="absent">{product.absent_note}</span>}
+    </div>
+  </div>
+  <div class="prod-state">
+    {product.state_lines.map((s: string) => <>{s}<br /></>)}
+  </div>
+</article>
+
+<style>
+  .prod {
+    display: grid; grid-template-columns: minmax(0, 1fr) 10rem;
+    gap: var(--s-5); align-items: start;
+    padding-block: var(--s-5); border-bottom: 1px solid var(--rule);
+  }
+  .prod:first-of-type { border-top: 1px solid var(--rule); }
+  h2, h3 { font-size: 1.1875rem; line-height: 1.35; }
+  p { font-size: var(--t-small); color: var(--ink-mute); margin-top: var(--s-2); max-width: 38rem; }
+  .prod-state {
+    font-family: var(--mono); font-size: var(--t-micro); letter-spacing: .07em;
+    text-transform: uppercase; color: var(--ink-mute); text-align: right;
+    font-variation-settings: "wdth" 75; line-height: 1.9; padding-top: .35rem;
+  }
+  .prod-links {
+    font-family: var(--mono); font-size: .75rem; letter-spacing: .03em;
+    margin-top: var(--s-3); display: flex; gap: var(--s-4); flex-wrap: wrap;
+  }
+  @media (max-width: 640px) {
+    .prod { grid-template-columns: 1fr; gap: var(--s-2); }
+    .prod-state { text-align: left; line-height: 1.7; }
+  }
+</style>

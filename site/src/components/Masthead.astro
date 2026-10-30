@@ -1,0 +1,87 @@
+---
+/**
+ * The site header: one bar, his name on the left, the seven sections on the
+ * right, the current one underlined. It stays at the top while the page
+ * scrolls. On a phone the sections become a single row that scrolls
+ * sideways under the name — no menu button, no script.
+ */
+import { settings } from "../lib/content";
+import { NAV, isCurrent } from "../lib/nav";
+
+const here = Astro.url.pathname;
+const name = settings.name_display || settings.name_full;
+---
+
+<header class="site-head">
+  <div class="bar">
+    <a class="wordmark" href="/">{name}</a>
+    <nav class="primary" aria-label="Main">
+      {NAV.map((n) => (
+        <a href={n.href} aria-current={isCurrent(here, n.href) ? "page" : undefined}>{n.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar {
+    max-width: var(--w-wide);
+    margin-inline: auto;
+    padding-inline: var(--s-5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-6);
+    min-height: 3.75rem;
+  }
+  .wordmark {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.1875rem;
+    letter-spacing: -.005em;
+    line-height: 1.2;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .wordmark:hover { color: var(--accent); }
+
+  .primary { display: flex; gap: var(--s-5); }
+  .primary a {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: .9375rem;
+    line-height: 1;
+    color: var(--ink-mute);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 1.3rem 0 calc(1.3rem - 2px);
+    border-bottom: 2px solid transparent;
+    transition: color 140ms ease;
+  }
+  .primary a:hover { color: var(--ink); }
+  .primary a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+  /* Under 760px the sections take a row of their own and scroll sideways. */
+  @media (max-width: 760px) {
+    .bar { flex-wrap: wrap; gap: 0; min-height: 0; }
+    .wordmark { padding-block: .9rem .5rem; font-size: 1.125rem; }
+    .primary {
+      flex-basis: 100%;
+      overflow-x: auto;
+      margin-inline: calc(-1 * var(--s-5));
+      padding-inline: var(--s-5);
+      gap: var(--s-4);
+      scrollbar-width: none;
+    }
+    .primary::-webkit-scrollbar { display: none; }
+    .primary a { padding: .55rem 0 calc(.55rem - 2px); font-size: .9375rem; }
+  }
+</style>

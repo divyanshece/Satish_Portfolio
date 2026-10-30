@@ -1,0 +1,114 @@
+/* =============================================================
+   satishregonda.in — design tokens
+
+   Two families, two inks, one accent, one absence colour.
+   No dark mode: this site is a paper object, and the colophon
+   says so. Every colour is therefore painted explicitly.
+
+   Provenance, because it is the point:
+     --accent  #166157  a stop on the IPCC AR6 precipitation ramp
+     --mark    #8C5A24  the dry pole of the AR6 divergent ramp,
+                        used ONLY to mark a gap in the record
+     --ink     #0F2621  the ramp's dark pole, pulled to neutral
+   ============================================================= */
+
+/* ---------- faces (self-hosted; the site makes zero third-party requests) ---------- */
+
+@font-face {
+  font-family: "Piazzolla";
+  src: url("/fonts/piazzolla.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Piazzolla";
+  src: url("/fonts/piazzolla-italic.woff2") format("woff2-variations");
+  font-weight: 400 600;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Martian Mono";
+  src: url("/fonts/martianmono.woff2") format("woff2-variations");
+  font-weight: 400 700;
+  font-stretch: 75% 112.5%;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                 U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                 U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  /* ground and plate — deliberately inverted from the academic default,
+     which is a white page carrying grey cards. Here the page is tinted
+     and the figures are the white. */
+  --paper: #E7EDE8;
+  --plate: #FCFDFC;
+
+  /* two inks, not three */
+  --ink: #0F2621;        /* 13.40:1 on paper — AAA */
+  --ink-mute: #586A65;   /*  4.82:1 on paper — AA  */
+
+  /* rules — real colours, never rgba shadows */
+  --rule: #B3BDB8;         /* decorative separation only, no contrast minimum */
+  --rule-strong: #778681;  /* form control borders — 3.21:1, clears SC 1.4.11 */
+
+  --accent: #166157;       /*  6.13:1 on paper — AA  */
+  --accent-hover: #0E4A42; /*  8.51:1 on paper — AAA */
+  --mark: #8C5A24;         /*  4.91:1 on paper — AA. Absence, and only absence. */
+  /* The accent, in motion. Used for one thing: data travelling along the
+     arrows of the UFIS diagram, and the return path it comes back on. It is
+     the same hue as --accent and a separate token on purpose — the rule that
+     --accent is never a fill still holds everywhere else on the site. */
+  --signal: #166157;
+
+  /* Panels. Colour on this site arrives as a ground, never as a new hue: both
+     are stops on the same water ramp --accent comes from, so a tinted or
+     inverted band still reads as his. */
+  --deep: #0B302B;       /* inverted band — paper on it is 12.9:1 */
+  --tint: #D6E6DF;       /* soft panel — ink on it is 11.8:1 */
+
+  /* families */
+  --serif: "Piazzolla", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --mono: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* spacing — 4px base, non-linear at the top so major sections breathe */
+  --s-1: .25rem;  --s-2: .5rem;   --s-3: .75rem;  --s-4: 1rem;
+  --s-5: 1.5rem;  --s-6: 2rem;    --s-7: 3rem;    --s-8: 4rem;
+  --s-9: 6rem;    --s-10: 8rem;
+
+  /* the site's three widths. The page visibly widens and narrows as its
+     content changes register, instead of being a stack of equal bands. */
+  --w-text: 34rem;      /* prose — measures ~64 characters in Piazzolla at 18px */
+  --w-content: 46rem;   /* dated lists: publications, news, alumni */
+  --w-wide: 74rem;      /* masthead, research claims, footer */
+
+  --rail: 6.5rem;       /* the gauge rail */
+  --rail-sm: 2.75rem;   /* it narrows below 640px, it does not collapse */
+
+  /* type scale — seven steps, each with a job */
+  --t-display: 4rem;
+  --t-h2: 1.5rem;
+  --t-lead: 1.375rem;
+  --t-body: 1.125rem;
+  --t-small: 1rem;
+  --t-meta: .8125rem;
+  --t-micro: .6875rem;
+
+  /* Paper is paper. The tinted ground is a screen decision. */
+  --paper-print: #FFFFFF;
+}
+
+@media (max-width: 900px) {
+  :root { --t-display: 2.5rem; }
+}

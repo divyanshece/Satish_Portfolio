@@ -1,0 +1,271 @@
+---
+/**
+ * Research and publications, in one place.
+ *
+ * These were two pages until 2026-09-11 and they kept saying the same things
+ * to each other: the publication list was filtered by research theme, and each
+ * theme page ended in its own publication list. One page carries the whole
+ * argument — what the work is, what has funded it, and what has come out of it
+ * — in that order.
+ *
+ * What is NOT here, deliberately: funded projects, which have their own page;
+ * and the four theme pages and thirty paper pages, which still exist below this one. The paper pages carry the Highwire Press
+ * tags Google Scholar indexes, and they are the reason a search for his name
+ * finds his work at all.
+ *
+ * Everything on this page is derived. No total, year or count is typed.
+ */
+
+import Base from "../../layouts/Base.astro";
+import Claim from "../../components/Claim.astro";
+import BandArt from "../../components/BandArt.astro";
+import PublicationRow from "../../components/PublicationRow.astro";
+import {
+  research,
+  prose,
+  publications,
+  counts,
+  publicationsByTheme,
+} from "../../lib/content";
+import { hydronyms } from "../../lib/text";
+import { collectionJsonLd, publicationUrl, SITE } from "../../lib/seo";
+
+/* ---- the record -------------------------------------------------------- */
+
+/* Themes that actually have papers behind them. The count decides whether a
+   chip appears; it is never printed — see the note in Claim.astro. */
+const chips = research
+  .map((t) => ({ slug: t.slug, label: t.short, has: publicationsByTheme(t.slug).length > 0 }))
+  .filter((c) => c.has);
+
+/** The year prints once per run of a year, so it is computed per list. */
+function withYears(list: typeof publications) {
+  return list.map((p, i) => ({ pub: p, showYear: i === 0 || list[i - 1].year !== p.year }));
+}
+
+/**
+ * One list for everything, then one per theme.
+ *
+ * The tabs filter in place and this site runs no JavaScript, so the filtering
+ * is done by :target — the fragment in the address bar picks which list shows.
+ * Every list is rendered whole, which is why the year runs stay correct inside
+ * a filter instead of losing the label with the row that happened to carry it.
+ */
+const split = (list: typeof publications) => ({
+  journals: withYears(list.filter((p) => p.type !== "chapter")),
+  chapters: withYears(list.filter((p) => p.type === "chapter")),
+});
+
+const lists = [
+  { key: "all", label: "All", ...split(publications) },
+  ...chips.map((c) => ({ key: c.slug, label: c.label, ...split(publicationsByTheme(c.slug)) })),
+];
+
+/* The record prints a superscript beside a trainee co-author, and the glyph is
+   aria-hidden because it is meaningless without its key. This is the only page
+   that lists all thirty papers, so it is where the key matters most. The same
+   block is on every theme page and every paper page. */
+
+const oldest = publications.length ? publications[publications.length - 1].year : null;
+const newest = publications.length ? publications[0].year : null;
+
+const standfirst = prose.research_overview;
+
+const description =
+  "Urban flooding in Hyderabad, streamflow forecasting for the Godavari, Narmada and " +
+  "Brahmaputra, monsoon hydroclimatology, and the full publication record.";
+
+/* One collection for one page: the themes the work is organised by, then the
+   record it has produced. */
+const collectionJson = JSON.stringify(
+  collectionJsonLd({
+    url: `${SITE}/research/`,
+    name: "Research & publications",
+    description,
+    items: [
+      ...research.map((t) => ({ name: t.title, url: `${SITE}/research/${t.slug}/` })),
+      ...publications.map((p) => ({ name: p.title, url: publicationUrl(p) })),
+    ],
+  })
+).replace(/</g, "\\u003c");
+---
+
+<Base title="Research & publications" description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={collectionJson} />
+  </Fragment>
+
+  <div class="band band-deep">
+    <div class="wide">
+      <div class="ident">
+        <div>
+      <h1>Research &amp; publications</h1>
+      <p class="standfirst" set:html={hydronyms(standfirst)} />
+
+      {/* The page is long, so it says what is on it and lets the reader jump.
+          These are real anchors — nothing here runs. */}
+      <nav class="jump" aria-label="On this page">
+        <a href="#work">Research themes</a>
+        <a href="#publications">Publications</a>
+        {lists[0].chapters.length > 0 && <a href="#chapters">Book chapters</a>}
+      </nav>
+        </div>
+
+        <BandArt art="research" />
+      </div>
+    </div>
+  </div>
+
+  <div class="wide">
+    <section id="work" aria-labelledby="h-work">
+      <div class="sec-head">
+        <h2 id="h-work">Research themes</h2>
+        <a class="sec-more" href="/about/#h-projects">Funded projects</a>
+      </div>
+      {research.map((t) => <Claim theme={t} headingLevel={3} />)}
+    </section>
+
+    {publications.length > 0 && (
+      <section id="publications" class="record" aria-labelledby="h-publications">
+        <div class="sec-head">
+          <h2 id="h-publications">Publications</h2>
+          <p class="sec-more">{oldest}–{newest}</p>
+        </div>
+
+        {/* What :target matches. Empty, and ahead of both the tabs and the
+            lists, because the rules below reach forward with ~. */}
+        {lists.slice(1).map((_, i) => <span class="ftarget" id={`f${i + 1}`}></span>)}
+
+        {lists.length > 1 && (
+          <nav class="themes" aria-label="Filter publications by theme">
+            <a href="#publications">All</a>
+            {lists.slice(1).map((l, i) => <a href={`#f${i + 1}`}>{l.label}</a>)}
+          </nav>
+        )}
+
+        <div class="lists">
+          {lists.map((l, i) => (
+            <div class:list={["lst", `lst-${i === 0 ? "all" : i}`]}>
+              <div class="rail-list">
+                {l.journals.map((r) => <PublicationRow pub={r.pub} showYear={r.showYear} />)}
+              </div>
+
+              {/* Chapters are publications, but they are not papers, and his
+                  own record lists them apart. */}
+              {l.chapters.length > 0 && (
+                <div class="chapters" id={i === 0 ? "chapters" : undefined}>
+                  <h3>Book chapters</h3>
+                  <div class="rail-list">
+                    {l.chapters.map((r) => <PublicationRow pub={r.pub} showYear={r.showYear} />)}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  /* The words on the left, the picture on the right. */
+  .ident {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-8);
+    align-items: center;
+  }
+  @media (max-width: 62rem) {
+    .ident { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  }
+
+  .band-record { border-bottom: 1px solid var(--ink); }
+  .band h1 { max-width: 22ch; }
+
+
+
+  #work { padding-block: var(--s-7) var(--s-6); }
+
+  /* Partner institutes sit under the funder, not in a column of their own:
+     most rows have none, and an empty column reads as missing data. */
+  .sub {
+    display: block;
+    font-size: var(--t-meta);
+    line-height: 1.4;
+    color: var(--ink-mute);
+    margin-top: .25rem;
+  }
+
+  .sec-more { color: var(--ink-mute); }
+
+  /* ---- the record ---- */
+
+  .record { padding-block: var(--s-7) var(--s-9); border-top: 1px solid var(--rule); }
+
+  /* The theme selector: a row of tabs on a hairline, the current one
+     underlined. They are links — each theme has its own page. */
+  .themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--s-5);
+    border-bottom: 1px solid var(--rule);
+    max-width: 58rem;
+  }
+  .themes a {
+    font-size: var(--t-small);
+    color: var(--ink-mute);
+    text-decoration: none;
+    padding: .55rem 0 calc(.55rem - 2px);
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+  }
+  .themes a:hover { color: var(--ink); }
+
+  /* ---- filtering, without a line of JavaScript ----
+     The tabs are links to empty anchors in this section. :target matches the
+     one the address bar names, and each rule reaches forward to swap which
+     list is shown and which tab is underlined. Eight sets are written out;
+     a ninth theme would simply not filter, rather than break. */
+  .ftarget { display: block; height: 0; scroll-margin-top: 6rem; }
+  .lst { display: none; }
+  .lst-all { display: block; }
+  .themes a[href="#publications"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+  #f1:target ~ .lists .lst-all, #f2:target ~ .lists .lst-all,
+  #f3:target ~ .lists .lst-all, #f4:target ~ .lists .lst-all,
+  #f5:target ~ .lists .lst-all, #f6:target ~ .lists .lst-all,
+  #f7:target ~ .lists .lst-all, #f8:target ~ .lists .lst-all { display: none; }
+
+  #f1:target ~ .themes a[href="#publications"], #f2:target ~ .themes a[href="#publications"],
+  #f3:target ~ .themes a[href="#publications"], #f4:target ~ .themes a[href="#publications"],
+  #f5:target ~ .themes a[href="#publications"], #f6:target ~ .themes a[href="#publications"],
+  #f7:target ~ .themes a[href="#publications"], #f8:target ~ .themes a[href="#publications"] {
+    color: var(--ink-mute); border-bottom-color: transparent;
+  }
+
+  #f1:target ~ .lists .lst-1 { display: block; }
+  #f2:target ~ .lists .lst-2 { display: block; }
+  #f3:target ~ .lists .lst-3 { display: block; }
+  #f4:target ~ .lists .lst-4 { display: block; }
+  #f5:target ~ .lists .lst-5 { display: block; }
+  #f6:target ~ .lists .lst-6 { display: block; }
+  #f7:target ~ .lists .lst-7 { display: block; }
+  #f8:target ~ .lists .lst-8 { display: block; }
+
+  #f1:target ~ .themes a[href="#f1"], #f2:target ~ .themes a[href="#f2"],
+  #f3:target ~ .themes a[href="#f3"], #f4:target ~ .themes a[href="#f4"],
+  #f5:target ~ .themes a[href="#f5"], #f6:target ~ .themes a[href="#f6"],
+  #f7:target ~ .themes a[href="#f7"], #f8:target ~ .themes a[href="#f8"] {
+    color: var(--ink); border-bottom-color: var(--accent);
+  }
+
+  /* Wider than the prose measure, because a paper title is a title and not a
+     paragraph, and set from the left edge so it sits under the heading. */
+  .record .rail-list { max-width: 58rem; margin-top: var(--s-6); }
+  .chapters { margin-top: var(--s-8); max-width: 58rem; scroll-margin-top: 5rem; }
+  .chapters h3 { font-size: 1.0625rem; }
+
+</style>

@@ -1,0 +1,252 @@
+---
+import Base from "../layouts/Base.astro";
+import PersonCard from "../components/PersonCard.astro";
+import BandArt from "../components/BandArt.astro";
+import CourseRow from "../components/CourseRow.astro";
+import { currentPeople, alumni, counts, teaching, coursesTaught } from "../lib/content";
+
+/**
+ * What he teaches, and who he teaches.
+ *
+ * /teaching/ was a page of its own until 2026-09-11. It held ten course titles
+ * and nothing else — no codes, no credits — which was never a page's worth of
+ * anything, and the people he supervises were on a second page saying a
+ * closely related thing. The courses now sit in two columns at the top, what
+ * runs this semester beside the rest of the rotation, and the roster runs
+ * below them unchanged.
+ *
+ * These are his students, not the RAFT roster — RAFT keeps its own member list
+ * on its own site, and these are the people he supervises.
+ *
+ * Current students run oldest-joined first; alumni run most-recently-graduated
+ * first. Both orders come from the year fields in src/data/people.json.
+ * */
+
+/* Three states, two columns. "now" is what is running this semester; "also" is
+   the rest of his rotation, which is most of the list and is not the past;
+   "past" is a course that is no longer offered, and there are few enough of
+   those to sit on one line under the columns rather than in a third column
+   that would stand two-thirds empty. */
+const teachingNow = teaching.filter((c) => c.status === "now");
+const alsoTeaches = teaching.filter((c) => c.status === "also");
+const retired = teaching.filter((c) => c.status === "past");
+
+/* The heading names the group, so it names what these people are — a PhD
+   scholar, not the degree. The degree itself stays on each card. */
+const ROLE_LABEL: Record<string, string> = {
+  phd: "PhD Scholars",
+  mtech: "M.Tech Students",
+  btech: "B.Tech Students",
+  postdoc: "Postdoctoral Researchers",
+  intern: "Interns",
+  staff: "Staff",
+  visitor: "Visitors",
+};
+
+function byRole(list: typeof currentPeople) {
+  const order = ["phd", "mtech", "btech", "postdoc", "intern", "staff", "visitor"];
+  return order
+    .map((role) => ({ role, label: ROLE_LABEL[role], people: list.filter((p) => p.role === role) }))
+    .filter((g) => g.people.length > 0);
+}
+
+const current = byRole(currentPeople);
+const past = byRole(alumni);
+
+const description =
+  `Courses Dr. Satish K. Regonda teaches at IIT Hyderabad, the ${counts.current} students working ` +
+  `with him now, and the ${counts.alumni} who have graduated since ${counts.earliestAlumnusYear}.`;
+---
+
+<Base title="Teaching & students" description={description}>
+  <div class="band band-deep">
+    <div class="wide">
+      <div class="ident">
+        <div>
+      <h1>Teaching &amp; students</h1>
+      <p class="standfirst">
+        I teach hydrology and open channel hydraulics in Civil Engineering at IIT Hyderabad,
+        and remote sensing and GIS in both Civil Engineering and Climate Change. Climate
+        Monitoring and Variability is the course where I spend the most time on the data
+        itself: where a rainfall record comes from, what it misses, and what it will not
+        support.
+      </p>
+
+      <nav class="jump" aria-label="On this page">
+        {teaching.length > 0 && <a href="#courses">Courses</a>}
+        {current.length > 0 && <a href="#current">Current students</a>}
+        {alumni.length > 0 && <a href="#alumni">Alumni</a>}
+      </nav>
+
+      <p class="band-facts micro">
+        <span><b>{coursesTaught.length}</b> courses</span>
+        <span><b>{counts.current}</b> current students</span>
+        <span><b>{counts.alumni}</b> alumni</span>
+      </p>
+        </div>
+
+        <BandArt art="students" />
+      </div>
+    </div>
+  </div>
+
+  <div class="wide">
+    {teaching.length > 0 && (
+      <section id="courses" aria-labelledby="h-courses">
+        <h2 id="h-courses" class="visually-hidden">Courses</h2>
+        <div class="cols">
+          {teachingNow.length > 0 && (
+            <div>
+              <h3 class="micro role">This semester <span class="tally">{teachingNow.length}</span></h3>
+              <ul class="courses">
+                {teachingNow.map((c) => <CourseRow course={c} />)}
+              </ul>
+            </div>
+          )}
+
+          {alsoTeaches.length > 0 && (
+            <div>
+              <h3 class="micro role">Also teaches <span class="tally">{alsoTeaches.length}</span></h3>
+              <ul class="courses">
+                {alsoTeaches.map((c) => <CourseRow course={c} />)}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {retired.length > 0 && (
+          <p class="retired micro">
+            <span class="lbl">No longer offered</span>
+            {retired.map((c) => (
+              <span class="one">
+                {c.code && <span class="code">{c.code}</span>}
+                {c.title}
+              </span>
+            ))}
+          </p>
+        )}
+      </section>
+    )}
+
+    {current.length > 0 && (
+      <section id="current">
+        <h2>Current students</h2>
+        {current.map((g) => (
+          <div class="roster">
+            <h3 class="micro role">{g.label} <span class="tally">{g.people.length}</span></h3>
+            <ul class="people">
+              {g.people.map((p) => <PersonCard person={p} />)}
+            </ul>
+          </div>
+        ))}
+      </section>
+    )}
+
+    {alumni.length > 0 && (
+      <section id="alumni">
+        <h2>Alumni</h2>
+        {past.map((g) => (
+          <div class="roster">
+            <h3 class="micro role">{g.label} <span class="tally">{g.people.length}</span></h3>
+            <ul class="people">
+              {g.people.map((p) => <PersonCard person={p} />)}
+            </ul>
+          </div>
+        ))}
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  /* The words on the left, the picture on the right. */
+  .ident {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-8);
+    align-items: center;
+  }
+  @media (max-width: 62rem) {
+    .ident { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  }
+
+  /* ---------- the courses ---------- */
+
+  /* Two columns, current beside past, because that is the only comparison a
+     course list invites and stacking them made the page start with a ladder.
+     Every record here is a title and nothing else, so a ruled list is the
+     honest shape: a year column would be an empty gutter. */
+  .cols {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-8);
+    align-items: start;
+  }
+  .courses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Two courses, not a column's worth. They run as one line under both
+     columns so the grid above stays a pair. */
+  .retired {
+    margin-top: var(--s-6);
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--rule);
+    color: var(--ink-mute);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-5);
+  }
+  .retired .lbl {
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 75;
+  }
+  .retired .one { color: var(--ink); }
+  .retired .code {
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-mute);
+    margin-right: var(--s-2);
+  }
+
+  /* ---------- the rosters ---------- */
+
+  section { padding-block: var(--s-8) 0; scroll-margin-top: 5rem; }
+  section:last-of-type { padding-bottom: var(--s-9); }
+  section h2 { font-size: 1.75rem; letter-spacing: -.016em; }
+
+  .roster { margin-top: var(--s-6); }
+  .roster + .roster { margin-top: var(--s-8); }
+  .role {
+    color: var(--ink-mute);
+    padding-bottom: var(--s-2);
+    border-bottom: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .tally { color: var(--ink); }
+
+  /* A roster is a directory, so it reads as a grid rather than as one long
+     column: twenty-six people stacked singly ran to seven screens.
+     The cells stretch to the tallest card in their row, which keeps every
+     card's rule on the same line across the two columns. */
+  ul.people {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--s-8);
+  }
+
+  /* One column before the text measure inside a card gets too tight. */
+  @media (max-width: 62rem) {
+    ul.people { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+    .cols { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  }
+</style>

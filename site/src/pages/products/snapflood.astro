@@ -1,0 +1,252 @@
+---
+import { ext } from "../../lib/links";
+import Base from "../../layouts/Base.astro";
+import { productBySlug, settings } from "../../lib/content";
+import { hydronyms } from "../../lib/text";
+import { softwareJsonLd, breadcrumb, SITE } from "../../lib/seo";
+
+const product = productBySlug("snapflood");
+if (!product) {
+  throw new Error(
+    "\nThe SnapFlood row is missing from Products, so /products/snapflood/ was not published.\n" +
+      "Nothing on the website has changed.\n"
+  );
+}
+
+/* The partners are held on the UFIS row, because that is where the agreements
+   sit. SnapFlood is one input to it. */
+const ufis = productBySlug("ufis");
+const ufisPartners = ufis?.partners ?? [];
+
+/** One tweet, six tags — the 2023 campaign format, before it became a form. */
+type Tag = { n: number; what: string; note?: string; codes?: string[] };
+const sixer: Tag[] = [
+  { n: 1, what: "City", codes: ["#Hyderabadrains", "#Hyderabadfloods"] },
+  { n: 2, what: "Landmark", note: "apartment or building name" },
+  { n: 3, what: "Locality", note: "colony or street name", codes: ["#Koti"] },
+  { n: 4, what: "Water depth", codes: ["#kneewater", "#5cm"] },
+  { n: 5, what: "Date", codes: ["#20072023"] },
+  { n: 6, what: "Time", codes: ["#0800"] },
+];
+
+/** Built as one string so no stray markup whitespace lands before a comma. */
+function tailOf(t: Tag): string {
+  if (t.note && t.codes) return ` — ${t.note}, e.g.`;
+  if (t.note) return ` — ${t.note}`;
+  return " —";
+}
+
+const gaugeLine =
+  "Hyderabad has rain gauges, and the Musi has river gauges. What the record is " +
+  "missing is the street: how deep the water stood in Koti at 08:00, and whether " +
+  "the next colony was dry.";
+
+const altText =
+  "A hand-drawn illustration of a flooded Indian street in the rain. People wade " +
+  "through knee-deep water past shops and a parked scooter, a child floats paper " +
+  "boats beside a tree, and in the foreground a young woman in a yellow kurta " +
+  "lettered VarshaMitra photographs the scene on her phone.";
+
+/* The store links are the product record's own; nothing here is typed twice. */
+const storeUrls = (product.links ?? [])
+  .filter((l) => /play\.google|apps\.apple/.test(l.url))
+  .map((l) => l.url);
+const appCanonical = `${SITE}/products/snapflood/`;
+const appJson = JSON.stringify(
+  softwareJsonLd({
+    url: appCanonical,
+    name: product.name,
+    description: product.blurb,
+    operatingSystem: "Android, iOS",
+    downloadUrl: storeUrls,
+    sameAs: (product.links ?? []).map((l) => l.url).filter((u) => !storeUrls.includes(u)),
+  })
+).replace(/</g, "\\u003c");
+const crumbJson = JSON.stringify(
+  breadcrumb([
+    { name: "Products", url: `${SITE}/products/` },
+    { name: product.name, url: appCanonical },
+  ])
+).replace(/</g, "\\u003c");
+---
+
+<Base
+  title="SnapFlood"
+  description="A free app for reporting a flooded street: a photograph, a location, a depth and a time. Built by the RAFT group at IIT Hyderabad."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={appJson} />
+    <script type="application/ld+json" is:inline set:html={crumbJson} />
+  </Fragment>
+  <div class="wide page">
+    <p class="meta back"><a href="/products/">← Products</a></p>
+
+    <h1>SnapFlood</h1>
+
+    <p class="standfirst">
+      Snap, upload, contribute. A photograph of a flooded street, with a location and a
+      time, is a measurement — and it is the measurement India's flood record is missing.
+    </p>
+
+    <p class="meta stores">
+      {product.links.map((l, i) => (
+        <>{i > 0 && " · "}<a href={l.url} {...ext(l.url)}>{l.label}</a></>
+      ))}
+      <span class="free">{product.links.length > 0 && " · "}Free · Telugu and English</span>
+    </p>
+
+    <hr class="rule-hard" />
+
+    <section id="sixer-tweet">
+      <div class="sec-head"><h2>It started as a hashtag</h2></div>
+
+      <div class="split">
+        <div class="prose">
+          <p>
+            In 2023 my group ran a campaign called <strong>VarshaMitra</strong>, “friend of
+            the rain”. It asked people in Hyderabad to tweet flooding while they were
+            standing in it. The six-part ask was deliberate, because a photograph without a
+            place and a depth is a picture, not data. We called the format a
+            <strong>Sixer Tweet</strong>: one tweet, six tags.
+          </p>
+
+          <dl class="sixer">
+            {sixer.map((t) => (
+              <>
+                <dt class="micro">Tag {t.n}</dt>
+                <dd>
+                  <b>{t.what}</b><span class="say">{tailOf(t)}</span>{(t.codes ?? []).map((c) => (<>{" "}<code>{c}</code></>))}
+                </dd>
+              </>
+            ))}
+          </dl>
+
+          <p>
+            A tweet reading “railway bridge at Lingampally with full of water” tells you
+            almost nothing: which bridge, how deep, at what hour? The same event tagged six
+            ways gives a locality, a geolocation, a depth of five to six centimetres and a
+            timestamp of 08:00 on 20 July 2023 — that is a row in a database.
+          </p>
+
+          <p set:html={hydronyms(gaugeLine)} />
+
+          <p>
+            Twitter was never going to hold that record, so the campaign became an app: the
+            same six questions, asked by a form instead of a hashtag, with the location
+            taken from the phone. That is SnapFlood.
+          </p>
+        </div>
+
+        <figure>
+          <div class="plate">
+            <img
+              src="/img/varshamitra.jpg"
+              width="780"
+              height="1102"
+              loading="lazy"
+              decoding="async"
+              alt={altText}
+            />
+          </div>
+          <figcaption class="figcredit">
+            The VarshaMitra campaign, 2023.
+            <span class="src">Illustration: Divya A.</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <hr class="rule-hair" />
+
+    <section id="ufis">
+      <div class="sec-head"><h2>How it fits together</h2></div>
+
+      <p class="standfirst">
+        SnapFlood is one input to a larger system. The Urban Flood Information System joins
+        what people on the street can see to what satellites, rain gauges and models
+        produce, and puts the result in front of the agencies that have to act on it.
+      </p>
+      <p class="prose">
+        <a href="/group/#ufis">See how the whole system fits together</a> on the RAFT page.
+      </p>
+
+      {ufis?.absent_note && (
+        <p class="meta status">
+          <span class="absent">{ufis.absent_note}</span>. The app is live today; the system
+          it reports into is still being built.
+        </p>
+      )}
+    </section>
+
+  </div>
+</Base>
+
+<style>
+  .page { padding-block: var(--s-8) 0; }
+
+  .back { margin-bottom: var(--s-6); }
+  .back a { color: var(--ink-mute); text-decoration-color: var(--rule-strong); }
+  .back a:hover { color: var(--ink); }
+
+  h1 { margin-bottom: var(--s-5); }
+
+  .stores { color: var(--ink-mute); margin-bottom: var(--s-6); }
+  .stores a { color: var(--ink); text-decoration-color: var(--rule-strong); }
+  .stores a:hover { color: var(--accent); }
+  .free { white-space: normal; }
+
+  /* ---------- it started as a hashtag ---------- */
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: var(--s-8);
+    align-items: start;
+  }
+  .split .prose p + p { margin-top: var(--s-4); }
+  .split figcaption { max-width: 20rem; }
+
+  .sixer {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    margin: var(--s-5) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .sixer dt,
+  .sixer dd {
+    margin: 0;
+    padding-block: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  .sixer dt {
+    color: var(--ink-mute);
+    letter-spacing: .03em;
+    padding-top: calc(var(--s-3) + .2rem);
+    white-space: nowrap;
+  }
+  .sixer dd {
+    padding-left: var(--s-4);
+    font-size: var(--t-small);
+    line-height: 1.5;
+  }
+  .sixer dd b { font-weight: 600; }
+  .sixer .say { color: var(--ink-mute); }
+  .sixer code {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .02em;
+    color: var(--accent);
+    font-variant-numeric: lining-nums;
+    white-space: nowrap;
+  }
+
+  /* ---------- how it fits together ---------- */
+
+  .status { margin-top: var(--s-5); color: var(--ink-mute); max-width: var(--w-text); line-height: 1.7; }
+
+  @media (max-width: 900px) {
+    .split { grid-template-columns: 1fr; gap: var(--s-6); }
+    .split figure { max-width: 22rem; }
+  }
+  .ufis { margin-top: var(--s-5); }
+</style>

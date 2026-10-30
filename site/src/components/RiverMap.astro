@@ -1,0 +1,122 @@
+---
+/**
+ * The rivers of India, and the four he forecasts.
+ *
+ * Every channel here is real: surveyed centrelines from Natural Earth, which
+ * is public domain, projected and tapered by scripts/rivers.mjs. No outline is
+ * drawn — the shape of the subcontinent is the one the rivers make on their
+ * own, which is the whole reason to draw it this way rather than put a map
+ * behind it.
+ *
+ * Width follows how major a channel is and thickens from source to mouth, the
+ * way a cartographer draws a river. Four of them carry a travelling pulse: the
+ * Godavari and the Narmada, which he names in his own opening paragraph; the
+ * Krishna, from the Asia-Pacific Network project; and the Brahmaputra, from
+ * the real-time inundation forecasting project. All four run at one speed, so
+ * a short reach routes faster than a long one, as it does on the ground.
+ *
+ * It is a map, not a measurement. Nothing is labelled with a level, a date or
+ * a discharge, and the pulse is the idea of a flood wave rather than any
+ * particular one.
+ */
+import "../styles/rivers.css";
+import maps from "../data/rivers.json";
+
+export interface Props {
+  /** Which window of the same drawing: "india" or "deccan". */
+  map?: "india" | "deccan" | "hyderabad";
+  /** Overrides the reading of the drawing for a screen reader. */
+  label?: string;
+}
+const { map = "india", label } = Astro.props;
+
+/* A country and a region read as themselves. A city outline does not, so the
+   one that needs naming says its name. */
+const PLACE: Record<string, string> = { hyderabad: "Hyderabad" };
+
+const rivers = (maps as any)[map];
+if (!rivers) throw new Error(`RiverMap: no map named "${map}" in src/data/rivers.json`);
+const { w, h, segments, flows, city } = rivers;
+
+const ALT: Record<string, string> = {
+  india:
+    "A map of India drawn only from its rivers, with flood pulses travelling down the " +
+    "Godavari, Narmada, Krishna and Brahmaputra toward the sea. Hyderabad is marked.",
+  deccan:
+    "A map of peninsular India drawn only from its rivers — the Godavari, Krishna, Bhima, " +
+    "Wainganga, Indravati, Tapi and Narmada — with a flood pulse travelling down the " +
+    "Godavari toward the sea. Hyderabad is marked.",
+  hyderabad:
+    "The outline of Hyderabad's built-up area, the city these tools were built for, with " +
+    "the centre of the city marked.",
+};
+---
+
+<figure class="rv">
+  <svg
+    viewBox={`0 0 ${w} ${h}`}
+    role="img"
+    aria-label={label ?? ALT[map] ?? ALT.india}
+  >
+    <g class="rv-net">
+      {segments.map((s: any) => (
+        <path d={s.d} stroke-width={s.w} class:list={{ "rv-his": s.his }} />
+      ))}
+    </g>
+
+    <g class="rv-flow" aria-hidden="true">
+      {flows.map((f: any, i: number) => (
+        <path d={f.d} pathLength="1000" class={`rv-${map}-f${i}`} />
+      ))}
+    </g>
+
+    {city && (
+    <g class="rv-city" aria-hidden="true">
+      <path d={`M${city.x - 20} ${city.y}h11M${city.x + 9} ${city.y}h11M${city.x} ${city.y - 20}v11M${city.x} ${city.y + 9}v11`} />
+      <rect x={city.x - 7} y={city.y - 7} width="14" height="14" />
+    </g>
+    )}
+  </svg>
+  <figcaption class="micro">{PLACE[map] ? `${PLACE[map]} — made with Natural Earth` : "Made with Natural Earth"}</figcaption>
+</figure>
+
+<style>
+  .rv { margin: 0; }
+  /* Every other figure on this site names where it came from; so does this. */
+  figcaption {
+    margin-top: var(--s-3);
+    color: var(--tint);
+    opacity: .55;
+    font-size: .625rem;
+    letter-spacing: .08em;
+  }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  /* The network sits back; the four he works on are already a shade brighter
+     before anything moves, so the drawing still says which they are when the
+     reader has asked for no motion at all. */
+  .rv-net path {
+    fill: none;
+    stroke: var(--tint);
+    stroke-opacity: .62;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .rv-net path.rv-his { stroke-opacity: .95; }
+
+  /* The flood wave. Hidden unless motion is welcome — the generated
+     stylesheet turns it on inside a prefers-reduced-motion query, so a still
+     reader gets the map and nothing half-drawn. */
+  .rv-flow path {
+    fill: none;
+    stroke: var(--paper);
+    stroke-width: 9;
+    stroke-linecap: round;
+  }
+
+  /* Hyderabad: an open square and four ticks, the way a gauge site is marked
+     on a survey sheet. It is the only place named, because it is the only one
+     the rest of this page is about. */
+  .rv-city path { stroke: var(--paper); stroke-width: 2.6; stroke-opacity: .8; }
+  .rv-city rect { fill: none; stroke: var(--paper); stroke-width: 3.4; }
+</style>

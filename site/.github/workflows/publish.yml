@@ -1,0 +1,259 @@
+# satishregonda.in — publish and pull request checks.
+#
+# Two jobs live here because they are two halves of one promise: content can be
+# published by one person from a spreadsheet at any hour, and code cannot reach
+# the live site without passing a gate.
+#
+#   content-publish   Reads the Google Sheet, commits any change back, builds
+#                     the site and uploads it to Cloudflare Pages. Runs when he
+#                     ticks the publish box, twice a day on a schedule, and by
+#                     hand from the Actions tab.
+#
+#   code-pr           Runs on pull requests. House style and a full build, both
+#                     hard gates. It never talks to Google and never deploys.
+#
+# THE PROPERTY THAT MATTERS
+# -------------------------
+# A failed run deploys nothing. Cloudflare Pages keeps serving the previous
+# deployment, unchanged, for as long as it takes to fix the problem. There is no
+# state in which a visitor sees a half-published or broken site: they see the
+# last good version, or the new good version, and nothing in between.
+#
+# WHERE THIS FILE HAS TO LIVE
+# ---------------------------
+# GitHub only runs workflows found in `.github/workflows/` at the root of the
+# repository. This file assumes the repository root is the directory holding
+# package.json. If the site is checked in one level down instead, as
+# `<repo>/site/`, then move this file to `<repo>/.github/workflows/publish.yml`
+# and add, under `jobs.<job>`:
+#
+#     defaults:
+#       run:
+#         working-directory: site
+#
+# Every path below (npm ci, src/data, dist) is relative to package.json.
+#
+# Secrets this needs (Settings, Secrets and variables, Actions):
+#   GOOGLE_SA_KEY_B64       base64 of the read-only service account key
+#   SHEET_ID                the content workbook's id
+#   CLOUDFLARE_API_TOKEN    a token scoped to Cloudflare Pages: Edit
+#   CLOUDFLARE_ACCOUNT_ID   the Cloudflare account id
+#
+# Variables (same page, Variables tab):
+#   SHEETS_DISABLED         set to 1 to stop reading Google entirely and publish
+#                           from the committed files. The dead Google switch;
+#                           see docs/RUNBOOK.md.
+#   CLOUDFLARE_PROJECT      the Pages project name. Defaults below.
+
+name: publish
+
+on:
+  # Ticking publish_now in the sheet sends this. See apps-script/Code.gs.
+  repository_dispatch:
+    types: [publish]
+
+  # Twice a day, so a sheet edit reaches the site even if nobody ticks anything.
+  # GitHub runs cron in UTC and India is UTC+5:30.
+  schedule:
+    - cron: "0 20 * * *" # 01:30 IST
+    - cron: "0 8 * * *" # 13:30 IST
+
+  # The Actions tab, Run workflow. The manual fallback when the sheet cannot
+  # reach GitHub.
+  workflow_dispatch:
+
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  # ==================================================================
+  # Content: sheet to live site.
+  # ==================================================================
+  content-publish:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    # Publishes queue rather than race. cancel-in-progress is false on purpose:
+    # a cancelled publish is a publish he thinks happened and did not.
+    concurrency:
+      group: publish
+      cancel-in-progress: false
+
+    permissions:
+      contents: write # to commit the synced JSON back to the repository
+
+    env:
+      SYNC_SUMMARY_FILE: ${{ runner.temp }}/sync-summary.json
+
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # If the sheet is missing a tab or a required column, this step fails,
+      # writes nothing, and the job stops here. The site is untouched.
+      - name: Read the Google Sheet
+        id: sync
+        run: npm run sync
+        env:
+          GOOGLE_SA_KEY_B64: ${{ secrets.GOOGLE_SA_KEY_B64 }}
+          SHEET_ID: ${{ secrets.SHEET_ID }}
+          SHEETS_DISABLED: ${{ vars.SHEETS_DISABLED }}
+
+      # The committed JSON is the site's real content, and the sheet is the way
+      # it gets edited. Committing here is what makes the repository a complete
+      # copy, so the site can be rebuilt years from now with no Google account.
+      # [skip ci] keeps this commit from starting another publish.
+      - name: Commit the content back
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "content-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git commit -m "content: sync from the Google Sheet [skip ci]"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      # A warning here, never a failure. Style is a code-review concern, and it
+      # must never stand between him and a corrected sentence at 11pm. The same
+      # check is a hard gate on pull requests, below.
+      - name: Check house style (warning only)
+        continue-on-error: true
+        run: npm run grep-check
+
+      # The build reads only the committed JSON. No network, no Google.
+      - name: Build the site
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run build 2>&1 | tee "${RUNNER_TEMP}/build.log"
+
+      - name: Check the head a crawler reads (warning only)
+        continue-on-error: true
+        run: npm run seo-check
+
+      # A small file, deployed with the pages, saying what this publish carried.
+      # The Apps Script attached to the sheet reads it to write the publish log
+      # and to say "published with 2 items skipped" in plain English. It is read
+      # from the site rather than from GitHub so it needs no token.
+      - name: Record what published
+        shell: bash
+        run: |
+          set -euo pipefail
+          SUMMARY='{}'
+          if [ -f "${SYNC_SUMMARY_FILE}" ]; then SUMMARY=$(cat "${SYNC_SUMMARY_FILE}"); fi
+          BUILD_SKIPPED=$(grep -F '— skipped ' "${RUNNER_TEMP}/build.log" 2>/dev/null \
+            | sed 's/^ *//' \
+            | jq -R -s 'split("\n") | map(select(length > 0))' || echo '[]')
+          jq -n \
+            --arg generated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --arg run_url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \
+            --arg commit "${GITHUB_SHA}" \
+            --arg trigger "${GITHUB_EVENT_NAME}" \
+            --argjson sync "${SUMMARY}" \
+            --argjson build_skipped "${BUILD_SKIPPED}" \
+            '{
+              generated: $generated,
+              run_url: $run_url,
+              commit: $commit,
+              trigger: $trigger,
+              sheets_disabled: ($sync.disabled // false),
+              collections: ($sync.collections // {}),
+              attention: ($sync.attention // []),
+              build_skipped: $build_skipped
+            }' > dist/publish-status.json
+          cat dist/publish-status.json
+
+      # Nothing before this point can change what visitors see. This step is the
+      # only one that does, and it either replaces the site wholesale or leaves
+      # the previous deployment exactly where it was.
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy dist
+            --project-name=${{ vars.CLOUDFLARE_PROJECT || 'satishregonda-in' }}
+            --branch=main
+
+      - name: Say what happened
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Publish"
+            echo ""
+            if [ "${{ job.status }}" = "success" ]; then
+              echo "The site was rebuilt and deployed."
+            else
+              echo "This publish did not go out. The site is still serving the"
+              echo "previous deployment, so nothing is broken for visitors."
+            fi
+            echo ""
+            echo "Triggered by \`${GITHUB_EVENT_NAME}\`."
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+  # ==================================================================
+  # Code: the gate on pull requests.
+  #
+  # Both checks are hard. A pull request that fails either one cannot be merged,
+  # which is the point: the publish job above has no gate at all, so this is the
+  # only place where code is stopped before it can reach the live site.
+  # ==================================================================
+  code-pr:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    concurrency:
+      group: pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+
+    steps:
+      - name: Check out the branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # box-shadow, a rounded corner, a gradient, a violet, repeat(3, 1fr), a
+      # stock typeface, the accent used as a fill, a client-side script, an
+      # emoji. None of these are bugs, so no test catches them.
+      - name: Check house style
+        run: npm run grep-check
+
+      # This build reads the committed JSON only. It never contacts Google, so a
+      # pull request can be checked with no credentials and no sheet access, and
+      # a broken sheet can never fail a code review.
+      - name: Build the site
+        run: npm run build
+
+      # Titles, descriptions, canonicals, share cards, structured data and the
+      # sitemap, checked against the built HTML. This is what stops a head
+      # defect reaching the live site.
+      - name: Check the head a crawler reads
+        run: npm run seo-check

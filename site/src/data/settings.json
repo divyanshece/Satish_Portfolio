@@ -1,0 +1,52 @@
+{
+  "name": "Satish Regonda",
+  "name_full": "Satish Kumar Regonda",
+  "name_display": "Dr. Satish K. Regonda",
+  "name_citation_forms": [
+    "Regonda, S. K.",
+    "Regonda, S.K.",
+    "Regonda, S.",
+    "S. K. Regonda",
+    "Regonda SK"
+  ],
+  "title": "Associate Professor",
+  "departments": [
+    "Civil Engineering",
+    "Climate Change"
+  ],
+  "institution": "IIT Hyderabad",
+  "office": "Room B-212",
+  "address": "Department of Civil Engineering, IIT Hyderabad, Kandi, Sangareddy 502285, Telangana, India",
+  "address_street": "Department of Civil Engineering, IIT Hyderabad",
+  "address_locality": "Kandi, Sangareddy",
+  "address_region": "Telangana",
+  "address_postcode": "502285",
+  "address_country": "IN",
+  "email": "satishr@ce.iith.ac.in",
+  "scholar_url": "https://scholar.google.com/citations?user=cTXdUlUAAAAJ",
+  "orcid_url": "https://orcid.org/0000-0003-3188-9415",
+  "linkedin_url": "https://in.linkedin.com/in/satish-regonda-3a08a115",
+  "iith_url": "https://iith.ac.in/ce/satishr/",
+  "profiles": {
+    "OpenAlex": "https://openalex.org/A5015401267"
+  },
+  "raft_site_url": "https://raftwaters.com",
+  "raft_socials": {
+    "LinkedIn": "https://www.linkedin.com/company/raftwaters",
+    "X": "https://x.com/raftwaters",
+    "Bluesky": "https://bsky.app/profile/raftwaters.bsky.social",
+    "Instagram": "https://www.instagram.com/raft.waters"
+  },
+  "recruiting_status": "Accepting PhD applicants for the January 2027 intake.",
+  "recruiting_deadline": "2026-11-15",
+  "recruiting_review_by": "2026-12-01",
+  "currently": "Building the Urban Flood Information System with the Greater Hyderabad Municipal Corporation, IMD, the Telangana State Development Planning Society and the Central Water Commission. Leading the urban flood component of AISwARYAM under the Government of India's IndiaAI Mission. Reading about rainfall nowcasting from weather radar.",
+  "bio_short_25": "Satish Regonda is an Associate Professor of Civil Engineering and Climate Change at IIT Hyderabad, working on flood forecasting for Indian cities and rivers.",
+  "bio_short_60": "Satish Regonda is an Associate Professor in the Departments of Civil Engineering and Climate Change at IIT Hyderabad. He spent seven years as a research hydrologist at NOAA's Office of Hydrologic Development, working on the US National Weather Service's Hydrologic Ensemble Forecast Service, before returning to India in 2017. He leads the RAFT research group, which builds flood forecasting and citizen-observation tools for Indian cities.",
+  "products_standfirst": "Products and tools from the group that puts rainfall and flood information in the hands of the people who need it: a citizen reporting app, analytics for rainfall and river data, and apps for forecasters and researchers.",
+  "site_state": "normal",
+  "site_state_line": "",
+  "site_state_until": "",
+  "raft_email": "raftwaters@gmail.com",
+  "raft_location": "IIT Hyderabad, Telangana, India"
+}

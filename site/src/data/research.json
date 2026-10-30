@@ -1,0 +1,46 @@
+[
+  {
+    "slug": "urban-flooding-hyderabad",
+    "title": "Urban flooding in Hyderabad",
+    "short": "Urban flooding",
+    "summary": "'Urban Flooding' has been getting much attention off late, and it will be an issue for many countries including India posing a wide variety of challenges for a variety of reasons. We, at the IIT Hyderabad, are working to address the issue. As part of our systematic approach, we came up with SnapFlood and Sixer Tweet. We are trying to address the global issues with local efforts, and if you want to be part of it reach us.",
+    "figure": "fig-hmda.jpg",
+    "figure_alt": "Map of the Hyderabad Metropolitan Development Authority region showing district boundaries, the Greater Hyderabad Municipal Corporation area shaded at the centre, and the drainage network in blue.",
+    "figure_caption": "The Hyderabad Metropolitan Development Authority region, with the GHMC boundary inside it.",
+    "figure_credit": "Dagani, Regonda & Dornadula (2021), Water 13, 637. CC BY.",
+    "order": 1
+  },
+  {
+    "slug": "streamflow-forecasting",
+    "title": "Streamflow forecasting",
+    "short": "Forecasting",
+    "summary": "Riverine flood modelling and streamflow forecasting for the Brahmaputra, Godavari and Narmada river basins, under the Monsoon Mission, using hydrologic, hydrodynamic and statistical-dynamical approaches.",
+    "figure": "fig-godavari-basin.jpg",
+    "figure_alt": "Elevation map of the lower Godavari river basin with the river drawn in cyan and seven gauge sites marked as red triangles, beside locator insets of India and of the basin.",
+    "figure_caption": "The lower Godavari and Sabari basins, with the CWC gauge sites the forecasts are verified against.",
+    "figure_credit": "Sharma & Regonda (2021), Water 13, 191. CC BY.",
+    "order": 2
+  },
+  {
+    "slug": "monsoon-hydroclimatology",
+    "title": "Urban hydroclimate and rainfall",
+    "short": "Monsoon & climate",
+    "summary": "Rainfall forecasting, and the space-time behaviour of rainfall and climate extremes over Indian cities and river basins. Both physics-based and AI/ML techniques are explored.",
+    "figure": "fig-hydrographs.jpg",
+    "figure_alt": "Five hydrograph panels plotting water surface elevation over time at three gauge sites. A black observed trace runs beneath four coloured model traces, which spread apart at the flood peaks.",
+    "figure_caption": "Observed against modelled water surface elevation at three Godavari gauges, across four model configurations.",
+    "figure_credit": "Sharma & Regonda (2021), Water 13, 191. CC BY.",
+    "order": 3
+  },
+  {
+    "slug": "hydrologic-data-for-india",
+    "title": "Hydrologic data and citizen science",
+    "short": "Hydrologic data",
+    "summary": "Hydrologic database development in India, citizen science and crowdsourced observation, and the products and decision-support tools built on them.",
+    "figure": "fig-inundation.jpg",
+    "figure_alt": "Flood inundation outlines along a river reach near Konta, drawn six times in six colours for six model configurations. The outlines diverge most widely on the floodplain margins.",
+    "figure_caption": "Six modelled flood extents for the same event at Konta, 22 September 2005 — the disagreement between them is the finding.",
+    "figure_credit": "Sharma & Regonda (2021), Water 13, 191. CC BY.",
+    "order": 4
+  }
+]

@@ -1,0 +1,142 @@
+---
+import Base from "../../layouts/Base.astro";
+import PublicationRow from "../../components/PublicationRow.astro";
+import { research, publicationsByTheme } from "../../lib/content";
+import { hydronyms, summarise } from "../../lib/text";
+import { webPageJsonLd, breadcrumb, SITE } from "../../lib/seo";
+
+export function getStaticPaths() {
+  return research.map((theme) => ({ params: { slug: theme.slug }, props: { theme } }));
+}
+
+const { theme } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+/* The summary runs to a paragraph; a result line is one sentence of it. */
+const description = theme.meta_description ?? summarise(theme.summary);
+const pageJson = JSON.stringify(
+  webPageJsonLd({ url: canonical, name: theme.title, description, about: theme.short })
+).replace(/</g, "\\u003c");
+const crumbJson = JSON.stringify(
+  breadcrumb([
+    { name: "Research", url: `${SITE}/research/` },
+    { name: theme.title, url: canonical },
+  ])
+).replace(/</g, "\\u003c");
+
+const pubs = publicationsByTheme(theme.slug);
+const others = research.filter((r) => r.slug !== theme.slug);
+
+/** Intrinsic pixel sizes of the plates in public/figures, so the page reserves
+ *  the right box before the JPEG lands and nothing shifts under the reader. */
+const FIGURE_SIZE: Record<string, [number, number]> = {
+  "fig-hmda.jpg": [720, 702],
+  "fig-godavari-basin.jpg": [760, 546],
+  "fig-hydrographs.jpg": [760, 630],
+  "fig-inundation.jpg": [655, 700],
+};
+const figSize = theme.figure ? (FIGURE_SIZE[theme.figure] ?? [760, 546]) : null;
+
+/** A claim is a sentence; a <title> is a label. Drop the full stop, and where
+ *  the sentence has a clause boundary early enough, stop at it. */
+
+---
+
+<Base title={theme.title} description={description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={pageJson} />
+    <script type="application/ld+json" is:inline set:html={crumbJson} />
+  </Fragment>
+  <div class="wide">
+    <div class="pagehead">
+      <h1>{theme.title}</h1>
+      <p class="standfirst" set:html={hydronyms(theme.summary)} />
+
+      {theme.figure && figSize && (
+        <figure class="fig">
+          <div class="plate">
+            <img
+              src={`/figures/${theme.figure}`}
+              alt={theme.figure_alt}
+              width={figSize[0]}
+              height={figSize[1]}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          {(theme.figure_caption || theme.figure_credit) && (
+            <figcaption class="figcredit">
+              {theme.figure_caption && <span set:html={hydronyms(theme.figure_caption)} />}
+              {theme.figure_credit && <span class="src">{theme.figure_credit}</span>}
+            </figcaption>
+          )}
+        </figure>
+      )}
+    </div>
+
+    {pubs.length > 0 && (
+      <section aria-labelledby="papers">
+        <div class="sec-head">
+          <h2 id="papers">Related publications</h2>
+          <a class="sec-more" href="/research/#publications">All publications</a>
+        </div>
+
+        <div class="rail-list pubs">
+          {pubs.map((p) => <PublicationRow pub={p} />)}
+        </div>
+
+      </section>
+    )}
+
+
+    <p class="meta seealso">
+      <span class="sa-label">See also</span>
+      <a href="/research/">Research &amp; publications</a>
+      {others.map((r) => (
+        <>
+          <span class="sep" aria-hidden="true">·</span>
+          <a href={`/research/${r.slug}/`}>{r.title}</a>
+        </>
+      ))}
+    </p>
+  </div>
+</Base>
+
+<style>
+  .pagehead { padding-block: var(--s-7) 0; }
+
+  /* The claim is the headline, so it keeps the display step and simply runs
+     wider than a page name would. */
+  h1 { max-width: 26ch; }
+
+  .pagehead .standfirst { margin-top: var(--s-5); margin-bottom: 0; }
+
+  .fig { max-width: 46rem; margin-top: var(--s-6); }
+
+  .pubs { max-width: var(--w-content); }
+
+
+  .proj-list { max-width: var(--w-content); }
+  /* A period needs more rail than a year does. */
+  .proj-list .rail-row { grid-template-columns: 8rem minmax(0, 1fr); }
+  .proj-title { font-size: var(--t-body); line-height: 1.45; }
+  .proj-meta { font-size: var(--t-small); color: var(--ink-mute); margin-top: .15rem; }
+
+  /* The last thing on the page, so it carries the foot of it: the byline that
+     used to sit below supplied this space. */
+  .seealso {
+    border-top: 1px solid var(--rule);
+    padding-block: var(--s-4) var(--s-9);
+    margin-top: var(--s-6);
+    color: var(--ink-mute);
+    display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: baseline;
+  }
+  .seealso .sa-label { text-transform: uppercase; letter-spacing: .06em; font-size: var(--t-micro); }
+  .seealso .sep { color: var(--rule-strong); }
+  .seealso a { color: var(--ink); text-decoration-color: var(--rule-strong); }
+  .seealso a:hover { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .proj-list .rail-row { grid-template-columns: 5.5rem minmax(0, 1fr); }
+  }
+</style>

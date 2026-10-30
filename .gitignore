@@ -1,0 +1,22 @@
+# Repository root. The site has its own .gitignore at site/, which covers
+# node_modules, dist and .env — this file covers everything outside it.
+
+.DS_Store
+*.log
+
+# Local Claude Code state. The workflow script is kept; settings are personal.
+.claude/settings.local.json
+
+# ---------------------------------------------------------------------------
+# His CV and the SnapFlood deck.
+#
+# Both carry his mobile number, and "no phone number anywhere on the site" is
+# one of the client's hard rules. They are source material we read from, never
+# anything we publish: nothing under site/ references this directory, and the
+# build does not touch it. Keeping them out of the repository is what stops the
+# number travelling with the code to GitHub, to Cloudflare, or to anyone added
+# to the project later.
+#
+# The files stay where they are on disk. They are simply not version-controlled.
+# ---------------------------------------------------------------------------
+research/source-docs/

@@ -1,0 +1,11 @@
+[
+  { "date": "2023-10-06", "outlet": "Deccan Chronicle", "kind": "coverage",
+    "headline": "Innovative Urban Flood Information System aims to transform city's resilience" },
+  { "date": "2023", "outlet": "The Hans India", "kind": "coverage",
+    "headline": "IITH initiates a groundbreaking endeavour to tackle the persistent issue of urban flooding in Hyderabad" },
+  { "date": "2023", "outlet": "NewsMeter", "kind": "coverage",
+    "headline": "IIT-H researchers to develop data-driven tech to alert Hyderabad on floods" },
+  { "date": "2023-10-04", "outlet": "IIT Hyderabad", "kind": "video",
+    "headline": "Urban Flood Information System by the RAFT group",
+    "url": "https://www.youtube.com/watch?v=zz9i62ucZ3c" }
+]

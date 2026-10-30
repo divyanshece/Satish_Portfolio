@@ -1,0 +1,307 @@
+---
+import { ext } from "../../lib/links";
+/**
+ * One page per paper.
+ *
+ * This route exists because Google Scholar indexes a paper from a separate
+ * HTML page carrying Highwire Press meta tags. It is therefore plain,
+ * complete and rendered at build time. There is no PDF hosting yet, so no
+ * citation_pdf_url is emitted — claiming a full text we do not serve is the
+ * one thing that would get the site dropped from the index.
+ *
+ * The JSON-LD block is data, not behaviour: no script runs on this page.
+ */
+
+import Base from "../../layouts/Base.astro";
+import { publications, researchBySlug } from "../../lib/content";
+import { markAuthors, hydronyms, doiUrl, shortTitle, summarise } from "../../lib/text";
+import { highwireTags, articleJsonLd, breadcrumb, SITE } from "../../lib/seo";
+
+export function getStaticPaths() {
+  return publications.map((pub) => ({ params: { id: pub.id }, props: { pub } }));
+}
+
+type Pub = (typeof publications)[number];
+const { pub } = Astro.props as { pub: Pub };
+
+const authors = markAuthors(pub.authors, pub.year);
+
+const TYPE_LABEL: Record<Pub["type"], string> = {
+  journal: "Journal article",
+  chapter: "Book chapter",
+  conference: "Conference paper",
+  preprint: "Preprint",
+  report: "Report",
+};
+const typeLabel = TYPE_LABEL[pub.type];
+
+const openable = pub.open_access === "cc-by" || pub.open_access === "green";
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const theme = pub.theme ? researchBySlug(pub.theme) : undefined;
+const PROPER = new Set(["india", "hyderabad"]);
+function themeLabel(slug: string): string {
+  return slug
+    .split("-")
+    .map((w, i) => (i === 0 || PROPER.has(w) ? w.charAt(0).toUpperCase() + w.slice(1) : w))
+    .join(" ");
+}
+
+/* ---- citation strings ------------------------------------------------- */
+
+const last = pub.authors[pub.authors.length - 1];
+const authorLine =
+  pub.authors.length > 1 ? `${pub.authors.slice(0, -1).join(", ")}, & ${last}` : pub.authors[0];
+
+const volPart = pub.volume ? `, ${pub.volume}` : "";
+const pagePart = pub.pages ? `, ${pub.pages}` : "";
+
+/* The printed line: "Journal of Hydrometeorology 24, 977–996". */
+const venueLine = pub.venue + (pub.volume ? ` ${pub.volume}` : "") + pagePart;
+
+/* "…can it be chaotic?" already ends the sentence; do not print "?." */
+const titleSentence = /[.?!]$/.test(pub.title) ? pub.title : `${pub.title}.`;
+
+const plainCitation = [
+  `${authorLine} (${pub.year}).`,
+  titleSentence,
+  `${pub.venue}${volPart}${pagePart}.`,
+  pub.doi ? doiUrl(pub.doi) : pub.url ?? "",
+]
+  .filter(Boolean)
+  .join(" ");
+
+/** BibTeX reserves these; a title's own braces have to survive as literals. */
+function bibEscape(s: string): string {
+  return s.replace(/\\/g, "\\textbackslash{}").replace(/([&%$#_{}])/g, "\\$1");
+}
+
+const ENTRY: Record<Pub["type"], string> = {
+  journal: "article",
+  chapter: "incollection",
+  conference: "inproceedings",
+  preprint: "misc",
+  report: "techreport",
+};
+const VENUE_FIELD: Record<Pub["type"], string> = {
+  journal: "journal",
+  chapter: "booktitle",
+  conference: "booktitle",
+  preprint: "howpublished",
+  report: "institution",
+};
+
+/* Key from the id, which already carries the year and is unique by construction. */
+const bibKey = `regonda${pub.year}${pub.id.replace(/^\d{4}-/, "").replace(/[^a-z0-9]/gi, "")}`;
+
+const fields: [string, string][] = [
+  ["author", pub.authors.map(bibEscape).join(" and ")],
+  /* Double braces protect the capitalisation the journal actually printed. */
+  ["title", `{${bibEscape(pub.title)}}`],
+  [VENUE_FIELD[pub.type], bibEscape(pub.venue)],
+  ["year", String(pub.year)],
+];
+if (pub.volume) fields.push(["volume", bibEscape(pub.volume)]);
+if (pub.issue) fields.push(["number", bibEscape(pub.issue)]);
+if (pub.pages) fields.push(["pages", bibEscape(pub.pages).replace(/\s*[–—-]\s*/, "--")]);
+if (pub.doi) fields.push(["doi", bibEscape(pub.doi)]);
+if (!pub.doi && pub.url) fields.push(["url", pub.url]);
+
+const pad = Math.max(...fields.map(([k]) => k.length));
+const bibtex =
+  `@${ENTRY[pub.type]}{${bibKey},\n` +
+  fields.map(([k, v]) => `  ${k.padEnd(pad)} = {${v}},`).join("\n") +
+  `\n}`;
+
+/* ---- structured data --------------------------------------------------- */
+
+/* The citation metadata and the schema.org record both come from src/lib/seo.ts,
+   so this page and the rest of the site can never describe a paper differently. */
+const tags = highwireTags(pub);
+const ldJson = JSON.stringify(articleJsonLd(pub, canonical)).replace(/</g, "\\u003c");
+const crumbJson = JSON.stringify(
+  breadcrumb([
+    { name: "Research & publications", url: `${SITE}/research/` },
+    { name: shortTitle(pub.title), url: canonical },
+  ])
+).replace(/</g, "\\u003c");
+
+const citationLine = `${authorLine} (${pub.year}). ${titleSentence} ${pub.venue}.`;
+const description =
+  pub.meta_description ?? summarise(pub.abstract ?? citationLine);
+---
+
+<Base title={shortTitle(pub.title)} titleSuffix={false} description={description} ogType="article">
+  <Fragment slot="head">
+    {tags.map((t) => <meta name={t.name} content={t.content} />)}
+
+    <script type="application/ld+json" is:inline set:html={ldJson} />
+    <script type="application/ld+json" is:inline set:html={crumbJson} />
+  </Fragment>
+
+  <div class="content">
+    <article class="paper">
+      <p class="meta back"><a href="/research/#publications">← Research &amp; publications</a></p>
+
+      <p class="micro kind">{typeLabel} · {pub.year}</p>
+
+      <h1>{pub.title}</h1>
+
+      <p class="authors">
+        {/* No whitespace around the mark: it is a superscript, not a word. */}
+        {authors.map((a, i) => (
+          <>{i > 0 ? ", " : ""}<span class:list={{ me: a.isSelf, trainee: !!a.mark }}>{a.name}</span>{a.mark && <span class="visually-hidden"> ({a.label})</span>}</>
+        ))}
+      </p>
+
+
+      <p class="venue">{venueLine}</p>
+
+      {pub.abstract && (
+        <section class="abstract">
+          <h2 class="micro">Abstract</h2>
+          <p>{pub.abstract}</p>
+        </section>
+      )}
+
+      <p class="meta links">
+        {pub.doi ? (
+          <a href={doiUrl(pub.doi)} {...ext(doiUrl(pub.doi))}>doi:{pub.doi}</a>
+        ) : pub.url ? (
+          <a href={pub.url} {...ext(pub.url)}>read at the publisher</a>
+        ) : (
+          <span class="absent">no DOI recorded</span>
+        )}
+        {openable && <span class="oa">open access</span>}
+      </p>
+
+      {pub.note && (
+        <aside class="note">
+          <h2 class="micro">Note on this record</h2>
+          <p set:html={hydronyms(pub.note)} />
+        </aside>
+      )}
+
+      <details class="cite">
+        <summary>Cite this paper</summary>
+        <p class="cite-plain">{plainCitation}</p>
+        <pre>{bibtex}</pre>
+      </details>
+
+      {theme && (
+        <p class="meta theme-line">
+          Theme: <a href={`/research/${theme.slug}/`}>{themeLabel(theme.slug)}</a>
+        </p>
+      )}
+    </article>
+  </div>
+</Base>
+
+<style>
+  .abstract { margin-top: var(--s-5); }
+  .abstract h2 { color: var(--ink-mute); margin-bottom: var(--s-2); }
+  .abstract p { font-size: var(--t-small); line-height: 1.6; max-width: 34rem; }
+
+  .paper { padding-block: var(--s-6) var(--s-8); }
+
+  .back { margin-bottom: var(--s-6); }
+  .back a { color: var(--ink-mute); text-decoration-color: var(--rule-strong); }
+  .back a:hover { color: var(--accent); }
+
+  .kind { color: var(--ink-mute); margin-bottom: var(--s-3); }
+
+  /* A paper title is long and is not a display line: it sets at heading size. */
+  h1 {
+    font-size: var(--t-h2);
+    line-height: 1.3;
+    letter-spacing: -.012em;
+    font-weight: 400;
+    max-width: 34rem;
+  }
+
+  .authors {
+    margin-top: var(--s-4);
+    font-size: var(--t-small);
+    line-height: 1.55;
+    color: var(--ink-mute);
+    max-width: 34rem;
+  }
+  /* Set the same way as in the record: his own name bold in the accent, a
+     student co-author bold in the ink. */
+  .authors .me { color: var(--accent); font-weight: 600; }
+  .authors .trainee { color: var(--ink); font-weight: 600; }
+
+
+  .venue {
+    margin-top: var(--s-2);
+    font-style: italic;
+    font-size: var(--t-small);
+    color: var(--ink-mute);
+  }
+
+  .links {
+    margin-top: var(--s-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    align-items: baseline;
+  }
+  .links a { color: var(--ink-mute); text-decoration-color: var(--rule-strong); }
+  .links a:hover { color: var(--accent); }
+  .oa { color: var(--ink-mute); }
+
+  .finding { margin-top: var(--s-6); }
+
+  .note {
+    margin-top: var(--s-6);
+    border-left: 2px solid var(--rule-strong);
+    padding-left: var(--s-4);
+  }
+  .note h2 { color: var(--ink-mute); margin-bottom: var(--s-2); }
+  .note p {
+    font-style: italic;
+    font-size: var(--t-small);
+    line-height: 1.55;
+    color: var(--ink-mute);
+    max-width: 32rem;
+  }
+
+  .cite {
+    margin-top: var(--s-7);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding-block: var(--s-3);
+  }
+  .cite summary {
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .cite summary::marker { color: var(--rule-strong); }
+  .cite-plain {
+    margin-top: var(--s-4);
+    font-size: var(--t-small);
+    line-height: 1.55;
+    max-width: 34rem;
+  }
+
+  pre {
+    margin: var(--s-4) 0 var(--s-2);
+    padding: var(--s-4);
+    background: var(--plate);
+    border: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: .75rem;
+    line-height: 1.6;
+    letter-spacing: .01em;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .theme-line { margin-top: var(--s-6); color: var(--ink-mute); }
+  .theme-line a { color: var(--ink-mute); text-decoration-color: var(--rule-strong); }
+  .theme-line a:hover { color: var(--accent); }
+</style>

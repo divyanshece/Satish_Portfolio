@@ -1,0 +1,120 @@
+---
+/**
+ * 404 — a routing table, not an apology.
+ *
+ * Every line is derived from the content layer, so this page cannot go stale
+ * while the record grows. The old Google Site had different paths, and most
+ * arrivals here are following one of them.
+ */
+import Base from "../layouts/Base.astro";
+import { counts, research, coursesTaught, publications } from "../lib/content";
+
+const oldestPub = publications.length ? publications[publications.length - 1].year : null;
+
+const routes = [
+  {
+    href: "/research/",
+    label: "Research & publications",
+    line: oldestPub
+      ? `${research.length} research areas, the projects behind them, and the full ` +
+        `publication record with DOIs, newest first back to ${oldestPub}.`
+      : `${research.length} research areas, the projects behind them, and the full ` +
+        "publication record with DOIs, newest first.",
+  },
+  {
+    href: "/products/",
+    label: "Products",
+    line: `${counts.products} tools from the group, and the state each one is actually in today.`,
+  },
+  {
+    href: "/group/",
+    label: "RAFT",
+    line: `The group: ${counts.current} people now, and ${counts.alumni} alumni since ${counts.earliestAlumnusYear}.`,
+  },
+  {
+    href: "/students/",
+    label: "Teaching & students",
+    line:
+      `${coursesTaught.length} courses in Civil Engineering and Climate Change, the ` +
+      `${counts.current} students working with him now, and ${counts.alumni} alumni.`,
+  },
+  {
+    href: "/join/",
+    label: "Join",
+    line: "What a first message has to contain, and the funding routes that apply at IIT Hyderabad.",
+  },
+  {
+    href: "/about/",
+    label: "About",
+    line: "Appointments, education, funded projects and contact.",
+  },
+];
+
+const description =
+  "This address does not exist on satishregonda.in. Links to the research, publications, " +
+  "products, RAFT group, teaching, students, join and about pages.";
+---
+
+<Base title="Page not found" description={description} noCanonical>
+  <div class="wide">
+    <div class="head">
+      <p class="micro stamp">404</p>
+      <h1>No page issued at this location</h1>
+      <p class="prose intro">
+        The address you followed does not exist. It may have moved when this site replaced
+        the old one.
+      </p>
+    </div>
+
+    <hr class="rule-hair" />
+
+    <dl class="routes">
+      {routes.map((r) => (
+        <>
+          <dt><a href={r.href}>{r.label}</a></dt>
+          <dd>{r.line}</dd>
+        </>
+      ))}
+    </dl>
+  </div>
+</Base>
+
+<style>
+  .head { padding-block: var(--s-7) var(--s-6); }
+  .stamp { color: var(--ink-mute); margin-bottom: var(--s-4); }
+  h1 { margin-bottom: var(--s-5); max-width: 24ch; }
+  .intro { font-size: var(--t-small); line-height: 1.6; }
+
+  .routes {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 0 var(--s-5);
+    margin: 0;
+    padding-block: var(--s-2) var(--s-8);
+  }
+  .routes dt {
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    letter-spacing: .045em;
+    text-transform: uppercase;
+  }
+  .routes dt a { color: var(--ink); text-decoration-color: var(--rule-strong); }
+  .routes dt a:hover { color: var(--accent); }
+  .routes dd {
+    margin: 0;
+    padding-block: var(--s-4);
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--t-small);
+    line-height: 1.5;
+    color: var(--ink-mute);
+    max-width: 42rem;
+  }
+
+  @media (max-width: 640px) {
+    .routes { grid-template-columns: 1fr; }
+    .routes dt { padding-block: var(--s-4) 0; border-bottom: 0; }
+    .routes dd { padding-block: .35rem var(--s-4); }
+  }
+</style>

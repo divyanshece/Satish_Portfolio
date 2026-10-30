@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="satishregonda.in">
+  <rect width="32" height="32" fill="#E7EDE8"/>
+  <!-- a stage threshold, and one peak crossing it -->
+  <path d="M2 20 H30" stroke="#0F2621" stroke-width="1.5" fill="none"/>
+  <path d="M2 26 L9 25 L13 22 L16 8 L20 24 L25 26 L30 26"
+        stroke="#166157" stroke-width="2.5" fill="none"
+        stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

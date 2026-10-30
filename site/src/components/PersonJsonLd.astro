@@ -1,0 +1,29 @@
+---
+/**
+ * Structured data for a page that is about him: the site, this page, the
+ * person, his institution and his group, as one schema.org @graph.
+ *
+ * A JSON-LD block is structured data, not client-side JavaScript. The browser
+ * parses it and never executes it — no code runs, no request is made, nothing
+ * on the page changes. It is the one script tag this site permits, and it
+ * carries only facts the visible page already states.
+ *
+ * Every node is addressed by @id, so restating the graph on a second page
+ * corroborates one record rather than declaring a second person.
+ *
+ *   <Fragment slot="head"><PersonJsonLd page="/about/" /></Fragment>
+ */
+import { personJsonLd, SITE } from "../lib/seo";
+
+export interface Props {
+  /** The page this graph is stated on, root-relative. */
+  page?: string;
+}
+const { page = "/" } = Astro.props;
+
+/* Escaping "<" keeps a stray angle bracket in any sheet field from closing the
+   block early; JSON.stringify has already dropped every undefined key. */
+const json = JSON.stringify(personJsonLd(`${SITE}${page}`)).replace(/</g, "\\u003c");
+---
+
+<script type="application/ld+json" is:inline set:html={json} />

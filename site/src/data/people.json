@@ -1,0 +1,423 @@
+[
+  {
+    "id": "saipriya-sr",
+    "name": "Saipriya SR",
+    "aliases": [
+      "Saipriya, S. R.",
+      "Saipriya, S.R.",
+      "S. R. Saipriya"
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2021,
+    "topic": "Understanding urban hydroclimatology and modelling of urban floods for the city Hyderabad, India",
+    "blurb": "My research focuses on understanding the hydroclimatology of cities, identifying factors that result in both heavy rainfall events and floods, as well as developing models and techniques that provide information on flood-relevant aspects.",
+    "photo": "saipriya-sr.jpg",
+    "linkedin": "https://www.linkedin.com/in/saipriya-s-r-64a0b31a1/",
+    "order": 10
+  },
+  {
+    "id": "lagnajeet-roy",
+    "name": "Lagnajeet Roy",
+    "aliases": [
+      "Roy, L."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2022,
+    "topic": "Urban meteorological forecasting using WRF models for the city of Hyderabad, India",
+    "blurb": "Understand and forecast the change of meteorological parameters with the continuous change of urban morphology for Hyderabad city with Weather Research and Forecasting (WRF) model. Creating a solution for urban climate extremes like Urban Heat Island (UHI) and urban floods in the context of climate change.",
+    "photo": "lagnajeet-roy.jpg",
+    "linkedin": "https://www.linkedin.com/in/lagnajeet-roy-965365163/",
+    "order": 20
+  },
+  {
+    "id": "mohan-raju-manne",
+    "name": "Mohan Raju Manne",
+    "aliases": [
+      "Manne, M. R."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2022,
+    "topic": "Urban hydraulic modelling for the City Hyderabad (tentative)",
+    "blurb": "My primary research interest includes hydrologic and hydraulic modelling pertaining to runoff and floods, and irrigation engineering practice.",
+    "photo": "mohan-raju-manne.jpg",
+    "linkedin": "",
+    "order": 30
+  },
+  {
+    "id": "vamshi-rm",
+    "name": "Vamshi Raj M",
+    "aliases": [
+      "Vamshi, R. M."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2022,
+    "topic": "Quantification of uncertainty in river streamflow modelling via ensemble of hydrologic models for rivers in Telangana, India",
+    "blurb": "My research interests are spatio-temporal scale analysis and modelling of catchment runoff using physically based as well as machine learning based models.",
+    "photo": "vamshi-rm.jpg",
+    "linkedin": "https://www.linkedin.com/in/vamshi-raj-3496a4335/",
+    "order": 40
+  },
+  {
+    "id": "subhadip-datta",
+    "name": "Subhadip Datta",
+    "aliases": [
+      "Datta, S."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2023,
+    "topic": "Spatio-Temporal Analysis of Heterogeneity in Cooling Ecosystem Services of Urban and Peri-Urban lentic systems in Hyderabad",
+    "co_supervisor": "Dr. Aalok Khandekar",
+    "photo": "subhadip-datta.jpg",
+    "linkedin": "https://in.linkedin.com/in/subhadip-datta",
+    "order": 50
+  },
+  {
+    "id": "deepak",
+    "name": "Deepak",
+    "aliases": [],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2023,
+    "topic": "Identification, restoration and conservation of underground water channels (Karez) of North Karnataka using non-invasive techniques",
+    "note": "co-supervised",
+    "photo": "",
+    "linkedin": "",
+    "order": 60
+  },
+  {
+    "id": "abdul-baasit",
+    "name": "H. S. Abdul Baasit M. P.",
+    "aliases": [
+      "Baasit, H. S. A."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2026,
+    "topic": "Joined the PhD programme in 2026",
+    "photo": "abdul-baasit.jpg",
+    "linkedin": "https://www.linkedin.com/in/h-s-abdul-baasit-m-p-13a956261/",
+    "order": 70
+  },
+  {
+    "id": "bharathi-radha-josyula",
+    "name": "Bharathi Radha Josyula",
+    "aliases": [
+      "Josyula, B. R."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2026,
+    "topic": "Hydraulic Routing and Flood Analysis",
+    "photo": "",
+    "linkedin": "https://www.linkedin.com/in/bharathiradha-josyula-9b079b218",
+    "order": 80
+  },
+  {
+    "id": "gaurav-khairnar",
+    "name": "Gaurav Bapurao Khairnar",
+    "aliases": [
+      "Khairnar, G. B."
+    ],
+    "role": "phd",
+    "status": "current",
+    "start_year": 2026,
+    "topic": "Coastal flooding and vulnerability",
+    "photo": "gaurav-khairnar.jpg",
+    "linkedin": "https://www.linkedin.com/in/gaurav-khairnar7/",
+    "order": 90
+  },
+  {
+    "id": "rahul-thangallapally",
+    "name": "Rahul Thangallapally",
+    "aliases": [
+      "Thangallapally, R."
+    ],
+    "role": "mtech",
+    "status": "current",
+    "programme": "M.Tech (RA)",
+    "start_year": 2025,
+    "topic": "Joined the M.Tech programme in 2025",
+    "photo": "rahul-thangallapally.jpg",
+    "linkedin": "https://www.linkedin.com/in/rahul-thangallapally-94610b260/",
+    "order": 200
+  },
+  {
+    "id": "essapally-naresh",
+    "name": "Essapally Naresh",
+    "aliases": [
+      "Naresh, E."
+    ],
+    "role": "mtech",
+    "status": "current",
+    "programme": "M.Tech (RA)",
+    "start_year": 2025,
+    "blurb": "Working at the Center for Godavari River Basin Management Studies, IIT Hyderabad, focusing on hydrological and hydraulic modelling.",
+    "photo": "essapally-naresh.jpg",
+    "linkedin": "https://www.linkedin.com/in/naresh-essapally-0414a9281/",
+    "order": 210
+  },
+  {
+    "id": "vaishnavi-bherde",
+    "name": "Vaishnavi B",
+    "aliases": [
+      "Bherde, V."
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2021,
+    "end_year": 2026,
+    "viva_date": "2026-08",
+    "thesis_title": "Application of UAV for seepage detection in Earthen and Tailings Dams",
+    "note": "co-supervised",
+    "photo": "",
+    "linkedin": "",
+    "first_position": "",
+    "order": 300
+  },
+  {
+    "id": "guniganti-surya-kiran",
+    "name": "Guniganti Surya Kiran",
+    "aliases": [
+      "Guniganti, S. K.",
+      "S K Guniganti"
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2019,
+    "end_year": 2026,
+    "viva_date": "2026-02",
+    "blurb": "I am working on the development of hydrological modeling and forecasting for the Indian river basin. As part of it, I deal with calibration of multiple hydrological models, hydraulic models and regionalization for the prediction in ungauged basins.",
+    "thesis_title": "A prototype ensemble hydrologic modeling and forecasting system for Narmada River Basin, India",
+    "photo": "guniganti-surya-kiran.jpg",
+    "linkedin": "https://www.linkedin.com/in/dr-surya-kiran-guniganti-930a47168/",
+    "first_position": "National Researcher, IWMI",
+    "order": 310
+  },
+  {
+    "id": "ponukumati-padmini",
+    "name": "Ponukumati Adilakshmi Padmini",
+    "aliases": [
+      "Ponukumati, P.",
+      "Ponukumati, A. P.",
+      "Ponukumati, A.P."
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2019,
+    "end_year": 2026,
+    "viva_date": "2025-02",
+    "blurb": "My research centres on urban flood modelling, encompassing satellite rainfall data, optical remote sensing, and crowdsourced data extraction. I employ multi-criteria decision analysis and hydraulic models for flood risk mapping. I also develop web-based R-Shiny apps and disseminate flood information via social media platforms.",
+    "thesis_title": "Urban Flood Modelling – A Web-based Decision Tool for the Hyderabad city, India",
+    "photo": "ponukumati-padmini.jpg",
+    "linkedin": "https://www.linkedin.com/in/ponukumati-adilakshmi-padmini-51b827293/",
+    "first_position": "IIT Hyderabad",
+    "order": 320
+  },
+  {
+    "id": "mohammed-azharuddin",
+    "name": "Mohammed Azharuddin",
+    "aliases": [
+      "Mohammed, A."
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2018,
+    "end_year": 2024,
+    "viva_date": "2024-02",
+    "thesis_title": "Understanding and modeling of urban floods through an integrated framework for the city of Hyderabad, India",
+    "photo": "mohammed-azharuddin.jpg",
+    "linkedin": "https://www.linkedin.com/in/mohammed-azharuddin-0191b285/",
+    "first_position": "Postdoctoral Researcher, Newcastle University",
+    "order": 330
+  },
+  {
+    "id": "dagani-koteswara-rao",
+    "name": "Dagani Koteswara Rao",
+    "aliases": [
+      "Dagani, K. R.",
+      "Dagani., K.R."
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2017,
+    "end_year": 2022,
+    "viva_date": "2022-06",
+    "thesis_title": "Water footprint assessment of an urban agglomeration in a developing economy: A case study of the Hyderabad Metro Development Authority (HMDA) region, India",
+    "photo": "",
+    "linkedin": "",
+    "first_position": "",
+    "order": 340
+  },
+  {
+    "id": "vimal-chandra-sharma",
+    "name": "Vimal Chandra Sharma",
+    "aliases": [
+      "Sharma, V. C.",
+      "Sharma, V.C."
+    ],
+    "role": "phd",
+    "status": "alumni",
+    "programme": "PhD",
+    "start_year": 2017,
+    "end_year": 2021,
+    "viva_date": "2021-09",
+    "thesis_title": "Streamflow Forecasting and Flood Inundation Modelling Framework in the Lower Godavari River Basin, India",
+    "photo": "",
+    "linkedin": "",
+    "first_position": "",
+    "order": 350
+  },
+  {
+    "id": "ranjith-varma",
+    "name": "Mynam Ranjith Varma",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2026,
+    "thesis_title": "Integrated Hydrologic–Hydraulic Modelling and Performance Assessment of a Campus Stormwater Drainage System Using SWMM",
+    "photo": "ranjith-varma.jpg",
+    "linkedin": "https://www.linkedin.com/in/ranjith-varma-mynam/",
+    "first_position": "IIT Hyderabad — Urban flood modelling, and water resources management",
+    "order": 400
+  },
+  {
+    "id": "abhay-sachan",
+    "name": "Abhay Sachan",
+    "aliases": [
+      "Sachan, A."
+    ],
+    "role": "mtech",
+    "status": "alumni",
+    "end_year": 2026,
+    "photo": "abhay-sachan.jpg",
+    "linkedin": "https://www.linkedin.com/in/abhay-sachan-26b23710b",
+    "first_position": "KAS Global Commerce Inc. — AI Research engineer",
+    "order": 405
+  },
+  {
+    "id": "kanishka-gupta",
+    "name": "Kanishka Gupta",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2025,
+    "blurb": "My research focuses on rainfall nowcasting for city of Hyderabad, India, by leveraging radar reflectivity data and advanced deep learning techniques.",
+    "thesis_title": "Deep Learning-Based Rainfall Nowcasting Using Weather Radar in Urban Region",
+    "photo": "kanishka-gupta.jpg",
+    "linkedin": "https://www.linkedin.com/in/kanishka-gupta-ba7859221",
+    "first_position": "Alfred Lab Co. Ltd, Japan — Artificial intelligence & Machine learning modelling",
+    "order": 410
+  },
+  {
+    "id": "swagatam-bora",
+    "name": "Swagatam Bora",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2025,
+    "blurb": "My research focuses on runoff estimation combining hydrologic- and hydraulic models along with ML techniques.",
+    "thesis_title": "A Hybrid Approach to Flood Modelling: Combining Hydrological-Hydraulic Simulations with Deep Learning",
+    "photo": "swagatam-bora.jpg",
+    "linkedin": "https://www.linkedin.com/in/swagatam-bora-07b652172/",
+    "first_position": "Clear Water Dynamics Pvt Ltd — Water Supply Engineering, Stormwater Drainage Systems, IoT in Water Systems",
+    "order": 420
+  },
+  {
+    "id": "shruti-saumya",
+    "name": "Shruti Saumya",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2025,
+    "blurb": "My research focuses on developing maps of high-risk flood-prone areas for cities, Hyderabad and Kochi.",
+    "thesis_title": "Land Use Land Cover and Flood Susceptibility Mapping for Hyderabad and Kochi Using Machine Learning Techniques for Sustainable Solutions",
+    "photo": "shruti-saumya.jpg",
+    "linkedin": "https://www.linkedin.com/in/shruti-saumya",
+    "first_position": "AECOM — Building Information Modelling, Digital Delivery",
+    "order": 430
+  },
+  {
+    "id": "zeeshan",
+    "name": "Qazi Zeeshan Ahmad Jalali",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2024,
+    "thesis_title": "Identification of clouds using machine learning techniques",
+    "photo": "zeeshan.jpg",
+    "linkedin": "https://www.linkedin.com/in/qazi-zeeshan-ahmad-jalali-6371b617b",
+    "first_position": "GAIT Labs India Pvt Ltd — Green Carbon",
+    "order": 440
+  },
+  {
+    "id": "sneha-y",
+    "name": "Sneha Yakurke",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2024,
+    "thesis_title": "Ensemble flood modelling using SWMM and MIKE",
+    "photo": "sneha-y.jpg",
+    "linkedin": "https://www.linkedin.com/in/sneha-yakurke-716a47236",
+    "first_position": "L&T Construction — Hydrology and Hydraulics",
+    "order": 450
+  },
+  {
+    "id": "abhishek-sharma",
+    "name": "Abhishek Sharma",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2021,
+    "thesis_title": "Rainfall Estimation Applying Machine Learning Techniques on Weather Radar and Rain Gauge Data for the Hyderabad Region",
+    "photo": "abhishek-sharma.jpg",
+    "linkedin": "https://www.linkedin.com/in/abhisamaya/",
+    "first_position": "Founder, Proptics.in — Real estate, Agentic AI, LLMs",
+    "order": 460
+  },
+  {
+    "id": "syed-abdul-mateen",
+    "name": "Syed Abdul Mateen",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2020,
+    "thesis_title": "Multi-Spatial Scale Hybrid Rainfall-Runoff Modelling – A Case Study of Godavari River Basin",
+    "photo": "syed-abdul-mateen.jpg",
+    "linkedin": "https://www.linkedin.com/in/s-a-mateen-50a037426/",
+    "first_position": "University of Pennsylvania — Atmospheric Sciences",
+    "order": 470
+  },
+  {
+    "id": "sreekarthikeya-reddy",
+    "name": "B. Sree Karthikeya Reddy",
+    "aliases": [],
+    "role": "mtech",
+    "status": "alumni",
+    "programme": "M.Tech (TA)",
+    "end_year": 2019,
+    "thesis_title": "Digital Elevation Model from Unmanned Aerial Vehicle: An Application in Urban Flood Modeling",
+    "photo": "sreekarthikeya-reddy.jpg",
+    "linkedin": "https://in.linkedin.com/in/sreekarthikeya-reddy-499291115",
+    "first_position": "Vassar Labs IT Solutions Pvt Ltd, Hyderabad — Hydrology and Water Resources",
+    "order": 480
+  }
+]

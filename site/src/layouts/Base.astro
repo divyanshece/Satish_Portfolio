@@ -1,0 +1,114 @@
+---
+/**
+ * The page shell, and every signal a search engine or a link preview reads.
+ *
+ * Nothing here is behaviour: a meta tag runs nothing, and the one script type
+ * this site permits is application/ld+json, which is data the browser parses
+ * and never executes. The head is assembled in one place so no route can ship
+ * without a title, a description, a canonical or a share card.
+ */
+import "../styles/tokens.css";
+import "../styles/global.css";
+import Masthead from "../components/Masthead.astro";
+import Footer from "../components/Footer.astro";
+import { settings } from "../lib/content";
+
+export interface Props {
+  /** Page name, without the site suffix. Omit on the home page. */
+  title?: string;
+  /** Required on every route. There is no fallback and no page ships without one. */
+  description: string;
+  wide?: boolean;
+  ogType?: string;
+  /**
+   * Append " — Dr. Satish K. Regonda" to <title>. False on the paper pages, whose own
+   * titles already run past the width a result line can show: a repeated site
+   * name is one of the things that gets a title rewritten, and the suffix is
+   * the part that never survives truncation anyway.
+   */
+  titleSuffix?: boolean;
+  /** The share card. One card serves the whole site. */
+  image?: string;
+  imageAlt?: string;
+  /** /404 is the one route with no canonical: the URL it would name does not exist. */
+  noCanonical?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogType = "website",
+  titleSuffix = true,
+  image = "/og.png",
+  imageAlt = "Dr. Satish K. Regonda, Associate Professor, Departments of Civil Engineering and Climate Change, IIT Hyderabad.",
+  noCanonical = false,
+} = Astro.props;
+
+/* One display name, everywhere a reader can see one: the masthead, the footer,
+   the browser tab and the share card all read the same. The structured data
+   keeps the plain and citation forms, which is what a machine wants. */
+const DISPLAY = settings.name_display ?? settings.name_full;
+
+const HOME_TITLE = `${DISPLAY} — ${settings.title}, ${settings.institution}`;
+
+const fullTitle = title ? (titleSuffix ? `${title} — ${DISPLAY}` : title) : HOME_TITLE;
+
+/* og:title is a card heading, not a result line. og:site_name already says
+   whose site this is, so the suffix would be repetition inside a small box. */
+const ogTitle = title ?? HOME_TITLE;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+/* Absolute, always: LinkedIn and X drop a relative og:image and show no card. */
+const ogImage = new URL(image, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={DISPLAY} />
+    {!noCanonical && <link rel="canonical" href={canonical} />}
+
+    {/* Browsers prefer the SVG; Google Search does not read one, so the PNG is
+        what shows beside a result. Both are the same drawing. */}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#E7EDE8" />
+
+    {/* Both faces set text above the fold: the serif in the lead, the mono in
+        the masthead and every small label. */}
+    <link rel="preload" href="/fonts/piazzolla.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/martianmono.woff2" as="font" type="font/woff2" crossorigin />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={DISPLAY} />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Masthead />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

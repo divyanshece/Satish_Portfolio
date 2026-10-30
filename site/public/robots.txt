@@ -1,0 +1,5 @@
+# Google Scholar requires an open crawl to index the paper pages.
+User-agent: *
+Allow: /
+
+Sitemap: https://satishregonda.in/sitemap-index.xml

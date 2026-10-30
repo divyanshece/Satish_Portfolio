@@ -1,0 +1,39 @@
+# Vanity paths on the new domain, for anyone who typed an old path from
+# memory or has one on a slide. These are NOT a migration mechanism — the
+# old paths live on sites.google.com, which we cannot redirect. The old
+# Google Site is stripped to a forwarding page instead. See docs/RUNBOOK.md.
+
+/home                                    /                                     301
+/education-employment                    /about/                               301
+/products-publications                   /research/                            301
+/research/urban-flood                    /research/urban-flooding-hyderabad/   301
+/research/snapflood                      /products/snapflood/                  301
+/research/guidelines-for-sixer-twitter   /products/snapflood/#sixer-tweet      301
+/research/climate-extremes-*             /about/#h-projects                     301
+/students                                /students/                            301
+/raft                                    /group/                               301
+/opportunities                           /join/                                301
+/snapflood                               /products/snapflood/                  301
+/tools                                   /products/                            301
+/tools/*                                 /products/:splat                      301
+/cv                                      /about/                               301
+/cv.pdf                                  /about/                               301
+# Research and publications became one page (2026-09-11). Exact paths only, so
+# /publications/<paper>/ still serves its own page — those are what Scholar reads.
+/publications/                           /research/                            301
+/publications                            /research/                            301
+
+# Projects live on the about page; /projects/ existed only briefly (2026-09-11).
+/projects/                               /about/#h-projects                    301
+/projects                                /about/#h-projects                    301
+
+# Teaching merged into the students page (2026-09-11).
+/teaching/                               /students/                            301
+/teaching                                /students/                            301
+
+# The media page was taken down (2026-09-12). Contact and the biographies a
+# journalist would want are on the about page; /press/ pointed here too.
+/media/                                  /about/#h-contact                     301
+/media                                   /about/#h-contact                     301
+/press/                                  /about/#h-contact                     301
+/press                                   /about/#h-contact                     301

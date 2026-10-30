@@ -1,0 +1,161 @@
+---
+import { ext } from "../lib/links";
+/**
+ * The site footer: who and where, the pages, and where else he is. Words in
+ * the serif, data — the address, the email, the small print — in the mono.
+ */
+import { settings } from "../lib/content";
+import { NAV, MORE, SECTIONS } from "../lib/nav";
+
+const elsewhere = [
+  { label: "Google Scholar", url: settings.scholar_url },
+  { label: "ORCID",          url: settings.orcid_url },
+  { label: "LinkedIn",       url: settings.linkedin_url },
+  { label: "IIT Hyderabad faculty page", url: settings.iith_url },
+  { label: "RAFT Waters",    url: settings.raft_site_url },
+].filter((l) => l.url);
+
+const pages = [...NAV, ...MORE];
+// "Departments of Civil Engineering & Climate Change" — plural when he holds more than one.
+const depts = `${settings.departments.length > 1 ? "Departments" : "Department"} of ${settings.departments.join(" & ")}`;
+const role = `${settings.title}, ${depts}`;
+const year = new Date().getFullYear();
+const name = settings.name_display || settings.name_full;
+---
+
+<footer class="site-foot">
+  <div class="foot">
+    <div class="who">
+      <p class="name">{name}</p>
+      <p class="role">{role}<br />{settings.institution}</p>
+      <address>{settings.office}<br />{settings.address}</address>
+      <a class="mail" href={`mailto:${settings.email}`}>{settings.email}</a>
+    </div>
+
+    <nav class="col pages" aria-label="Pages">
+      <h2>Pages</h2>
+      <ul>
+        {pages.map((p) => <li><a href={p.href}>{p.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="col" aria-label="Sections">
+      <h2>Sections</h2>
+      <ul>
+        {SECTIONS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <nav class="col" aria-label="Elsewhere">
+      <h2>Elsewhere</h2>
+      <ul>
+        {elsewhere.map((l) => <li><a href={l.url} {...ext(l.url, "me")}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+
+  <div class="base">
+    <div class="base-in">
+      <span>&copy; {year} {name}</span>
+      <span>satishregonda.in</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* The page opens on the deep ground and it closes on it. A footer set in the
+     same paper as the body above simply looked like one more section; on the
+     band colour it reads as the foot of the document, and it bookends every
+     page with the masthead. */
+  .site-foot {
+    margin-top: var(--s-9);
+    background: var(--deep);
+    color: var(--paper);
+  }
+  .foot {
+    max-width: var(--w-wide);
+    margin-inline: auto;
+    padding: var(--s-8) var(--s-5) var(--s-6);
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1.5fr) minmax(0, 1.15fr) minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: var(--s-5) var(--s-6);
+  }
+  .site-foot p { margin: 0; }
+
+  .name { font-family: var(--serif); font-weight: 600; font-size: 1.125rem; line-height: 1.3; }
+  .role { font-family: var(--serif); color: var(--tint); line-height: 1.45; margin-top: .3rem; max-width: 26rem; }
+  address {
+    font-style: normal;
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    font-variation-settings: "wdth" 80;
+    letter-spacing: .02em;
+    line-height: 1.6;
+    color: var(--tint);
+    opacity: .85;
+    margin-top: var(--s-3);
+    max-width: 26rem;
+  }
+  .mail {
+    display: inline-block;
+    margin-top: var(--s-2);
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    color: var(--paper);
+    text-decoration-color: var(--rule-strong);
+    text-underline-offset: .18em;
+  }
+  .mail:hover { color: var(--plate); }
+
+  .col h2 {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: var(--t-micro);
+    letter-spacing: .05em;
+    color: var(--tint);
+    opacity: .75;
+    margin: 0 0 var(--s-3);
+    line-height: 1.4;
+  }
+  .col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .3rem; }
+  .col a {
+    font-family: var(--serif);
+    font-size: .875rem;
+    color: var(--paper);
+    text-decoration: none;
+  }
+  .col a:hover { color: var(--plate); text-decoration: underline; text-underline-offset: .15em; }
+
+  .base { border-top: 1px solid var(--rule-strong); }
+  .base-in {
+    max-width: var(--w-wide);
+    margin-inline: auto;
+    padding: var(--s-3) var(--s-5) var(--s-5);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-4);
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    letter-spacing: .04em;
+    color: var(--tint);
+    opacity: .7;
+  }
+
+  /* Below this the address needs the full width; the three link columns keep
+     their own proportions on the row underneath it. */
+  @media (max-width: 960px) {
+    .foot {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .85fr) minmax(0, 1.1fr);
+      gap: var(--s-6) var(--s-5);
+    }
+    .who { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .foot { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  }
+  @media (max-width: 380px) {
+    .foot { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

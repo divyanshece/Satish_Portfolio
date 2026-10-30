@@ -1,0 +1,150 @@
+---
+/**
+ * One person, current or graduated.
+ *
+ * Photographs are optional by design. Where one is missing the card shows a
+ * typographic initials tile at the same 4:5 ratio — never a grey silhouette,
+ * and never a hole in the grid. Dropping a file into public/people/ and naming
+ * it in people.json is the only change needed when a photograph arrives.
+ *
+ * The id is the anchor the contact sheet at the top of /students/ links to,
+ * so it has to stay in step with the id in people.json.
+ */
+
+import LinkedInIcon from "./LinkedInIcon.astro";
+
+export interface Props { person: any }
+const { person } = Astro.props;
+
+const initials = person.name
+  .replace(/\(.*?\)/g, "")
+  .split(/\s+/)
+  .filter((w: string) => /^[A-Za-z]/.test(w))
+  .slice(0, 2)
+  .map((w: string) => w[0].toUpperCase())
+  .join("");
+
+const photo = person.photo ? `/people/${person.photo}` : null;
+const isAlum = person.status === "alumni";
+const years = isAlum
+  ? `${person.start_year ?? ""}${person.start_year ? "–" : ""}${person.end_year ?? ""}`
+  : `Since ${person.start_year ?? ""}`;
+const degree =
+  person.programme ??
+  (person.role === "phd" ? "PhD" : person.role === "mtech" ? "M.Tech" : person.role);
+---
+
+<li class="person" id={person.id}>
+  <figure class="portrait">
+    {photo ? (
+      <img src={photo} alt={`${person.name}`} width="400" height="500" loading="lazy" decoding="async" />
+    ) : (
+      <span class="initials" aria-hidden="true">{initials}</span>
+    )}
+  </figure>
+
+  <div class="body">
+    <h4>
+      {person.name}
+      {person.linkedin && <LinkedInIcon name={person.name} url={person.linkedin} />}
+    </h4>
+    <p class="who">
+      <span class="deg">{degree}</span>
+      <span class="yrs">{years}</span>
+      {person.department && <span class="dept">{person.department}</span>}
+    </p>
+
+    {person.blurb
+      ? <p class="says">{person.blurb}</p>
+      : person.topic && <p class="says">{person.topic}</p>}
+
+    {isAlum && person.thesis_title && <p class="thesis">{person.thesis_title}</p>}
+
+    {person.co_supervisor && <p class="note">With {person.co_supervisor}.</p>}
+    {person.note && <p class="note">{person.note[0].toUpperCase() + person.note.slice(1)}.</p>}
+    {isAlum && person.first_position && <p class="now">Currently: {person.first_position}</p>}
+  </div>
+</li>
+
+<style>
+  .person {
+    display: grid;
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: var(--s-5);
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+    scroll-margin-top: 5rem;   /* the sheet links here; clear the sticky bar */
+  }
+
+  .portrait {
+    aspect-ratio: 4 / 5;
+    background: var(--plate);
+    border: 1px solid var(--rule-strong);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .initials {
+    font-family: var(--serif);
+    font-size: 2rem;
+    color: var(--ink-mute);
+    letter-spacing: .02em;
+  }
+
+  h4 {
+    font-size: 1.25rem; line-height: 1.3; font-weight: 600; letter-spacing: -.008em;
+    display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap;
+  }
+  /* Beside a name the mark is a footnote to it, so it sits down to the
+     x-height rather than matching the name's own weight. */
+  h4 :global(.li) { width: 1.375rem; height: 1.375rem; }
+  h4 :global(.li svg) { width: 12px; height: 12px; }
+
+  /* Degree, span and department read as three fields of one record, split by
+     rules rather than by the middle dots every generated page reaches for. */
+  .who {
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 75;
+    color: var(--ink-mute);
+    margin-top: var(--s-2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem var(--s-3);
+  }
+  .who .deg { color: var(--ink); }
+  .who .yrs::before, .who .dept::before {
+    content: "";
+    display: inline-block;
+    width: .85rem;
+    margin-right: var(--s-3);
+    vertical-align: .2em;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .says, .thesis, .note, .now {
+    font-size: var(--t-small);
+    line-height: 1.5;
+    margin-top: var(--s-3);
+    max-width: 34rem;
+  }
+  .says { color: var(--ink); }
+  .thesis { font-style: italic; color: var(--ink-mute); }
+  .note { color: var(--ink-mute); }
+  .now {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .02em;
+  }
+
+  @media (max-width: 640px) {
+    .person { grid-template-columns: 6rem minmax(0, 1fr); gap: var(--s-4); }
+    .initials { font-size: 1.375rem; }
+    h4 { font-size: 1.125rem; }
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+/**
+ * One course on /students/.
+ *
+ * The courses sit in two columns, so a row has roughly half the page to work
+ * in and a third hard-right column for the credits would have left titles like
+ * "Remote Sensing and GIS Applications in Water Resources" breaking over four
+ * lines. The record is laid out the way a person is laid out in PersonCard
+ * instead: the identifier on the left, the name at reading size, and the
+ * remaining fields under it in the mono micro face.
+ *
+ * Credits can be 1.5, so the number is printed as given and never padded.
+ */
+
+export interface Props { course: any }
+const { course } = Astro.props;
+
+const credits =
+  typeof course.credits === "number"
+    ? `${course.credits} ${course.credits === 1 ? "credit" : "credits"}`
+    : null;
+---
+
+<li class="course">
+  {course.code && <span class="code">{course.code}</span>}
+  <div class="body">
+    <span class="cname">{course.title}</span>
+    {(credits || course.note) && (
+      <p class="fields">
+        {credits && <span class="credits">{credits}</span>}
+        {course.note && <span class="tag">{course.note}</span>}
+      </p>
+    )}
+  </div>
+</li>
+
+<style>
+  .course {
+    display: grid;
+    grid-template-columns: 4.75rem minmax(0, 1fr);
+    align-items: baseline;
+    gap: var(--s-4);
+    padding-block: var(--s-3);
+    border-bottom: 1px solid var(--rule);
+  }
+  /* A course with no code keeps its title in the title column rather than
+     sliding left out of line with the rows above it. */
+  .body:first-child { grid-column: 2; }
+
+  .code {
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    letter-spacing: .03em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-mute);
+    white-space: nowrap;
+  }
+  .cname {
+    display: block;
+    font-size: var(--t-small);
+    line-height: 1.4;
+  }
+
+  /* Credits and the co-taught condition are two fields of one record, split by
+     a rule rather than by a middle dot, exactly as the degree, span and
+     department are under a person's name. */
+  .fields {
+    font-family: var(--mono);
+    font-size: var(--t-micro);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-variation-settings: "wdth" 75;
+    color: var(--ink-mute);
+    margin-top: var(--s-2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .35rem var(--s-3);
+  }
+  .credits { font-variant-numeric: tabular-nums; }
+  .tag::before {
+    content: "";
+    display: inline-block;
+    width: .85rem;
+    margin-right: var(--s-3);
+    vertical-align: .2em;
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  /* Below the two-column breakpoint the code moves above the title, so the
+     title keeps the full measure on a phone. */
+  @media (max-width: 30rem) {
+    .course { grid-template-columns: minmax(0, 1fr); gap: var(--s-1); }
+    .body:first-child { grid-column: 1; }
+  }
+</style>

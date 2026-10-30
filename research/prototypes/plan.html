@@ -1,0 +1,655 @@
+<title>Regonda Site Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,400..700&family=Piazzolla:ital,opsz,wght@0,8..30,400..700;1,8..30,400..600&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --paper:#F1F4F1;
+  --plate:#FFFFFF;
+  --sunk:#E6EBE7;
+  --ink:#12251F;
+  --mute:#5C6B66;
+  --rule:#C8D1CB;
+  --rule-strong:#8E9C96;
+  --accent:#166157;
+  --accent-soft:#DCE9E4;
+  --mark:#8C5A24;
+  --mark-soft:#F0E5D6;
+
+  --serif:"Piazzolla","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#0F1614;
+    --plate:#161F1C;
+    --sunk:#1B2522;
+    --ink:#E2E9E4;
+    --mute:#94A39D;
+    --rule:#2B3733;
+    --rule-strong:#4E5F59;
+    --accent:#6FBCA9;
+    --accent-soft:#17302B;
+    --mark:#CE9257;
+    --mark-soft:#2C2318;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#0F1614;
+  --plate:#161F1C;
+  --sunk:#1B2522;
+  --ink:#E2E9E4;
+  --mute:#94A39D;
+  --rule:#2B3733;
+  --rule-strong:#4E5F59;
+  --accent:#6FBCA9;
+  --accent-soft:#17302B;
+  --mark:#CE9257;
+  --mark-soft:#2C2318;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:1.0625rem;line-height:1.65;
+  font-variant-numeric:oldstyle-nums;font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+}
+
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.micro{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.06em;
+  text-transform:uppercase;font-weight:500;font-variation-settings:"wdth" 75;
+  font-variant-numeric:tabular-nums;line-height:1.5;
+}
+
+a{color:var(--accent);text-decoration:underline;text-decoration-thickness:.06em;
+  text-underline-offset:.16em;
+  text-decoration-color:color-mix(in oklab,var(--accent) 42%,transparent);
+  transition:text-decoration-color 140ms ease}
+a:hover{text-decoration-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+h1,h2,h3,h4{text-wrap:balance;margin:0;font-weight:600;letter-spacing:-.012em}
+p,ul,ol{margin:0}
+
+/* ---------- shell ---------- */
+
+.shell{max-width:72rem;margin-inline:auto;padding:0 1.5rem 6rem}
+
+.masthead{padding-block:3.5rem 2rem;border-bottom:1px solid var(--ink)}
+.eyebrow{color:var(--mute);margin-bottom:1.1rem}
+h1{font-size:clamp(2.25rem,5.5vw,3.5rem);line-height:1.06;letter-spacing:-.025em;max-width:20ch}
+.standfirst{font-size:1.25rem;line-height:1.5;color:var(--ink);margin-top:1.4rem;max-width:44rem}
+.byline{margin-top:1.8rem;display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;color:var(--mute)}
+
+.layout{display:grid;grid-template-columns:14rem minmax(0,1fr);gap:4rem;padding-top:3rem}
+
+nav.toc{position:sticky;top:2rem;align-self:start;max-height:calc(100vh - 4rem);overflow-y:auto}
+nav.toc ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:.1rem}
+nav.toc a{
+  display:grid;grid-template-columns:1.6rem 1fr;gap:.35rem;
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.045em;
+  text-transform:uppercase;font-variation-settings:"wdth" 75;
+  color:var(--mute);text-decoration:none;padding:.42rem 0;line-height:1.45;
+  border-top:1px solid var(--rule);
+}
+nav.toc li:last-child a{border-bottom:1px solid var(--rule)}
+nav.toc a:hover{color:var(--accent)}
+nav.toc a span:first-child{color:var(--rule-strong);font-variant-numeric:tabular-nums}
+
+section{padding-top:3.5rem}
+section > h2{
+  font-size:1.75rem;line-height:1.2;padding-bottom:.7rem;
+  border-bottom:1px solid var(--ink);margin-bottom:1.6rem;
+}
+.sec-n{
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.07em;
+  color:var(--mute);font-variation-settings:"wdth" 75;
+  display:block;margin-bottom:.5rem;text-transform:uppercase;
+}
+h3{font-size:1.1875rem;line-height:1.35;margin-top:2.2rem;margin-bottom:.7rem}
+h4{font-size:1rem;line-height:1.4;margin-top:1.5rem;margin-bottom:.4rem}
+p{max-width:40rem}
+p + p{margin-top:.9rem}
+section p + h3,section ul + h3,section div + h3{margin-top:2.4rem}
+
+ul.body{padding-left:1.15rem;max-width:40rem;margin-top:.8rem;display:flex;
+  flex-direction:column;gap:.5rem}
+ul.body li::marker{color:var(--rule-strong)}
+
+strong{font-weight:600}
+em{font-style:italic}
+code{font-family:var(--mono);font-size:.82em;background:var(--sunk);
+  padding:.12em .35em;border:1px solid var(--rule)}
+
+.lede{font-size:1.1875rem;line-height:1.55;max-width:42rem}
+
+/* ---------- callouts ---------- */
+
+.card{
+  background:var(--plate);border:1px solid var(--rule);
+  padding:1.35rem 1.5rem;margin-top:1.5rem;max-width:44rem;
+}
+.card h4{margin-top:0}
+.card.flag{border-left:3px solid var(--mark);background:var(--mark-soft)}
+.card.pick{border-left:3px solid var(--accent);background:var(--accent-soft)}
+.card p{max-width:none}
+
+.summary{
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding-block:1.6rem;margin-top:2rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1.6rem 2.5rem;
+}
+.summary div{display:flex;flex-direction:column;gap:.4rem}
+.summary dt{color:var(--mute)}
+.summary dd{margin:0;font-size:1.0625rem;line-height:1.45}
+
+/* ---------- tables ---------- */
+
+.tw{overflow-x:auto;margin-top:1.4rem;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.9375rem}
+th{
+  text-align:left;font-family:var(--mono);font-size:.6875rem;letter-spacing:.055em;
+  text-transform:uppercase;font-weight:500;color:var(--mute);
+  font-variation-settings:"wdth" 75;
+  padding:.7rem .9rem .7rem 0;vertical-align:bottom;
+  border-bottom:1px solid var(--rule);
+}
+td{padding:.75rem .9rem .75rem 0;border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.45}
+td:last-child,th:last-child{padding-right:0}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.8125rem;
+  white-space:nowrap;color:var(--mute)}
+td.route{font-family:var(--mono);font-size:.8125rem;white-space:nowrap}
+.ok{color:var(--accent)}
+.bad{color:var(--mark)}
+
+/* ---------- flow ---------- */
+
+.flow{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;margin-top:1.6rem;border:1px solid var(--rule);background:var(--plate);
+}
+.flow > div{padding:1.1rem 1.15rem;border-right:1px solid var(--rule)}
+.flow > div:last-child{border-right:0}
+.flow h5{margin:0 0 .5rem;font-family:var(--mono);font-size:.6875rem;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:500;
+  font-variation-settings:"wdth" 75;color:var(--mute)}
+.flow p{font-size:.9375rem;line-height:1.45;margin:0}
+.flow .step{color:var(--rule-strong);font-family:var(--mono);font-size:.8125rem}
+
+/* ---------- tabs list ---------- */
+
+.tabs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem;max-width:44rem}
+.tabs span{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.03em;
+  border:1px solid var(--rule);background:var(--plate);
+  padding:.28rem .55rem;
+}
+.tabs span.sys{color:var(--mute);border-style:dashed;background:transparent}
+
+.footnote{color:var(--mute);font-size:.9375rem;line-height:1.5;margin-top:.9rem;max-width:40rem}
+
+footer{border-top:1px solid var(--ink);margin-top:4.5rem;padding-top:1.5rem;
+  color:var(--mute);font-size:.9375rem;max-width:44rem}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:0;padding-top:1.5rem}
+  nav.toc{position:static;max-height:none;margin-bottom:1.5rem;
+    border-bottom:1px solid var(--ink);padding-bottom:1.5rem}
+  nav.toc ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:0}
+  .flow{grid-template-columns:1fr}
+  .flow > div{border-right:0;border-bottom:1px solid var(--rule)}
+  .flow > div:last-child{border-bottom:0}
+}
+</style>
+
+<div class="shell">
+
+<header class="masthead">
+  <div class="eyebrow micro">Design and build plan · 4 September 2026</div>
+  <h1>A site for Satish Regonda</h1>
+  <p class="standfirst">Twenty research agents read his current site line by line, checked every link and DOI, surveyed a few hundred academic and lab websites, and worked out how a Google Drive folder can run a website that a non-technical professor still controls in 2031. This is what they found and what I propose we build.</p>
+  <div class="byline micro">
+    <span>satishregonda.in</span>
+    <span>·</span>
+    <span><a href="https://claude.ai/code/artifact/c0da362a-00f2-4a08-b61b-06368189c30e">See the home page prototype</a></span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <nav class="toc" aria-label="Contents">
+    <ol>
+      <li><a href="#found"><span>01</span><span>What we found</span></a></li>
+      <li><a href="#direction"><span>02</span><span>The direction</span></a></li>
+      <li><a href="#site"><span>03</span><span>The site</span></a></li>
+      <li><a href="#edits"><span>04</span><span>What he edits</span></a></li>
+      <li><a href="#publish"><span>05</span><span>How publishing works</span></a></li>
+      <li><a href="#wrong"><span>06</span><span>When it goes wrong</span></a></li>
+      <li><a href="#build"><span>07</span><span>Build plan</span></a></li>
+      <li><a href="#ask"><span>08</span><span>What I need</span></a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <div class="summary">
+      <div><dt class="micro">Blocking right now</dt><dd>The domain is registered but on registry <strong>clientHold</strong>, so it does not resolve. Almost certainly an unverified registrant email at GoDaddy.</dd></div>
+      <div><dt class="micro">Settled</dt><dd>The group site is <code>raftwaters.com</code>, not <code>.in</code>. <code>/group/</code> here stays brief and links out to it.</dd></div>
+      <div><dt class="micro">Highest-value content</dt><dd>Eighteen alumni are listed with thesis titles and <em>zero</em> placement data. That one column would do more for the group than any design decision.</dd></div>
+      <div><dt class="micro">Effort</dt><dd>≈17 working days over 6–7 calendar weeks. Running cost afterwards: the domain renewal, about ₹1,200 a year. Everything else is ₹0.</dd></div>
+    </div>
+
+    <div class="card pick" style="max-width:none">
+      <h4>Does he add a figure every time he publishes a paper?</h4>
+      <p>No — and this is worth being unambiguous about. A publication is <strong>six text fields</strong>: title, authors, journal, year, DOI, abstract. No image, ever. The figures are <strong>four in total</strong>, one per research theme, and they change perhaps once a year. Adding a paper stays a three-minute typing job with nothing to upload.</p>
+    </div>
+
+    <!-- ============================================= -->
+    <section id="found">
+      <h2><span class="sec-n">Section one</span>What we found</h2>
+
+      <p class="lede">Three things contradict the brief we started from, so they come first.</p>
+
+      <h3>The domains</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Domain</th><th>Status</th><th>What it means</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="route">satishregonda.in</td>
+              <td class="n bad">clientHold</td>
+              <td>Registered at GoDaddy on 3 Sep 2026, paid through 2029, nameservers already assigned — but the registry is holding it out of DNS, so it resolves nowhere. This is what GoDaddy does when the ICANN registrant-email verification hasn't been clicked. <strong>Find that email and click the link.</strong> It's a five-minute fix and nothing else can start until it's done.</td>
+            </tr>
+            <tr>
+              <td class="route">raftwaters.com</td>
+              <td class="n ok">Yours — resolved</td>
+              <td>Registered at GoDaddy in June 2026. This is the group's domain; <code>raftwaters.in</code> was never bought and isn't needed. <strong>One caveat:</strong> it currently serves GoDaddy's auto-generated Website Builder page — a Getty stock photo, Playfair Display, and the tagline <em>"Ride the Rapids with Us."</em> It reads as a whitewater rafting company. Nothing should link to it until the real site is up.</td>
+            </tr>
+            <tr>
+              <td class="route">snapflood.in</td>
+              <td class="n bad">Broken chain</td>
+              <td>Registered Dec 2025, live, and 301-redirecting to <code>snapflood.civil.iith.ac.in</code> — which itself doesn't resolve. A real asset currently pointing at nothing. Worth fixing in the same sitting as the others.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>His current site</h3>
+      <p>Thirteen published pages, of which two are orphaned — reachable only from a sentence inside another page, absent from the menu. There is no CV page, no news, no contact page, no awards, and <strong>no photograph of him anywhere on his own website.</strong> His only official portrait lives on the IITH faculty server.</p>
+
+      <div class="card flag">
+        <h4>Things that are actively wrong, and would have been copied forward</h4>
+        <ul class="body">
+          <li>Three publication links are dead. One DOI has a trailing full stop that turns a working link into a 404; one is an expired 50-day Elsevier share link returning HTTP&nbsp;400; one has a stray period inside an ASCE DOI.</li>
+          <li>Brown et&nbsp;al. 2014 Parts 1 and 2 are printed with the <em>same</em> DOI. They are two different papers.</li>
+          <li>The RAFT page headlines two graduated PhDs as current scholars — Padmini defended in Feb 2025, Surya Kiran in Feb 2026 — and omits seven students the Students page lists as current.</li>
+          <li>A PhD student, <strong>Akansha Maity</strong> (Climate Change, 2023 cohort), is on the department roster and appears nowhere on his site.</li>
+          <li>The SnapFlood form link is a URL pasted onto the end of itself. It 404s. The same page says "Google <em>from</em> link a&nbsp;nd&nbsp;X".</li>
+          <li>The Sixer Twitter guidelines exist <em>only</em> as pixels inside one image with no alt text. Nothing else on the web has that content. If the old site is deleted before someone retypes it, it is gone.</li>
+          <li>Two copyrighted press photographs (Hindustan Times, The Hindu) are republished on the SnapFlood page.</li>
+          <li>Analytics is Universal Analytics <code>UA-138718262-1</code>, switched off by Google in July 2023. It has collected nothing for three years.</li>
+          <li>Every page shares the same social-preview title: <strong>"Satish R"</strong>.</li>
+          <li>Address, phone and PIN code disagree between his site, the CE department and the IITH directory. Even his email is written three different ways.</li>
+          <li>All 22 images are on Google's CDN and return 403 to anything that isn't a signed-in browser, so the migration has to go through Google Takeout rather than a script.</li>
+        </ul>
+      </div>
+
+      <h3>What's strong and buried</h3>
+      <p>The recon turned up a lot that deserves to be on the front page and currently isn't. He spent 2006–2013 at NOAA's Office of Hydrologic Development in Silver Spring working on the US National Weather Service's ensemble streamflow forecasting service, then the World Bank and Johns Hopkins, before IIT Hyderabad in Feb 2017. He was Head of the Department of Climate Change 2019–2022 and chairs the Rural Development Centre. Twenty-nine refereed papers; Google Scholar shows 1,859 citations and an h-index of 15.</p>
+      <p>SnapFlood — a citizen flood-reporting app with 100+ installs, funded by DST-SPLICE, the National Network Programme on Urban Climate and the Government of India's AI Centre of Excellence for Sustainable Cities, covered by NewsMeter, The Hans India and Deccan Chronicle in 2023 — sits three clicks deep. None of those funders or articles is named anywhere on the site. There is even a mascot, VarshaMitra, that appears only in a YouTube description.</p>
+
+      <div class="card flag">
+        <h4>The single highest-value thing missing</h4>
+        <p>Eighteen graduates are listed with thesis titles and viva dates and <strong>no placement information at all</strong>. Where alumni went is the strongest evidence a research group can publish, and it's the first thing a prospective PhD student looks for. It exists nowhere public — only he and they know it. Collecting it is a WhatsApp round, and I want to start it on day one rather than at the end.</p>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="direction">
+      <h2><span class="sec-n">Section two</span>The direction</h2>
+
+      <p class="lede">You said it must not look AI-made. That's not a styling problem — it's a sourcing problem. Generic sites look generic because their form comes from a template library instead of from their subject. So the form here comes from the documents his own field publishes.</p>
+
+      <p>The reference points are the documents his own field publishes — a National Weather Service river page, a Central Water Commission flood bulletin, a USGS topographic sheet that sets river names in italic and puts its provenance in a dense block at the foot. What we take from them is <em>structure</em>, not decoration: numbers in fixed columns, separations drawn as real hairlines, no persuasion anywhere.</p>
+
+      <p><strong>The masthead is type, not a graphic.</strong> The first draft opened with a hydrograph carrying the 1908 <em>Musi</em> flood as a datum line, and you were right that it wouldn't land — it asked him for data he may not hold and leaned on a flood that killed fifteen thousand people. It's gone. The page now opens with his name, a hard rule, one paragraph, and a photograph. Quieter, and it depends on nothing we have to ask him for.</p>
+
+      <p><a href="https://claude.ai/code/artifact/c0da362a-00f2-4a08-b61b-06368189c30e">The prototype is built</a> — two pages, with his real photographs in it. Open it before reading further; it argues better than this paragraph does.</p>
+
+      <h3>The decisions that make it non-generic</h3>
+      <ul class="body">
+        <li><strong>The photographs are the anchor, and they're his.</strong> The portrait has the irrigation map of Telangana on the wall behind him — a hydrologist in front of a map of his own state's water, which is worth more than any studio headshot. The group shots show people actually working: laptops, a camera on the table, the SnapFlood site on a monitor. Nothing is posed and nothing is stock.</li>
+        <li><strong>The VarshaMitra illustration carries the SnapFlood page.</strong> Hand-drawn, signed by the artist, and it shows exactly what the app is for: a girl in a yellow VarshaMitra kurta photographing a flooded street while a child floats paper boats. It is the single most un-templatable asset in the project.</li>
+        <li><strong>The accent has a citation.</strong> <code>#166157</code> is a stop on the IPCC AR6 precipitation colormap. <code>#8C5A24</code> is the dry pole of the same divergent ramp, and on this site it means <em>absence</em> — an alumnus whose placement we don't have, a paper with no open copy, a project with no public data. His whole argument is that the gap is in the observations; here the gaps have a colour, and it's the one his discipline uses for <em>drier</em>.</li>
+        <li><strong>Named water bodies render as hydrography.</strong> <em>Musi</em>, <em>Godavari</em>, <em>Narmada</em>, <em>Krishna</em>, <em>Osman Sagar</em> — italic, in the accent, automatically, everywhere in prose, from a term list. No template can do this, because no template knows which nouns are rivers.</li>
+        <li><strong>Student co-authors are marked automatically.</strong> <span class="mono" style="font-size:.85em">*</span> PhD, <span class="mono" style="font-size:.85em">†</span> M.Tech, derived by matching author strings against the group roster and checking the paper's year against when they were in the group. He never types anything about students; adding a student retroactively marks every paper they co-authored.</li>
+        <li><strong>The ground is tinted and the figures are the white.</strong> Every academic site is a white page with grey cards. This is the reverse. It costs one colour token and it's legible from across a room.</li>
+        <li><strong>His career is drawn, not listed.</strong> Washington and Baltimore overlap; in a line of type that overlap reads as a typing error, and as four bars on a shared axis it's the interesting part.</li>
+        <li><strong>Products are a first-class section, built for a list that grows.</strong> Seven already exist — SnapFlood, UFIS, GHMC-RADS, VarshaAnalytics, Hydro-EMOS, Extreme Climate Analysis, the poverty tool. Each is one row, so the eighth costs nothing. Very few academic sites treat shipped software as a peer of publications, and his does because it should.</li>
+        <li><strong>Zero JavaScript, zero third-party requests, zero cookies.</strong> Filters are real URLs, sidenotes are <code>&lt;details&gt;</code>, the nav wraps instead of collapsing into a drawer. The whole page is about 115&nbsp;KB warm. The current Google Site ships 135&nbsp;KB of empty HTML shell before any content.</li>
+      </ul>
+
+      <div class="card pick">
+        <h4>Three departures from the research brief</h4>
+        <p>The agents proposed numbering the nav items <code>01 RESEARCH · 02 PUBLICATIONS</code>, tracked-out small-caps labels above each section, and monospace metadata everywhere. Those are exactly the reflexes that read as templated in 2026 — numbering implies a sequence the nav doesn't have. I dropped all three: journal names sit in italic the way journals actually set them, and mono is reserved for things that are genuinely measured — the issue stamp, the status line, axis labels, the footer.</p>
+      </div>
+
+      <h3>Calls made without asking</h3>
+      <ul class="body">
+        <li><strong>RAFT expands to "Rainfall-runoff Analysis and Forecasting Tools."</strong> His site says "Analysis <em>modelling</em> and Forecasting Tools", which isn't English and doesn't spell RAFT. The shorter form is already public on the Play Store listing. We should also fix that listing — it currently credits the developer as <strong>"Suresh Regonda."</strong></li>
+        <li><strong>No citation counts on the site.</strong> Scholar, OpenAlex, Crossref and Scopus report four different numbers for the same paper. Anything we hard-code is wrong within a month. A quiet link to his Scholar profile instead.</li>
+        <li><strong>No dark mode.</strong> The site is a paper object, and the colophon says so in one line. The forecast-category colours a dark mode would have used are spent on flood-event mode instead, where they carry information.</li>
+        <li><strong>The blog doesn't exist until he writes.</strong> At zero posts the nav item, the index page and the RSS feed are simply not built. A blog whose newest post is eighteen months old is worse than no blog.</li>
+        <li><strong>No phone number, anywhere.</strong> Email only, plus the office room. His mobile is on the CV and on the last slide of the SnapFlood deck; it will not be on the website.</li>
+        <li><strong>No CV page and no CV file.</strong> <code>/about/</code> carries education, appointments and funded projects in web form. Nothing to leak, nothing to go stale.</li>
+        <li><strong>The "Integrated System View" slide is not usable.</strong> It's a generic stock architecture diagram — <em>external data → core application logic → API responses</em> — that says nothing about UFIS. The real diagram is slide 4, which is 31 separate PowerPoint shapes, so I redrew it from its actual content in the site's own type and palette. It's in the prototype.</li>
+      </ul>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="site">
+      <h2><span class="sec-n">Section three</span>The site</h2>
+
+      <p class="lede">Six things in the nav. Everything else hangs off them or lives in the footer.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Route</th><th>What it is</th><th>Who it's for</th></tr></thead>
+          <tbody>
+            <tr><td class="route">/</td><td>Identity and routing in one screen. Hydrograph, lead, career trajectory, recruiting status, news, four research claims, six selected papers, tools, the group.</td><td class="n">everyone</td></tr>
+            <tr><td class="route">/research/</td><td>Four numbered claims, each carrying an IPCC-style confidence tag, plus funded and past projects with agency, role and period.</td><td class="n">peers · funders</td></tr>
+            <tr><td class="route">/research/&lt;theme&gt;/</td><td>Four theme pages: urban flooding in Hyderabad, streamflow forecasting, monsoon hydroclimatology, and the hole in India's hydrologic record.</td><td class="n">peers</td></tr>
+            <tr><td class="route">/publications/</td><td>All 29, corrected, grouped by year, with derived student marks. Theme filters are real server-rendered URLs, because Google Scholar's crawler won't follow a JavaScript filter.</td><td class="n">peers</td></tr>
+            <tr><td class="route">/publications/&lt;id&gt;/</td><td>One page per paper with the full abstract visible in the HTML and the PDF as a sibling file — both are hard requirements for Scholar to index it.</td><td class="n">peers</td></tr>
+            <tr><td class="route">/products/</td><td>Titled "Things you can use." All seven, each with an honest status — the Shiny apps sleep and are slow on first load, and the page says so; the ones that aren't public say that instead of pretending.</td><td class="n">agencies · press</td></tr>
+            <tr><td class="route">/products/snapflood/</td><td>The flagship. The VarshaMitra origin story with the illustration, the six Sixer Tweet tags as real text, the redrawn UFIS diagram with a numbered description beside it, who funds it, who builds it.</td><td class="n">press · funders</td></tr>
+            <tr><td class="route">/products/&lt;slug&gt;/</td><td>A page for any product that earns one. UFIS and GHMC-RADS will; the Shiny tools probably won't.</td><td class="n">agencies</td></tr>
+            <tr><td class="route">/group/</td><td><strong>Brief by design.</strong> What RAFT is, one working photograph, the current roster, alumni with destinations, and a clear hand-off to <code>raftwaters.com</code> for everything else.</td><td class="n">students · peers</td></tr>
+            <tr><td class="route">/teaching/</td><td>Ten courses — with the codes, levels and semesters the current list is missing. Individual pages only for courses that have a real outline.</td><td class="n">his students</td></tr>
+            <tr><td class="route">/join/</td><td>The highest-traffic page on the site. Dated recruiting status, who fits, exactly what to put in the email, funding routes, and what he can't help with.</td><td class="n">applicants</td></tr>
+            <tr><td class="route">/writing/</td><td>The blog. Not built until there's a post.</td><td class="n">varies</td></tr>
+            <tr><td class="route">/about/</td><td>Long bio, education, appointments and the funded-project record. <strong>No CV page and no CV file</strong> — this is the web version, and it is the only version.</td><td class="n">peers · funders</td></tr>
+            <tr><td class="route">/news/ · /colophon/ · /404</td><td>News archive; the colophon; and a 404 that routes people somewhere useful instead of apologising.</td><td class="n">everyone</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Flood-event mode</h3>
+      <p>Journalist and agency traffic spikes during a flood, and a site that looks identical on a dry Tuesday and during a <em>Musi</em> flood is wasting its best moment. Three cells in the spreadsheet — a state, one sentence, and an end time — reorder the home page: the status strip goes to the top in the forecast-category colour, SnapFlood and the press contact rise above everything, the recruiting line drops down, and the news rail shows only the last fortnight.</p>
+      <p>Two rules keep it safe. <strong>The site never issues a forecast of its own</strong> — it prints a dated sentence he wrote and links to IMD, TSDPS, GHMC and CWC, with a permanent line saying it isn't an official warning. And it <strong>cannot get stuck on</strong>: the end time is mandatory, capped at four days, and the build reverts to normal whether or not he remembers.</p>
+
+      <h3>The split with raftwaters.com</h3>
+      <p>Now that the group has its own domain, the division is clean and worth stating once so it doesn't blur later:</p>
+      <ul class="body">
+        <li><strong>This site is about him</strong> — his research, his publications, his teaching, his students, the products he leads. First person throughout.</li>
+        <li><strong>raftwaters.com is about the group</strong> — the full roster, group news, the press kit, outreach, campaigns. Third person.</li>
+        <li><strong><code>/group/</code> here is a summary and a door.</strong> What RAFT is, one working photograph, the roster, alumni, and "for everything else, raftwaters.com". The outbound URL is a single spreadsheet cell, so if the domain ever changes it's a one-cell edit.</li>
+      </ul>
+      <p style="margin-top:.9rem">Press follows the same split. His site keeps a short <em>In the press</em> list — five dated, linked items, no downloads and no canned quotes — because a journalist who searched his name during a flood needs to see he's quotable and reachable without a second hop. The full kit, with portraits and boilerplate, belongs on the group site. Institutional roles like the Rural Development Centre chairmanship sit under Appointments on <code>/about/</code>, not in news.</p>
+      <div class="card flag">
+        <p style="margin:0"><strong>One thing to fix before we link anything:</strong> <code>raftwaters.com</code> currently serves GoDaddy's auto-generated placeholder — stock photo, Playfair Display, <em>"Ride the Rapids with Us."</em> Until the real site replaces it, a link from his page would do active harm.</p>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="edits">
+      <h2><span class="sec-n">Section four</span>What he edits</h2>
+
+      <p class="lede">One Drive folder, owned by his IITH account, is the entire content management system. There is nothing else to log into.</p>
+
+      <div class="tabs">
+        <span>Settings</span><span>Positions</span><span>Service</span><span>Research</span>
+        <span>Publications</span><span>Projects</span><span>People</span><span>Teaching</span>
+        <span>News</span><span>Talks</span><span>Awards</span><span>Press</span>
+        <span>Tools</span><span>Photos</span><span>Applicants</span>
+        <span class="sys">README</span><span class="sys">_Publish&nbsp;Log</span><span class="sys">_Alumni&nbsp;Replies</span>
+      </div>
+      <p class="footnote">Fifteen tabs he edits, three he only reads &mdash; <code>Applicants</code> fills itself from the form on <code>/join/</code>. Alongside the sheet: a <code>Docs/</code> folder for prose that's too long for a cell, a <code>Blog/</code> folder of one Google Doc per post, and an <code>Images/</code> folder.</p>
+
+      <div class="card pick">
+        <h4>The applicant form</h4>
+        <p>A form on <code>/join/</code> posting through Apps Script into an <code>Applicants</code> tab, which is the same Google account and the same spreadsheet as everything else — no new service, no new login.</p>
+        <p style="margin-top:.7rem">The reason it's worth building rather than just printing his email: <strong>it makes his own filter a required field.</strong> His current Opportunities page asks people to read one of his papers and say what question it raised. In an email that request is optional and mostly ignored. As a required textarea it is the price of the send button, and he can sort the sheet by that column.</p>
+        <p style="margin-top:.7rem">Three things keep it honest: it <strong>works with JavaScript disabled</strong> (a plain form POST; the kilobyte of script only avoids bouncing the visitor to a Google confirmation page); a <strong>hidden honeypot field</strong> plus a submission-time check stops most bots without a CAPTCHA; and the <strong>mailto stays visible underneath</strong>, so nobody is forced through the form to reach him.</p>
+      </div>
+
+      <h3>The parts that decide whether this survives</h3>
+      <ul class="body">
+        <li><strong><code>Settings</code> is a key/value tab, not a wide row.</strong> A single row under a header is the layout most vulnerable to what people actually do — insert a row, sort, add a column — any of which shifts every value one cell across and silently publishes the department name into the email field. Key/value is immune to all three and reads on a phone.</li>
+        <li><strong>One person, one row.</strong> Current students and alumni are the same tab with a status column, rendered three ways. Changing <code>current</code> to <code>alumni</code> moves someone from the roster to the alumni table. The two lists can't disagree — which is precisely the bug his site has today.</li>
+        <li><strong>Errors appear in the sheet, before any build runs.</strong> Cross-tab formulas put a red ❌ next to a misspelled student name or a duplicate ID the instant it's typed. For a non-technical editor, catching it in the spreadsheet beats catching it in a build log every time.</li>
+        <li><strong>Never delete a row — tick <code>exclude</code>.</strong> If he deletes one anyway, the old page stays live with a <code>noindex</code> tag so citation links keep working, and the email explains what to do instead.</li>
+        <li><strong>Photographs are picked, never pasted.</strong> A menu item picks the file from his Images folder, so there is no Drive link to get wrong. Alt text and a photographer credit are required — the site refuses to publish a photograph without them, on purpose.</li>
+        <li><strong>Consent is a column.</strong> A student's photograph and email publish only if the box is ticked. Removal on request is: clear two cells, press publish.</li>
+      </ul>
+
+      <h3>What a normal week looks like</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Task</th><th>Where</th><th>Time</th></tr></thead>
+          <tbody>
+            <tr><td>Update the recruiting notice</td><td>Top of the <code>Settings</code> tab, from a phone</td><td class="n">1 min</td></tr>
+            <tr><td>Add a publication</td><td>A row in <code>Publications</code>. Student marks are derived — he types nothing about students.</td><td class="n">3 min</td></tr>
+            <tr><td>Add a student</td><td>A row in <code>People</code> + pick a photo from the menu</td><td class="n">4 min</td></tr>
+            <tr><td>Move a student to alumni</td><td>Same row: change status, add thesis title and where they went</td><td class="n">3 min</td></tr>
+            <tr><td>Post a blog entry</td><td>A Google Doc in <code>Blog/</code>. Set <code>Status</code> to <code>published</code> in the table at the top.</td><td class="n">15 sec</td></tr>
+            <tr><td>Put the site into flood mode</td><td>Three cells in <code>Settings</code>, from a phone. Reverts by itself.</td><td class="n">1 min</td></tr>
+            <tr><td>Add a product, or change one's status</td><td>A row in <code>Products</code>. "Not yet public" is a status, not a gap to hide.</td><td class="n">3 min</td></tr>
+            <tr><td>Add a figure to a research theme</td><td>Four exist. This is a once-a-year job, not a per-paper one.</td><td class="n ok">rarely</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card flag">
+        <h4>The one part I'm still wary of</h4>
+        <p>Google Docs → clean web HTML is the fragile link in an all-Google setup. Docs export carries no alt text on images, mangles pasted formatting, and turns smart quotes into noise. The design answer is to <strong>constrain and reject rather than parse and hope</strong>: a defined vocabulary of headings, bold, italic, links, lists, quotes and images-with-captions. Anything outside it — a table, a footnote, a smart chip — and the build refuses <em>that one document</em> by name, in plain English, and publishes everything else normally. He loses one page, never the site.</p>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="publish">
+      <h2><span class="sec-n">Section five</span>How publishing works</h2>
+
+      <p class="lede">He ticks a box. About three minutes later the site is live. He can do it from the Sheets app on his phone, which is the point — the recruiting notice and the flood line are exactly what you want to change from an airport.</p>
+
+      <div class="flow">
+        <div>
+          <h5><span class="step">01</span> &nbsp;Trigger</h5>
+          <p>Tick <code>publish_now</code> in Settings — it unticks itself. Or a menu item on a laptop. Or nothing: it republishes itself at 01:30 and 13:30 daily, hourly during a flood event.</p>
+        </div>
+        <div>
+          <h5><span class="step">02</span> &nbsp;Fetch &amp; check</h5>
+          <p>One API call reads all 18 tabs. Every field is validated against a schema. A missing tab or column stops the build; a single bad row is skipped with a warning and everything else publishes.</p>
+        </div>
+        <div>
+          <h5><span class="step">03</span> &nbsp;Commit</h5>
+          <p>The content is written back into the code repository as plain Markdown files, and the images are downloaded and optimised. This is the decision that makes the site outlive Google, and us.</p>
+        </div>
+        <div>
+          <h5><span class="step">04</span> &nbsp;Deploy</h5>
+          <p>Static files to Cloudflare's edge — 22 Indian locations, Hyderabad among them. Then an email to him in plain English saying what published, or what didn't and why.</p>
+        </div>
+      </div>
+
+      <p style="margin-top:1.4rem">Because every publish commits the content back as Markdown, the repository is always a complete, working copy of the site that needs no Google account at all. Flip one environment variable and it rebuilds from those files with no network access. That claim gets <strong>tested before launch</strong> — someone else clones it on a clean machine with no credentials and rebuilds the site — because until it's been done it's only a claim.</p>
+
+      <h3>The stack, and what lost</h3>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Layer</th><th>Choice</th><th>Why not the alternative</th></tr></thead>
+          <tbody>
+            <tr><td class="n">Framework</td><td>Astro</td><td>Next.js static export forbids the redirect and header files we need and pushes you onto a paid image CDN. Eleventy needs the typed-content and image work hand-rolled.</td></tr>
+            <tr><td class="n">Hosting</td><td>Cloudflare Pages</td><td>Vercel's free tier is legally out — its terms define commercial use to include a paid consultant writing the code. Cloudflare has a Hyderabad point of presence, reads the redirect and header files natively, and rolls back to any previous deploy in about a minute.</td></tr>
+            <tr><td class="n">Analytics</td><td>Cloudflare zone stats</td><td>No script, no cookie, no consent banner, nothing for the content-security policy to block.</td></tr>
+            <tr><td class="n">Search</td><td>None</td><td>Twenty-nine publications with real filter URLs, plus Ctrl-F. A search index would cost more bytes than the entire rest of the site.</td></tr>
+            <tr><td class="n">Contact</td><td>Email link, plus one form on <code>/join/</code></td><td>His address stays public, so general contact needs no form. The applicant form earns its place because it does something an email cannot: it makes his filter a required field.</td></tr>
+            <tr><td class="n">JavaScript</td><td>Zero bytes, except ~1 KB on <code>/join/</code></td><td>Still what lets the content-security policy block essentially everything, and what keeps the site fast on a bad connection. The form works with JavaScript switched off; the kilobyte only keeps the visitor on our page instead of bouncing them to a Google confirmation screen.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="wrong">
+      <h2><span class="sec-n">Section six</span>When it goes wrong</h2>
+
+      <p class="lede">The measure of this design isn't the happy path. It's what he sees at 11pm the night before a grant deadline when he needs to change one sentence.</p>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>What happens</th><th>What he sees</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td>He half-fills a row</td><td>Everything else publishes. <em>"Published with 1 item skipped — Publications row 12: 'year' says 'forthcoming'."</em></td><td>Fix the cell. A bad row can never freeze an unrelated edit.</td></tr>
+            <tr><td>He deletes a column</td><td>Site unchanged. <em>"Tab 'Publications' is missing a column: 'venue'. Nothing on the website has changed."</em></td><td>Undo.</td></tr>
+            <tr><td>He renames a tab</td><td>Build fails, naming the tab. Site unchanged.</td><td>Rename it back. <span class="ok">This is why we use the official API</span> — the shortcut endpoint returns "OK" and silently serves the wrong sheet.</td></tr>
+            <tr><td>He misspells a student's name</td><td>A red ❌ appears in the cell immediately, before any build.</td><td>Fix the typo.</td></tr>
+            <tr><td>A Doc has a table in it</td><td>That one post doesn't publish, named in the email. The rest of the site updates normally.</td><td>Remove the table.</td></tr>
+            <tr><td>He presses publish twice</td><td><em>"A publish is already running — your changes are included in it."</em></td><td>Nothing.</td></tr>
+            <tr><td>A deploy goes out broken</td><td>Live site is wrong</td><td>Cloudflare → previous deploy → Rollback. About 60 seconds, no code.</td></tr>
+            <tr><td>Google API changes, or the sheet is deleted</td><td>Site keeps serving indefinitely</td><td>The repo holds the content as Markdown. One environment variable and it builds with no network.</td></tr>
+            <tr><td>We're both unreachable</td><td>—</td><td>A printed runbook in his desk drawer, a <strong>named second owner</strong> with access to everything who gets every failure email, and a screen recording saved in Drive rather than on a hosted link.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card flag">
+        <h4>A site whose bus factor is one isn't delivered</h4>
+        <p>Before launch we need a named IITH colleague or senior PhD student holding access to the host, the repository and the Google Cloud project. Not as a formality — they receive every failure email he receives and they hold the printed runbook. Their name goes in the colophon.</p>
+      </div>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="build">
+      <h2><span class="sec-n">Section seven</span>Build plan</h2>
+
+      <div class="tw">
+        <table>
+          <thead><tr><th>Phase</th><th>What happens</th><th>Ours</th><th>His</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="n">0 · Unblock</td>
+              <td>Clear the <code>clientHold</code>; DNS onto Cloudflare; fix the snapflood.in chain; accounts created under <em>his</em> ownership with us as secondary; second owner named; <strong>the alumni WhatsApp round goes out on day one.</strong></td>
+              <td class="n">½ day</td><td class="n">1 hr</td>
+            </tr>
+            <tr>
+              <td class="n">1 · Content rescue</td>
+              <td>Google Takeout of the old site before anything is touched; retype the Sixer Twitter guidelines out of that image while they still exist; build and seed all 18 tabs; correct all six bad DOIs; source every abstract; a 20-minute recorded interview so the prose is in his voice, not a copywriter's.</td>
+              <td class="n">2 days</td><td class="n">½ day</td>
+            </tr>
+            <tr>
+              <td class="n">1b · Photography</td>
+              <td><strong>Mostly done.</strong> The six frames you sent cover the portrait and the group at work, and they're good — real, unposed, with the Telangana irrigation map in shot. Graded together as survey photographs, not a lifestyle shoot. What's still missing is <em>water</em>: a river or reservoir, a gauge, a flooded street. Those can come from the group's existing field archive rather than a new shoot.</td>
+              <td class="n">½ day</td><td class="n">—</td>
+            </tr>
+            <tr>
+              <td class="n">2 · Design system</td>
+              <td>Type, colour, grid, components. An A3 specimen gets <strong>printed at 100% and pinned to a wall</strong> — no brief that has never been printed may claim print-trained typography. The UFIS diagram is finished from the version in the prototype, checked against his own system description.</td>
+              <td class="n">3.5 days</td><td class="n">—</td>
+            </tr>
+            <tr>
+              <td class="n">3 · Pipeline</td>
+              <td>The Sheets and Docs loaders, schema validation, the skip-versus-stop split, the image pipeline, the alias-matching author marker, the Apps Script publish button, the plain-English failure emails.</td>
+              <td class="n">3.5 days</td><td class="n">—</td>
+            </tr>
+            <tr>
+              <td class="n">4 · Pages</td>
+              <td>Every route above, at 1440px and 390px, including every empty state — a blog with no posts, an alumnus with no placement, a student with no photograph.</td>
+              <td class="n">4.5 days</td><td class="n">—</td>
+            </tr>
+            <tr>
+              <td class="n">5 · Sign-off</td>
+              <td>He reads and approves every word and proofreads every citation with us.</td>
+              <td class="n">—</td><td class="n">1.5 days</td>
+            </tr>
+            <tr>
+              <td class="n">6 · Launch</td>
+              <td>The anti-generic checklist, performance and accessibility passes, the no-credentials restore test, and a <strong>handover test where he performs all nine tasks unaided while someone watches</strong> — anything he can't finish alone is a design defect, not a training gap. Then the old Google Site is stripped to a forwarding page and every inbound link is updated.</td>
+              <td class="n">2 days</td><td class="n">2 hrs</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="footnote"><strong>≈17 working days</strong> of build, spread across 6–7 calendar weeks around his availability — down from 18.5 now that the CV page, the press kit and the hydrograph tracing are cut, and the photographs already exist. <strong>Running cost: the domain renewal only</strong> — roughly ₹900–1,500 a year. Cloudflare, GitHub and the Google APIs all sit inside free tiers at this scale, and if any of them changes there's a named fallback for each.</p>
+    </section>
+
+    <!-- ============================================= -->
+    <section id="ask">
+      <h2><span class="sec-n">Section eight</span>What I need</h2>
+
+      <h3>Now, to unblock</h3>
+      <ul class="body">
+        <li><strong>The GoDaddy account for satishregonda.in</strong>, or whoever has it. A verification email is sitting unclicked and nothing can start until it is. <em>Still the only hard blocker.</em></li>
+        <li><strong>Who is the second owner?</strong> A colleague or senior student who holds access to the host, the repository and the Google project, and gets every failure email he gets.</li>
+      </ul>
+
+      <h3>Answered, and now built in</h3>
+      <div class="tw" style="margin-bottom:1.6rem">
+        <table>
+          <thead><tr><th>Question</th><th>Answer</th><th>What changed</th></tr></thead>
+          <tbody>
+            <tr><td>RDC chairmanship</td><td class="n">Ended Aug 2026</td><td>Listed on <code>/about/</code> as <em>Chairperson, Rural Development Centre, October 2023 &ndash; August 2026</em>. Past tense, with an end date, which is what a completed term should look like.</td></tr>
+            <tr><td>Is he recruiting?</td><td class="n ok">Yes</td><td>The status line is live, and it now feeds a real form rather than an email address.</td></tr>
+            <tr><td>PIN code</td><td class="n">502285</td><td>Using his own CV, since either is acceptable. This site becomes the canonical record.</td></tr>
+            <tr><td>Publication count</td><td class="n">34, from the CV</td><td>The CV list supersedes the website's 29. All six DOI errors corrected on the way in.</td></tr>
+            <tr><td>Theme figures</td><td class="n ok">Found</td><td>Four pulled from his own CC-BY papers, each credited. See below.</td></tr>
+            <tr><td>Blog</td><td class="n">Wanted, deferred</td><td>The content model carries it so nothing needs rebuilding later, but the section is not built and the nav item is not emitted until he writes a first post.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card pick">
+        <h4>The four theme figures are his own science</h4>
+        <p>Pulled from two of his open-access papers, so there is no rights question and each carries a credit line:</p>
+        <ul class="body" style="margin-top:.7rem">
+          <li>The <strong>Hyderabad Metropolitan Development Authority region</strong> with the GHMC boundary inside it &mdash; Dagani, Regonda &amp; Dornadula (2021), <em>Water</em> 13, 637.</li>
+          <li><strong>Observed against modelled water surface elevation</strong> at three Godavari gauges, four model configurations spreading apart at the peaks &mdash; Sharma &amp; Regonda (2021), <em>Water</em> 13, 191.</li>
+          <li>The <strong>lower Godavari and Sabari basins</strong> with the CWC gauge sites &mdash; same paper.</li>
+          <li><strong>Six modelled flood extents for one event</strong> at Konta, where the disagreement between them <em>is</em> the finding &mdash; same paper.</li>
+        </ul>
+        <p style="margin-top:.7rem">Both papers are CC BY, so reuse is explicit rather than assumed. I deliberately skipped his 2026 <em>npj Natural Hazards</em> paper: it is CC BY-<strong>NC-ND</strong>, and NoDerivatives makes cropping legally awkward for exactly this use.</p>
+      </div>
+
+      <div class="card flag">
+        <h4>Errors that originate in the CV, not just the website</h4>
+        <p>Worth telling him, because they'll propagate anywhere he pastes them: <strong>Brown et al. 2014 Parts 1 and 2 carry the same DOI</strong> (Part 1 should end <code>…05.028</code>); the IMERG DOI has a <strong>trailing full stop</strong> that makes the link 404; the ASCE 2021 DOI has a <strong>stray period</strong> after the closing bracket; the Erapuram 2025 entry has a <strong>double comma</strong>; and the Assistant Professor line reads <em>"February, 2017August – September 2002"</em>. None of these get copied forward.</p>
+      </div>
+
+      <h3>From him, during Phase 1</h3>
+      <ul class="body">
+        <li><strong>Alumni destinations for all eighteen graduates.</strong> Still the single highest-value thing on the site, and it exists nowhere public. The message and form are ready to send on day one; the page ships partial rather than invented, showing "placement not recorded" in the absence colour for anyone who doesn't reply.</li>
+        <li><strong>Course codes, levels and semesters</strong> for the ten courses, and which two or three deserve a page of their own.</li>
+        <li><strong>Four research-theme figures</strong> — the only images he'll ever be asked for. Ideally lifted from his own papers: an inundation map, an ensemble hydrograph, a rainfall-trend panel, a gauge-coverage plot.</li>
+        <li><strong>Which papers he may legally self-host.</strong> Nine of his works are CC-BY and safe to mirror; four are free to read at the publisher but carry no licence at all, which is not the same thing.</li>
+        <li><strong>Awards, editorial roles and memberships</strong> — nothing is findable publicly. If they don't exist those sections simply aren't built, which looks better than an empty heading.</li>
+        <li><strong>Does he actually want a blog?</strong> An honest no is a fine answer; the section then doesn't exist until he writes something.</li>
+      </ul>
+
+      <h3>Assets — where we stand</h3>
+      <p><strong>Photography is largely solved.</strong> The six frames you sent give us the portrait and the working shots, and the irrigation map of Telangana behind him in every one is better than anything a studio would have produced. Per your call, no group photographs go on this site at all — that's the group site's job.</p>
+      <p style="margin-top:.9rem">Still worth finding, from the group's existing archive rather than a new shoot: <strong>water</strong>. A river or reservoir, a gauge, a flooded street. And <strong>figures from his own papers</strong> — a site whose imagery is his actual science is the strongest defence against looking generic, and it costs nothing but permission.</p>
+      <p style="margin-top:.9rem">Two things have been rescued from the SnapFlood deck and are now safe: the <strong>VarshaMitra illustration</strong>, and the <strong>six Sixer Tweet tags</strong>, which existed only as pixels inside one image on a site we're about to delete.</p>
+
+      <div class="card pick">
+        <h4>What I'd do next, if you agree</h4>
+        <p>Chase the domain verification and send the alumni round — both are day-one jobs that don't wait on design. Then Phase 1 content rescue: the Takeout export of the old Google Site before anything is touched, and the eighteen tabs seeded from the CV, which I can now do from the document you sent.</p>
+        <p style="margin-top:.7rem">Design feedback on <a href="https://claude.ai/code/artifact/c0da362a-00f2-4a08-b61b-06368189c30e">the prototype</a> can run in parallel. Tell me what Dr. Regonda makes of it — and if the direction is wrong, I'd far rather rebuild it now than after twenty pages exist.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Sources: his current Google Sites pages and every reachable subpage, the IITH faculty and Climate Change department listings, Google Scholar, ORCID, Crossref and OpenAlex, the SnapFlood Play Store listing, three 2023 news articles, and live DNS, RDAP and WHOIS lookups run on 4 September 2026. Every factual claim above was verified against a source; where it couldn't be, it says so.</p>
+    </footer>
+
+  </main>
+</div>
+</div>

@@ -1,0 +1,959 @@
+<title>satishregonda.in</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wdth,wght@75..112.5,400..700&family=Piazzolla:ital,opsz,wght@0,8..30,400..700;1,8..30,400..600&display=swap">
+<style>
+/* =========================================================
+   satishregonda.in — home + /tools/snapflood/ prototype
+   One committed visual world: a paper object. No dark mode,
+   so every colour is painted explicitly and the page holds
+   on any host ground.
+   ========================================================= */
+
+:root{
+  color-scheme:light;
+  --paper:#E7EDE8;          /* tinted ground — inverted from the academic default */
+  --plate:#FCFDFC;          /* figures and photographs sit on the white */
+  --ink:#0F2621;            /* AR6 dark pole, pulled toward neutral */
+  --ink-mute:#586A65;
+  --rule:#B3BDB8;
+  --rule-strong:#778681;
+  --accent:#166157;         /* a stop on the IPCC AR6 precipitation ramp */
+  --accent-hover:#0E4A42;
+  --mark:#8C5A24;           /* the AR6 dry pole — this site's colour for absence */
+
+  --serif:"Piazzolla","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --mono:"Martian Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+
+  --s-1:.25rem; --s-2:.5rem; --s-3:.75rem; --s-4:1rem; --s-5:1.5rem;
+  --s-6:2rem;   --s-7:3rem;  --s-8:4rem;   --s-9:6rem;
+
+  --w-text:34rem; --w-content:46rem; --w-wide:74rem; --rail:6.5rem; --rail-sm:2.75rem;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:4rem}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:1.125rem;line-height:1.62;
+  font-variant-numeric:oldstyle-nums;font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- primitives ---------- */
+.wide{max-width:var(--w-wide);margin-inline:auto;padding-inline:var(--s-5)}
+.content{max-width:var(--w-content);margin-inline:auto;padding-inline:var(--s-5)}
+.prose{max-width:var(--w-text)}
+
+.micro{
+  font-family:var(--mono);font-size:.6875rem;line-height:1.4;letter-spacing:.06em;
+  font-weight:500;font-variation-settings:"wdth" 75;text-transform:uppercase;
+  font-variant-numeric:tabular-nums;
+}
+.meta{
+  font-family:var(--mono);font-size:.8125rem;line-height:1.4;letter-spacing:.03em;
+  font-weight:500;font-variant-numeric:tabular-nums;
+}
+
+a{
+  color:var(--accent);text-decoration:underline;text-decoration-thickness:.06em;
+  text-underline-offset:.16em;
+  text-decoration-color:color-mix(in oklab,var(--accent) 40%,transparent);
+  text-decoration-skip-ink:auto;font-variant-numeric:lining-nums;
+  transition:text-decoration-color 140ms ease,text-decoration-thickness 140ms ease,color 140ms ease;
+}
+a:hover{color:var(--accent-hover);text-decoration-color:var(--accent);text-decoration-thickness:.09em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+:focus:not(:focus-visible){outline:none}
+
+/* named water bodies set as hydrography, the way a topo sheet labels them */
+.hyd{font-style:italic;color:var(--accent)}
+/* the colour of a gap in the record */
+.absent{color:var(--mark)}
+
+h1,h2,h3,h4{text-wrap:balance;margin:0;font-weight:600}
+p{text-wrap:pretty;margin:0}
+img{display:block;max-width:100%;height:auto}
+
+.skip{position:absolute;left:-9999px;background:var(--ink);color:var(--paper);
+  padding:var(--s-2) var(--s-4);z-index:60;font-family:var(--mono);font-size:.8125rem;
+  text-decoration:none}
+.skip:focus{left:var(--s-4);top:var(--s-2)}
+
+.rule-hard{border:0;border-top:1px solid var(--ink);margin:0}
+.rule-hair{border:0;border-top:1px solid var(--rule);margin:0}
+
+/* ---------- prototype banner ---------- */
+.draftbar{background:var(--ink);color:var(--paper)}
+.draftbar div{max-width:var(--w-wide);margin-inline:auto;padding:var(--s-3) var(--s-5);
+  font-family:var(--mono);font-size:.6875rem;letter-spacing:.055em;line-height:1.65;
+  font-variation-settings:"wdth" 75;text-transform:uppercase}
+.draftbar b{font-weight:700}
+
+/* ---------- masthead ---------- */
+.stamp{color:var(--ink-mute);padding-block:var(--s-4) var(--s-3)}
+.masthead{display:flex;align-items:flex-start;justify-content:space-between;
+  gap:var(--s-5);flex-wrap:wrap;padding-bottom:var(--s-4)}
+.ident-name{font-family:var(--mono);font-size:.8125rem;letter-spacing:.055em;
+  font-weight:700;text-transform:uppercase;line-height:1.55}
+.ident-role{font-family:var(--mono);font-size:.8125rem;letter-spacing:.03em;
+  color:var(--ink-mute);line-height:1.55}
+nav.top{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);padding-top:.15rem}
+nav.top a{font-family:var(--mono);font-size:.8125rem;letter-spacing:.045em;font-weight:500;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;padding-bottom:2px}
+nav.top a:hover{color:var(--accent)}
+nav.top a[aria-current="page"]{border-bottom:2px solid var(--accent)}
+
+/* ---------- lead ---------- */
+.lead-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:var(--s-8);padding-block:var(--s-8) var(--s-7);align-items:start}
+.lead{font-size:1.375rem;line-height:1.45;max-width:31rem;letter-spacing:-.006em}
+.lead-sub{margin-top:var(--s-5);max-width:31rem}
+figure{margin:0}
+figcaption{margin-top:var(--s-2);font-style:italic;font-size:1rem;
+  color:var(--ink-mute);line-height:1.5;max-width:30rem}
+.photo{background:var(--plate);border:1px solid var(--rule-strong);padding:6px}
+.photo img{width:100%}
+
+/* ---------- trajectory ---------- */
+.traj{margin-top:var(--s-7);max-width:38rem}
+.traj-scale{display:flex;justify-content:space-between;color:var(--ink-mute);
+  border-bottom:1px solid var(--rule);padding-bottom:var(--s-1);margin-bottom:var(--s-3)}
+.traj-row{display:grid;grid-template-columns:10.5rem 1fr;gap:var(--s-3);
+  align-items:center;padding-block:.3rem}
+.traj-org{font-family:var(--mono);font-size:.6875rem;letter-spacing:.05em;
+  text-transform:uppercase;font-variation-settings:"wdth" 75}
+.traj-track{position:relative;height:9px}
+.traj-bar{position:absolute;top:2px;height:5px;background:var(--ink)}
+.traj-bar.open{background:linear-gradient(90deg,var(--ink) 0 90%,transparent 90%)}
+.traj-note{margin-top:var(--s-3);color:var(--ink-mute);font-style:italic;font-size:1rem}
+
+/* ---------- status strip ---------- */
+.status{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  padding-block:var(--s-3);margin-block:var(--s-2)}
+.status-in{max-width:var(--w-wide);margin-inline:auto;padding-inline:var(--s-5);
+  display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);align-items:baseline;
+  font-family:var(--mono);font-size:.8125rem;letter-spacing:.045em;text-transform:uppercase;
+  font-weight:500;font-variant-numeric:tabular-nums}
+.status-in .sep{color:var(--rule-strong)}
+.status-in a{text-decoration:none;border-bottom:1px solid currentColor}
+
+/* ---------- sections ---------- */
+section{padding-block:var(--s-8)}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;
+  gap:var(--s-5);margin-bottom:var(--s-5);flex-wrap:wrap}
+h2{font-size:1.5rem;line-height:1.25;letter-spacing:-.012em}
+.sec-more{font-family:var(--mono);font-size:.8125rem;letter-spacing:.03em;white-space:nowrap}
+.standfirst{font-size:1.25rem;line-height:1.5;max-width:36rem;margin-bottom:var(--s-5)}
+
+/* ---------- gauge rail lists ---------- */
+.rail-list{border-top:1px solid var(--rule)}
+.rail-row{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:var(--s-5);
+  padding-block:var(--s-4);border-bottom:1px solid var(--rule);position:relative}
+.rail-row .yr{font-family:var(--mono);font-size:.8125rem;color:var(--ink-mute);
+  text-align:right;font-variant-numeric:tabular-nums;padding-top:.3rem;padding-right:var(--s-3);
+  border-right:1px solid var(--rule);align-self:stretch}
+.rail-row::before{content:"";position:absolute;left:0;right:0;top:-1px;
+  border-top:1px solid transparent;transition:border-color 120ms ease}
+.rail-row:hover::before,.rail-row:focus-within::before{border-top-color:var(--ink)}
+
+/* ---------- research claims ---------- */
+.claim{display:grid;grid-template-columns:minmax(0,1fr) 17rem;gap:var(--s-7);
+  align-items:start;padding-block:var(--s-6);border-bottom:1px solid var(--rule)}
+.figcredit{margin-top:var(--s-2);font-size:.9375rem;font-style:italic;line-height:1.45;
+  color:var(--ink-mute)}
+.figcredit em{font-style:normal;font-family:var(--mono);font-size:.625rem;letter-spacing:.05em;
+  text-transform:uppercase;font-variation-settings:"wdth" 75;display:block;margin-top:.3rem}
+.claim:first-of-type{border-top:1px solid var(--rule)}
+.claim-meta{color:var(--ink-mute);margin-bottom:var(--s-3);display:flex;gap:var(--s-4);flex-wrap:wrap}
+.claim-conf{color:var(--ink)}
+.claim h3{font-size:1.3125rem;line-height:1.45;font-weight:400;max-width:29rem}
+.claim h3 a{color:var(--ink);text-decoration-color:var(--rule-strong)}
+.claim h3 a:hover{color:var(--accent)}
+.claim p{margin-top:var(--s-3);font-size:1rem;color:var(--ink-mute);max-width:29rem}
+.fig-plate{background:var(--plate);border:1px solid var(--rule-strong);
+  aspect-ratio:3/2;display:grid;place-items:center;padding:var(--s-4);text-align:center;
+  color:var(--ink-mute);position:relative}
+.fig-plate span{font-family:var(--mono);font-size:.625rem;letter-spacing:.06em;
+  text-transform:uppercase;line-height:1.7}
+
+/* ---------- publications ---------- */
+.legend{font-size:1rem;color:var(--ink-mute);padding-bottom:var(--s-4);max-width:38rem}
+.legend b{color:var(--ink);font-weight:600}
+.tm{color:var(--accent);font-size:.7em;vertical-align:.4em;font-style:normal}
+.pub-title{font-size:1.125rem;line-height:1.45;display:block;color:var(--ink);text-decoration:none}
+.pub-title:hover{color:var(--accent);text-decoration:underline;
+  text-decoration-thickness:.06em;text-underline-offset:.16em}
+.pub-au{font-size:1rem;color:var(--ink-mute);margin-top:.15rem}
+.pub-au .me{color:var(--ink);font-weight:600}
+.pub-venue{font-size:1rem;font-style:italic;color:var(--ink-mute);margin-top:.1rem}
+.pub-links{font-family:var(--mono);font-size:.75rem;letter-spacing:.03em;margin-top:var(--s-2);
+  display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:baseline}
+.pub-links a{color:var(--ink-mute);text-decoration-color:var(--rule-strong)}
+.pub-links a:hover{color:var(--accent)}
+.selmark{border-left:2px solid var(--accent);padding-left:var(--s-3);
+  margin-left:calc(-1 * var(--s-3) - 2px)}
+
+/* ---------- products ---------- */
+.prod{display:grid;grid-template-columns:minmax(0,1fr) 10rem;gap:var(--s-5);
+  align-items:start;padding-block:var(--s-5);border-bottom:1px solid var(--rule)}
+.prod:first-of-type{border-top:1px solid var(--rule)}
+.prod h3{font-size:1.1875rem;line-height:1.35}
+.prod p{font-size:1rem;color:var(--ink-mute);margin-top:var(--s-2);max-width:38rem}
+.prod-state{font-family:var(--mono);font-size:.625rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-mute);text-align:right;
+  font-variation-settings:"wdth" 75;line-height:1.9;padding-top:.35rem}
+.prod-links{font-family:var(--mono);font-size:.75rem;letter-spacing:.03em;
+  margin-top:var(--s-3);display:flex;gap:var(--s-4);flex-wrap:wrap}
+
+/* ---------- projects table ---------- */
+.tw{overflow-x:auto;border-top:1px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:38rem}
+th{text-align:left;font-family:var(--mono);font-size:.625rem;letter-spacing:.07em;
+  text-transform:uppercase;font-weight:500;color:var(--ink-mute);
+  font-variation-settings:"wdth" 75;padding:.7rem var(--s-4) .7rem 0;
+  border-bottom:1px solid var(--rule);vertical-align:bottom}
+td{padding:.85rem var(--s-4) .85rem 0;border-bottom:1px solid var(--rule);
+  vertical-align:top;line-height:1.45;font-size:1rem}
+th:last-child,td:last-child{padding-right:0}
+td.n{font-family:var(--mono);font-size:.75rem;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--ink-mute);letter-spacing:.02em}
+td.pname{font-weight:600}
+
+/* ---------- UFIS diagram ---------- */
+.ufis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:0;border:1px solid var(--rule-strong);background:var(--plate);margin-top:var(--s-5)}
+.ufis-col{padding:var(--s-4);border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:var(--s-3);position:relative}
+.ufis-col:last-child{border-right:0}
+.ufis-col > h4{font-family:var(--mono);font-size:.625rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-mute);font-variation-settings:"wdth" 75;
+  font-weight:500;line-height:1.6;min-height:2.6em}
+.ufis-box{border:1px solid var(--rule);padding:var(--s-2) var(--s-3);font-size:.9375rem;
+  line-height:1.4;background:var(--paper)}
+.ufis-box b{display:block;font-weight:600;font-size:.875rem}
+.ufis-box i{font-style:normal;color:var(--ink-mute);font-size:.8125rem;line-height:1.45;
+  display:block;margin-top:.2rem}
+.ufis-box.lead-in{border-color:var(--accent);border-width:1px 1px 1px 2px}
+.ufis-col::after{content:"";position:absolute;right:-5px;top:50%;width:9px;height:9px;
+  border-top:1px solid var(--rule-strong);border-right:1px solid var(--rule-strong);
+  transform:translateY(-50%) rotate(45deg);background:var(--plate);z-index:2}
+.ufis-col:last-child::after{display:none}
+.ufis-cap{color:var(--ink-mute);font-size:1rem;margin-top:var(--s-3);font-style:italic}
+ol.steps{max-width:var(--w-text);padding-left:1.3rem;margin-top:var(--s-4);
+  display:flex;flex-direction:column;gap:var(--s-2);font-size:1rem;line-height:1.55}
+ol.steps li::marker{font-family:var(--mono);font-size:.75rem;color:var(--ink-mute)}
+
+/* ---------- snapflood story ---------- */
+.story{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:var(--s-8);
+  align-items:start;padding-block:var(--s-6)}
+.tags{border-top:1px solid var(--rule);margin-top:var(--s-4)}
+.tag-row{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:var(--s-4);
+  padding-block:var(--s-3);border-bottom:1px solid var(--rule);align-items:baseline}
+.tag-n{font-family:var(--mono);font-size:.75rem;color:var(--ink-mute);
+  font-variant-numeric:tabular-nums}
+.tag-t{font-size:1rem;line-height:1.45}
+.tag-t code{font-family:var(--mono);font-size:.8125rem;color:var(--accent);
+  letter-spacing:.01em}
+
+/* ---------- page divider ---------- */
+.pagebreak{background:var(--ink);color:var(--paper);margin-top:var(--s-9)}
+.pagebreak div{max-width:var(--w-wide);margin-inline:auto;padding:var(--s-5);
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  font-variation-settings:"wdth" 75;display:flex;justify-content:space-between;
+  gap:var(--s-4);flex-wrap:wrap}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--ink);margin-top:var(--s-8);padding-block:var(--s-5) var(--s-9)}
+.collar{max-width:var(--w-wide);margin-inline:auto;padding-inline:var(--s-5);
+  display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:.55rem var(--s-5);
+  font-family:var(--mono);font-size:.6875rem;line-height:1.65;letter-spacing:.05em;
+  font-variation-settings:"wdth" 75;font-variant-numeric:tabular-nums}
+.collar dt{color:var(--ink-mute);text-transform:uppercase}
+.collar dd{margin:0}
+.collar a{color:var(--ink);text-decoration-color:var(--rule-strong)}
+.collar a:hover{color:var(--accent)}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .lead-grid{grid-template-columns:1fr;gap:var(--s-6);padding-block:var(--s-6)}
+  .lead-photo{order:-1;max-width:22rem}
+  .claim{grid-template-columns:1fr;gap:var(--s-4)}
+  .claim figure{max-width:15rem}
+  .story{grid-template-columns:1fr;gap:var(--s-6)}
+  .story figure{max-width:18rem}
+  .ufis{grid-template-columns:1fr}
+  .ufis-col{border-right:0;border-bottom:1px solid var(--rule)}
+  .ufis-col:last-child{border-bottom:0}
+  .ufis-col > h4{min-height:0}
+  .ufis-col::after{right:50%;top:auto;bottom:-5px;transform:translateX(50%) rotate(135deg)}
+}
+@media (max-width:640px){
+  body{font-size:1.0625rem}
+  .lead{font-size:1.25rem}
+  .rail-row{grid-template-columns:var(--rail-sm) minmax(0,1fr);gap:var(--s-3)}
+  .rail-row .yr{font-size:.625rem;padding-right:var(--s-2);font-variation-settings:"wdth" 75}
+  .traj-row{grid-template-columns:1fr;gap:.1rem}
+  .prod{grid-template-columns:1fr;gap:var(--s-2)}
+  .prod-state{text-align:left;line-height:1.7}
+  .collar{grid-template-columns:1fr;gap:.1rem}
+  .collar dt{margin-top:var(--s-3)}
+  section{padding-block:var(--s-7)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.draftbar,.pagebreak,nav.top{display:none}body{background:#fff}}
+
+/* ---------- the join form ---------- */
+.form{max-width:38rem;margin-top:var(--s-5)}
+.field{margin-bottom:var(--s-5)}
+.field label{display:block;font-size:1.0625rem;font-weight:600;line-height:1.4}
+.field .hint{display:block;font-size:.9375rem;color:var(--ink-mute);line-height:1.45;
+  margin-top:.15rem;font-style:italic}
+.field .req{color:var(--mark);font-weight:400;font-style:normal}
+.field input,.field select,.field textarea{
+  display:block;width:100%;margin-top:var(--s-2);
+  font-family:var(--serif);font-size:1.0625rem;line-height:1.5;color:var(--ink);
+  background:var(--plate);border:1px solid var(--rule-strong);border-radius:0;
+  padding:.55rem .7rem;appearance:none;
+}
+.field textarea{min-height:7.5rem;resize:vertical}
+.field select{background-image:none}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button[type=submit]{
+  font-family:var(--mono);font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:600;color:var(--paper);background:var(--ink);
+  border:1px solid var(--ink);border-radius:0;padding:.7rem 1.4rem;cursor:pointer;
+  transition:background 140ms ease}
+button[type=submit]:hover{background:var(--accent);border-color:var(--accent)}
+.form-note{font-size:.9375rem;color:var(--ink-mute);line-height:1.5;margin-top:var(--s-3);
+  font-style:italic}
+.cant{border-top:1px solid var(--rule);margin-top:var(--s-6);padding-top:var(--s-4)}
+.cant li{margin-bottom:.35rem}
+ul.plain{padding-left:1.15rem;max-width:var(--w-text)}
+ul.plain li::marker{color:var(--rule-strong)}
+</style>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="draftbar"><div>
+  <b>Prototype</b> — two pages of the proposed site. Text and citations are real, taken from his CV and current site, but not his sign-off. The recruiting notice is example content. Research figures are marked plates at final ratio.
+</div></div>
+
+<header>
+  <div class="wide">
+    <div class="stamp micro">satishregonda.in · Last updated 4 September 2026</div>
+    <div class="masthead">
+      <div>
+        <div class="ident-name">Satish Kumar Regonda</div>
+        <div class="ident-role">Associate Professor · Civil Engineering &amp; Climate Change</div>
+        <div class="ident-role">IIT Hyderabad · <a href="mailto:satishr@ce.iith.ac.in">satishr@ce.iith.ac.in</a></div>
+      </div>
+      <nav class="top" aria-label="Sections">
+        <a href="#research" aria-current="page">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#products">Products</a>
+        <a href="#raft">RAFT</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#writing">Writing</a>
+      </nav>
+    </div>
+  </div>
+  <hr class="rule-hard">
+</header>
+
+<main id="main">
+
+  <!-- ================= LEAD ================= -->
+  <div class="wide">
+    <div class="lead-grid">
+      <div>
+        <p class="lead">For seven years I forecast rivers across the continental United States. Since February 2017 I have done it for one city, Hyderabad, and for the <i class="hyd">Godavari</i> and the <i class="hyd">Narmada</i>.</p>
+        <p class="lead-sub">At NOAA's Office of Hydrologic Development in Silver Spring I worked on the US National Weather Service's Hydrologic Ensemble Forecast Service — the post-processing that turns one streamflow number into a distribution a reservoir operator can act on. I came to IIT Hyderabad to do the same work for Indian rivers, and I have ended up doing most of it for one city.</p>
+        <p class="lead-sub">Hyderabad floods for reasons that are only partly about the drainage. Rain here arrives in short intense bursts over a few square kilometres, and our gauge network was built to measure a different kind of rain. Afterwards we have almost no record of where the water actually stood. My group works at both ends of that gap — the meteorology and hydrology that produce the flood, and the data collection that would let anyone check whether we got it right.</p>
+
+        <div class="traj">
+          <div class="traj-scale micro"><span>2006</span><span>2013</span><span>2020</span><span>2026</span></div>
+          <div class="traj-row">
+            <div class="traj-org">NOAA / NWS</div>
+            <div class="traj-track"><div class="traj-bar" style="left:0;width:35%"></div></div>
+          </div>
+          <div class="traj-row">
+            <div class="traj-org">World Bank</div>
+            <div class="traj-track"><div class="traj-bar" style="left:40%;width:15%"></div></div>
+          </div>
+          <div class="traj-row">
+            <div class="traj-org">Johns Hopkins</div>
+            <div class="traj-track"><div class="traj-bar" style="left:45%;width:10%"></div></div>
+          </div>
+          <div class="traj-row">
+            <div class="traj-org">IIT Hyderabad</div>
+            <div class="traj-track"><div class="traj-bar open" style="left:55%;width:45%"></div></div>
+          </div>
+          <p class="traj-note">Washington and Baltimore overlap. Drawn rather than listed, because in a line of type the overlap reads as a typing error.</p>
+        </div>
+      </div>
+
+      <figure class="lead-photo">
+        <div class="photo"><img src="{{PORTRAIT}}" alt="Satish Regonda at his desk in his office at IIT Hyderabad, working at a laptop. An irrigation map of Telangana State hangs on the wall behind him, alongside a globe."></div>
+        <figcaption>In his office at IIT Hyderabad, in front of the irrigation map of Telangana. August 2026.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ================= STATUS ================= -->
+  <div class="status">
+    <div class="status-in">
+      <span>Status · 04 Sep 2026</span>
+      <span class="sep">/</span>
+      <span>Accepting PhD applicants for January 2027</span>
+      <span class="sep">/</span>
+      <span>Closes 15 Nov</span>
+      <a href="#join">How to apply</a>
+    </div>
+  </div>
+
+  <!-- ================= CURRENTLY + NEWS ================= -->
+  <div class="content">
+    <section style="padding-bottom:var(--s-6)">
+      <h2>Currently</h2>
+      <p class="prose" style="margin-top:var(--s-4)">Building the Urban Flood Information System with the Greater Hyderabad Municipal Corporation, IMD, the Telangana State Development Planning Society and the Central Water Commission. Leading the urban flood component of AISwARYAM under the Government of India's IndiaAI Mission. Reading about rainfall nowcasting from weather radar.</p>
+    </section>
+
+    <hr class="rule-hair">
+
+    <section id="news">
+      <div class="sec-head"><h2>News</h2><a class="sec-more" href="#">All news</a></div>
+      <div class="rail-list">
+        <div class="rail-row">
+          <div class="yr">Aug 2026</div>
+          <div>Vaishnavi B defended her thesis, <i>Application of UAV for seepage detection in earthen and tailings dams</i>.</div>
+        </div>
+        <div class="rail-row">
+          <div class="yr">May 2026</div>
+          <div>GHMC-RADS begins — a real-time rainfall analytics and decision-support platform built with the Greater Hyderabad Municipal Corporation.</div>
+        </div>
+        <div class="rail-row">
+          <div class="yr">Feb 2026</div>
+          <div>Guniganti Surya Kiran defended <i>A prototype ensemble hydrologic modeling and forecasting system for the <span class="hyd">Narmada</span> River Basin</i>.</div>
+        </div>
+        <div class="rail-row">
+          <div class="yr">Jan 2026</div>
+          <div>New in <i>Water Resources Research</i>: a data-driven probabilistic approach to consequence-specific urban flood risk mapping.</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= RESEARCH ================= -->
+  <div class="wide">
+    <section id="research">
+      <div class="sec-head"><h2>Research</h2><a class="sec-more" href="#">Themes and projects</a></div>
+
+      <article class="claim">
+        <div>
+          <div class="claim-meta micro"><span class="claim-conf">High confidence</span><span>12 papers</span><span>Revised Mar 2026</span></div>
+          <h3><a href="#">Hyderabad's floods are a forecasting problem as much as a drainage problem.</a></h3>
+          <p>The city's worst events come from rainfall that is intense, short and spatially tiny, and the observing network was never built to see it.</p>
+        </div>
+        <figure class="claim-fig">
+          <div class="photo"><img src="{{FIG_HMDA}}" alt="Map of the Hyderabad Metropolitan Development Authority region showing district boundaries, the Greater Hyderabad Municipal Corporation area shaded in orange at the centre, and the drainage network in blue."></div>
+          <figcaption class="figcredit">The Hyderabad Metropolitan Development Authority region, with the GHMC boundary inside it.<em>Dagani, Regonda &amp; Dornadula (2021), <i>Water</i> 13, 637. CC BY.</em></figcaption>
+        </figure>
+      </article>
+
+      <article class="claim">
+        <div>
+          <div class="claim-meta micro"><span class="claim-conf">High confidence</span><span>9 papers</span><span>Revised Jan 2026</span></div>
+          <h3><a href="#">Ensemble forecasts for the <i class="hyd">Godavari</i>, <i class="hyd">Narmada</i> and <i class="hyd">Brahmaputra</i>, seven to fifteen days out.</a></h3>
+          <p>The post-processing lineage runs directly from the NWS Hydrologic Ensemble Forecast Service to prototypes running on Indian basins under the Monsoon Mission.</p>
+        </div>
+        <figure class="claim-fig">
+          <div class="photo"><img src="{{FIG_HYDRO}}" alt="Five hydrograph panels plotting water surface elevation over time at three gauge sites. A black observed trace runs beneath four coloured model traces, which spread apart at the flood peaks."></div>
+          <figcaption class="figcredit">Observed against modelled water surface elevation at Dummugudem, Koida and Bhadrachalam, across four model configurations.<em>Sharma &amp; Regonda (2021), <i>Water</i> 13, 191. CC BY.</em></figcaption>
+        </figure>
+      </article>
+
+      <article class="claim">
+        <div>
+          <div class="claim-meta micro"><span class="claim-conf">Medium confidence</span><span>7 papers</span><span>Revised Nov 2025</span></div>
+          <h3><a href="#">Monsoon rainfall is changing shape over Indian cities.</a></h3>
+          <p>Space–time rainfall attributes across peninsular urban agglomerations are shifting in ways that matter more to a city planner than annual totals do.</p>
+        </div>
+        <figure class="claim-fig">
+          <div class="photo"><img src="{{FIG_BASIN}}" alt="Elevation map of the lower Godavari river basin with the river drawn in cyan and seven gauge sites marked as red triangles, beside locator insets of India and of the basin."></div>
+          <figcaption class="figcredit">The lower <i class="hyd">Godavari</i> and <i class="hyd">Sabari</i> basins, with the CWC gauge sites the forecasts are verified against.<em>Sharma &amp; Regonda (2021), <i>Water</i> 13, 191. CC BY.</em></figcaption>
+        </figure>
+      </article>
+
+      <article class="claim">
+        <div>
+          <div class="claim-meta micro"><span class="claim-conf">High confidence</span><span>5 papers</span><span>Revised May 2026</span></div>
+          <h3><a href="#">India's hydrologic record has a hole in it.</a></h3>
+          <p>We have almost no record of where floodwater actually stood. SnapFlood exists to fill that gap with photographs from the people standing in it.</p>
+        </div>
+        <figure class="claim-fig">
+          <div class="photo"><img src="{{FIG_INUND}}" alt="Flood inundation outlines along a river reach near Konta, drawn six times in six colours for six model configurations. The outlines diverge most widely on the floodplain margins."></div>
+          <figcaption class="figcredit">Six modelled flood extents for the same event at Konta, 22 September 2005 — the disagreement between them <em>is</em> the finding.<em>Sharma &amp; Regonda (2021), <i>Water</i> 13, 191. CC BY.</em></figcaption>
+        </figure>
+      </article>
+    </section>
+  </div>
+
+  <!-- ================= PUBLICATIONS ================= -->
+  <div class="content">
+    <section id="publications">
+      <div class="sec-head"><h2>Selected publications</h2><a class="sec-more" href="#">All 34 papers</a></div>
+      <p class="legend"><span class="tm" style="vertical-align:0;font-size:1em">*</span> PhD student &nbsp; <span class="tm" style="vertical-align:0;font-size:1em">†</span> M.Tech &nbsp; <span class="tm" style="vertical-align:0;font-size:1em">‡</span> B.Tech — supervised in my group. My name is set in <b>bold</b>. The marks are derived from the group roster, so adding a student marks every paper they have co-authored, including old ones.</p>
+
+      <div class="rail-list">
+        <div class="rail-row">
+          <div class="yr">2026</div>
+          <div class="selmark">
+            <a class="pub-title" href="#">Web-messaging-based dissemination of urban rainfall and flood information: a Telegram bot framework</a>
+            <div class="pub-au">Ponukumati, P.<span class="tm">*</span>, and <span class="me">Regonda, S. K.</span></div>
+            <div class="pub-venue">npj Natural Hazards</div>
+            <div class="pub-links"><a href="#">doi:10.1038/s44304-026-00234-3</a><a href="#">pdf</a></div>
+          </div>
+        </div>
+
+        <div class="rail-row">
+          <div class="yr">2026</div>
+          <div>
+            <a class="pub-title" href="#">Space-time variability of rainfall attributes across urban agglomerations of Peninsular India and implications for sustainable growth</a>
+            <div class="pub-au">Saipriya, S. R.<span class="tm">*</span>, <span class="me">Regonda, S. K.</span>, and Rajagopalan, B.</div>
+            <div class="pub-venue">Urban Climate</div>
+            <div class="pub-links"><a href="#">doi:10.1016/j.uclim.2026.102950</a><span class="absent">no open copy</span></div>
+          </div>
+        </div>
+
+        <div class="rail-row">
+          <div class="yr">2026</div>
+          <div class="selmark">
+            <a class="pub-title" href="#">A novel data-driven probabilistic approach for consequence-specific urban flood risk mapping</a>
+            <div class="pub-au">Ponukumati, P.<span class="tm">*</span>, Cheruvu, V., and <span class="me">Regonda, S. K.</span></div>
+            <div class="pub-venue">Water Resources Research</div>
+            <div class="pub-links"><a href="#">doi:10.1029/2025WR042621</a><span class="absent">no open copy</span></div>
+          </div>
+        </div>
+
+        <div class="rail-row">
+          <div class="yr">2024</div>
+          <div>
+            <a class="pub-title" href="#">Analytical probabilistic model to estimate exceedance probabilities of event runoff depth in urban catchments</a>
+            <div class="pub-au">Mohammed, A.<span class="tm">*</span>, <span class="me">Regonda, S. K.</span>, and Cheruvu, V.</div>
+            <div class="pub-venue">Journal of Hydrology</div>
+            <div class="pub-links"><a href="#">doi:10.1016/j.jhydrol.2024.132407</a><span class="absent">no open copy</span></div>
+          </div>
+        </div>
+
+        <div class="rail-row">
+          <div class="yr">2023</div>
+          <div>
+            <a class="pub-title" href="#">Insights on satellite-based IMERG precipitation estimates at multiple space and time scales for a developing urban region in India</a>
+            <div class="pub-au">Ponukumati, A. P.<span class="tm">*</span>, Mohammed, A.<span class="tm">*</span>, and <span class="me">Regonda, S. K.</span></div>
+            <div class="pub-venue">Journal of Hydrometeorology &nbsp;24, 977–996</div>
+            <div class="pub-links"><a href="#">doi:10.1175/JHM-D-22-0160.1</a><a href="#">pdf</a><a href="#">cite</a></div>
+          </div>
+        </div>
+
+        <div class="rail-row">
+          <div class="yr">2014</div>
+          <div>
+            <a class="pub-title" href="#">Verification of temperature, precipitation and streamflow forecasts from the NOAA/NWS Hydrologic Ensemble Forecast Service (HEFS): 1. Experimental design and forcing verification</a>
+            <div class="pub-au">Brown, J. D., Wu, L., He, M., <span class="me">Regonda, S. K.</span>, Lee, H., and Seo, D.-J.</div>
+            <div class="pub-venue">Journal of Hydrology &nbsp;519</div>
+            <div class="pub-links"><a href="#">doi:10.1016/j.jhydrol.2014.05.028</a><a href="#">pdf</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= PRODUCTS ================= -->
+  <div class="content">
+    <section id="products">
+      <div class="sec-head"><h2>Things you can use</h2><a class="sec-more" href="#">All products</a></div>
+      <p class="standfirst">Seven tools have come out of this group. Two are live for anyone; the rest are for people who work with rainfall and river data.</p>
+
+      <article class="prod">
+        <div>
+          <h3>SnapFlood</h3>
+          <p>Photograph a flooded street, upload it with a location, and it joins an archive of where water actually stood — in any city on earth. It began as the VarshaMitra campaign in 2023 and became an app.</p>
+          <div class="prod-links">
+            <a href="https://play.google.com/store/apps/details?id=com.snapflood">Google&nbsp;Play</a>
+            <a href="https://apps.apple.com/ca/app/snapflood/id6746365714">App&nbsp;Store</a>
+            <a href="https://snapflood-web.netlify.app/">On the web</a>
+            <a href="#snapflood">Read more</a>
+          </div>
+        </div>
+        <div class="prod-state">Mobile app<br>Live<br>100+ installs</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>Urban Flood Information System</h3>
+          <p>The system SnapFlood reports feed into: observations and city data in one end, flood extents, risk maps and alerts out the other. Built with GHMC, IMD, the Telangana State Development Planning Society, the Irrigation Department and the Central Water Commission.</p>
+          <div class="prod-links"><a href="#ufis">How it fits together</a><span class="absent">Dashboard not yet public</span></div>
+        </div>
+        <div class="prod-state">System<br>In development</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>GHMC-RADS</h3>
+          <p>Rainfall Analytics and Decision Support — real-time rainfall monitoring for urban flood management in Hyderabad, joining rainfall observations to meteorological and geospatial data for emergency response and stormwater planning.</p>
+          <div class="prod-links"><span class="absent">Platform not yet public</span></div>
+        </div>
+        <div class="prod-state">Platform<br>With GHMC<br>Since May 2026</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>VarshaAnalytics</h3>
+          <p>Extract, analyse and visualise rainfall data for any period and any region in India.</p>
+          <div class="prod-links"><span class="absent">Not yet public</span></div>
+        </div>
+        <div class="prod-state">Web app<br>In development</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>Hydro-EMOS</h3>
+          <p>Diagnostics and statistical post-processing for streamflow forecasts — the ensemble methods from the NOAA years, in a browser.</p>
+          <div class="prod-links"><a href="#">Open Hydro-EMOS</a></div>
+        </div>
+        <div class="prod-state">R / Shiny<br>Live<br>Slow first load</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>Extreme Climate Analysis</h3>
+          <p>Climate extremes for the <i class="hyd">Serayu</i> and <i class="hyd">Krishna</i> river basins, from the Asia-Pacific Network project with Jenderal Soedirman University in Java. Code by T. S. S. S. Prasad.</p>
+          <div class="prod-links"><a href="#">Open the tool</a></div>
+        </div>
+        <div class="prod-state">R / Shiny<br>Live<br>Slow first load</div>
+      </article>
+
+      <article class="prod">
+        <div>
+          <h3>Poverty Visualisation</h3>
+          <p>Visualising and analysing poverty indicators alongside water and consumption data.</p>
+          <div class="prod-links"><a href="#">Open the tool</a></div>
+        </div>
+        <div class="prod-state">R / Shiny<br>Live<br>Slow first load</div>
+      </article>
+    </section>
+  </div>
+
+  <!-- ================= PROJECTS ================= -->
+  <div class="wide">
+    <section id="projects">
+      <div class="sec-head"><h2>Funded projects</h2></div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Project</th><th>Funder</th><th>Role</th><th>Period</th></tr></thead>
+          <tbody>
+            <tr><td class="pname">GHMC-RADS — Rainfall Analytics and Decision Support</td><td>Greater Hyderabad Municipal Corporation</td><td class="n">PI</td><td class="n">2026 –</td></tr>
+            <tr><td class="pname">AISwARYAM — AI for Sustainable Infrastructure and Resource Planning</td><td>IndiaAI Mission, MeitY</td><td class="n">Urban flood lead</td><td class="n">2024 – 2025</td></tr>
+            <tr><td class="pname">CGodvari — Centre for Godavari river basin management and studies</td><td>Ministry of Jal Shakti</td><td class="n">Co-PI</td><td class="n">2024 –</td></tr>
+            <tr><td class="pname">DRSTI — Dynamic range estimation and simulation of tides</td><td>DRDO</td><td class="n">Co-PI</td><td class="n">2025 –</td></tr>
+            <tr><td class="pname">Real-time 2D flood inundation forecasting for the <i class="hyd">Brahmaputra</i></td><td>Monsoon Mission</td><td class="n">Lead at IITH</td><td class="n">2023 – 2026</td></tr>
+            <tr><td class="pname">Samvad in the <i class="hyd">Godavari</i> — mentoring students along the basin</td><td>DST</td><td class="n">Co-PI</td><td class="n">Ongoing</td></tr>
+            <tr><td class="pname">Urban flood modelling — a web decision tool integrating UAV information</td><td>DST, with IIT Bhubaneswar</td><td class="n">Lead PI</td><td class="n">2018 – 2021</td></tr>
+            <tr><td class="pname">Climate extremes, societal resiliency and the <i class="hyd">Krishna</i> basin</td><td>Asia-Pacific Network, with Jenderal Soedirman University</td><td class="n">Lead at IITH</td><td class="n">2018 – 2021</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= RAFT ================= -->
+  <div class="wide">
+    <section id="raft">
+      <div class="sec-head"><h2>The RAFT group</h2><a class="sec-more" href="https://raftwaters.com">raftwaters.com</a></div>
+
+      <p class="prose" style="font-size:1.3125rem;line-height:1.5">How much water will Indian cities and rivers see, and how soon can we tell anyone?</p>
+      <p class="prose" style="margin-top:var(--s-4)">RAFT — Rainfall-runoff Analysis and Forecasting Tools — collects, models and forecasts rainfall and runoff for Indian cities and river basins, and turns it into information people can act on. Nine PhD students and two M.Tech students work in the group; eighteen have graduated since 2019.</p>
+      <p class="prose" style="margin-top:var(--s-4)">The group keeps its own site with the full roster, projects and updates: <a href="https://raftwaters.com">raftwaters.com</a>.</p>
+
+      <p class="meta" style="margin-top:var(--s-5);color:var(--ink-mute)">
+        <a href="https://www.linkedin.com/company/raftwaters">LinkedIn</a> ·
+        <a href="https://x.com/raftwaters">X</a> ·
+        <a href="https://bsky.app/profile/raftwaters.bsky.social">Bluesky</a> ·
+        <a href="https://www.instagram.com/raft.waters">Instagram</a>
+      </p>
+    </section>
+  </div>
+
+  <!-- ================= PRESS ================= -->
+  <div class="content">
+    <section id="press">
+      <div class="sec-head"><h2>In the press</h2></div>
+      <div class="rail-list">
+        <div class="rail-row">
+          <div class="yr">Oct 2023</div>
+          <div><a href="#">Innovative Urban Flood Information System aims to transform city's resilience</a><div class="pub-venue">Deccan Chronicle</div></div>
+        </div>
+        <div class="rail-row">
+          <div class="yr">2023</div>
+          <div><a href="#">IITH initiates a groundbreaking endeavour to tackle the persistent issue of urban flooding in Hyderabad</a><div class="pub-venue">The Hans India</div></div>
+        </div>
+        <div class="rail-row">
+          <div class="yr">2023</div>
+          <div><a href="#">IIT-H researchers to develop data-driven tech to alert Hyderabad on floods</a><div class="pub-venue">NewsMeter</div></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="pagebreak"><div>
+  <span>Second page of the prototype</span>
+  <span>satishregonda.in / products / snapflood</span>
+</div></div>
+
+<main>
+  <div class="wide">
+    <section style="padding-bottom:var(--s-6)">
+      <p class="meta" style="color:var(--ink-mute)"><a href="#products">← Things you can use</a></p>
+      <h1 style="font-size:clamp(2.25rem,5vw,4rem);line-height:1.05;letter-spacing:-.025em;
+                 max-width:16ch;margin-top:var(--s-4);font-weight:400">SnapFlood</h1>
+      <p class="standfirst" style="margin-top:var(--s-4)">Snap, upload, contribute. A photograph of a flooded street, with a location and a time, is a measurement — and it is the measurement India's flood record is missing.</p>
+      <p class="meta" style="color:var(--ink-mute)">
+        <a href="https://play.google.com/store/apps/details?id=com.snapflood">Google&nbsp;Play</a> ·
+        <a href="https://apps.apple.com/ca/app/snapflood/id6746365714">App&nbsp;Store</a> ·
+        <a href="https://snapflood-web.netlify.app/">snapflood-web</a> ·
+        Free · Telugu and English
+      </p>
+    </section>
+  </div>
+  <hr class="rule-hard">
+
+  <!-- ---- the story ---- -->
+  <div class="wide">
+    <section class="story">
+      <div>
+        <h2>It started as a hashtag</h2>
+        <p class="prose" style="margin-top:var(--s-4)">In 2023 the group ran <b>VarshaMitra</b> — <i>friend of the rain</i> — asking people in Hyderabad to tweet flooding as it happened. The ask was specific, because a photograph without a place and a depth is not data. They called it a <b>Sixer Tweet</b>: one tweet, six tags.</p>
+
+        <div class="tags">
+          <div class="tag-row"><div class="tag-n">Tag 1</div><div class="tag-t">City <code>#Hyderabadrains</code> <code>#Hyderabadfloods</code></div></div>
+          <div class="tag-row"><div class="tag-n">Tag 2</div><div class="tag-t">Landmark — apartment or building name</div></div>
+          <div class="tag-row"><div class="tag-n">Tag 3</div><div class="tag-t">Locality — colony or street name <code>#Koti</code></div></div>
+          <div class="tag-row"><div class="tag-n">Tag 4</div><div class="tag-t">Water depth <code>#kneewater</code> <code>#5cm</code></div></div>
+          <div class="tag-row"><div class="tag-n">Tag 5</div><div class="tag-t">Date <code>#20072023</code></div></div>
+          <div class="tag-row"><div class="tag-n">Tag 6</div><div class="tag-t">Time <code>#0800</code></div></div>
+        </div>
+
+        <p class="prose" style="margin-top:var(--s-5)">A tweet reading <i>"railway bridge at Lingampally with full of water"</i> tells you almost nothing. The same event, tagged six ways, gives a location, a geolocation, a depth of five to six centimetres, and a timestamp of 08:00 on 20 July 2023. That is a row in a database.</p>
+        <p class="prose" style="margin-top:var(--s-4)">Twitter was never going to hold it. So the campaign became an app — the same six questions, asked by a form instead of a hashtag, with the location taken from the phone. That is SnapFlood.</p>
+      </div>
+
+      <figure>
+        <div class="photo"><img src="{{VARSHAMITRA}}" alt="Hand-drawn illustration of a flooded Indian street in the rain. People wade through knee-deep water past shops and a parked scooter; a child floats paper boats beside a tree. In the foreground a young woman in a yellow kurta lettered VarshaMitra photographs the scene on her phone."></div>
+        <figcaption>The VarshaMitra campaign, 2023. Illustration: Divya A.</figcaption>
+      </figure>
+    </section>
+  </div>
+
+  <hr class="rule-hair">
+
+  <!-- ---- UFIS ---- -->
+  <div class="wide">
+    <section id="ufis">
+      <div class="sec-head"><h2>How it fits together</h2></div>
+      <p class="standfirst">SnapFlood is one input to a larger system. The Urban Flood Information System joins what citizens see to what satellites, gauges and models produce, and turns it into something a city can act on.</p>
+
+      <div class="ufis">
+        <div class="ufis-col">
+          <h4>Inputs</h4>
+          <div class="ufis-box lead-in"><b>Community observations</b><i>SnapFlood app · social reports · stakeholders</i></div>
+          <div class="ufis-box"><b>Observation &amp; sensing</b><i>Satellite · automatic weather stations · hydro-meteorological data</i></div>
+          <div class="ufis-box"><b>Geospatial &amp; infrastructure</b><i>Elevation models · stormwater network · land use · road network · soil · rainfall and heat-island maps</i></div>
+        </div>
+        <div class="ufis-col">
+          <h4>Models &amp; forecasting</h4>
+          <div class="ufis-box"><b>Hydrological &amp; hydraulic models</b></div>
+          <div class="ufis-box"><b>AI / ML / DL models</b></div>
+          <div class="ufis-box"><b>Weather forecasting models</b></div>
+        </div>
+        <div class="ufis-col">
+          <h4>Products &amp; services</h4>
+          <div class="ufis-box"><b>Web dashboards</b></div>
+          <div class="ufis-box"><b>Flood extent &amp; inundation maps</b></div>
+          <div class="ufis-box"><b>Risk &amp; vulnerability maps</b></div>
+          <div class="ufis-box"><b>Alerts</b><i>SMS and social media</i></div>
+        </div>
+        <div class="ufis-col">
+          <h4>Decision support</h4>
+          <div class="ufis-box"><b>Disaster management</b><i>Locate flooding · prioritise response</i></div>
+          <div class="ufis-box"><b>Mitigation &amp; policy</b><i>Drainage planning · long-term investment</i></div>
+          <div class="ufis-box lead-in"><b>Back to the community</b><i>What people report shapes what they are told next</i></div>
+        </div>
+      </div>
+      <p class="ufis-cap">Not a replacement for a city's existing cameras, sensors and models — an additional layer of ground-level evidence.</p>
+
+      <ol class="steps">
+        <li>Someone photographs a flooded street and uploads it with a location and a time.</li>
+        <li>That observation joins satellite rainfall, weather-station records and the city's own elevation, drainage and land-use data.</li>
+        <li>Hydrological, hydraulic and machine-learning models turn the combination into an estimate of where water is and where it is going.</li>
+        <li>The estimate becomes a dashboard, an inundation map, a risk map, or an alert.</li>
+        <li>GHMC and the state agencies use it to locate flooding, prioritise response and plan drainage — and what people report next is shaped by what they were told.</li>
+      </ol>
+    </section>
+  </div>
+
+  <hr class="rule-hair">
+
+  <!-- ---- who builds it ---- -->
+  <div class="wide">
+    <section>
+      <div class="sec-head"><h2>Who builds it</h2></div>
+      <p class="prose" style="font-size:1.25rem;line-height:1.5">SnapFlood is built by the <b>RAFT</b> research group at IIT Hyderabad — <a href="https://raftwaters.com">raftwaters.com</a>.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));
+                  gap:var(--s-5);margin-top:var(--s-6);max-width:60rem">
+        <div>
+          <h3 class="micro" style="color:var(--ink-mute);margin-bottom:var(--s-2)">Funded by</h3>
+          <p style="font-size:1rem;line-height:1.5">DST-SPLICE Climate Change Programme · National Network Programme on Urban Climate under NMSKCC · Government of India AI Centre of Excellence for Sustainable Cities</p>
+        </div>
+        <div>
+          <h3 class="micro" style="color:var(--ink-mute);margin-bottom:var(--s-2)">Built with</h3>
+          <p style="font-size:1rem;line-height:1.5">Greater Hyderabad Municipal Corporation · India Meteorological Department · Telangana State Development Planning Society · Telangana Irrigation Department · Central Water Commission</p>
+        </div>
+        <div>
+          <h3 class="micro" style="color:var(--ink-mute);margin-bottom:var(--s-2)">Contact</h3>
+          <p style="font-size:1rem;line-height:1.5"><a href="mailto:snapflood@iith.ac.in">snapflood@iith.ac.in</a><br><a href="mailto:satishr@ce.iith.ac.in">satishr@ce.iith.ac.in</a></p>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+<!-- ================= PAGE 3 ================= -->
+<div class="pagebreak"><div>
+  <span>Third page of the prototype</span>
+  <span>satishregonda.in / join</span>
+</div></div>
+
+<main>
+  <div class="wide">
+    <section style="padding-bottom:var(--s-5)">
+      <h1 style="font-size:clamp(2.25rem,5vw,4rem);line-height:1.05;letter-spacing:-.025em;
+                 max-width:14ch;font-weight:400">Join the group</h1>
+    </section>
+  </div>
+
+  <div class="status">
+    <div class="status-in">
+      <span>Status · 04 Sep 2026</span>
+      <span class="sep">/</span>
+      <span>Accepting PhD applicants for January 2027</span>
+      <span class="sep">/</span>
+      <span>Closes 15 Nov</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <section>
+      <h2>Who fits</h2>
+      <p class="prose" style="margin-top:var(--s-4)">A quantitative background and some comfort with data, plus one of: hydrology, meteorology, statistics, or scientific computing. You do not need to have done all of it before — you do need to want to.</p>
+
+      <h2 style="margin-top:var(--s-7)">Before you write</h2>
+      <p class="prose" style="margin-top:var(--s-4)">Read one of my papers. Name it below, and tell me one question it raised for you. That is the whole filter, and it is the field I read first.</p>
+
+      <form class="form" method="post" action="#" novalidate>
+        <div class="field">
+          <label for="f-name">Your name <span class="req">required</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="f-email">Email <span class="req">required</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="f-role">What are you applying for? <span class="req">required</span></label>
+          <select id="f-role" name="role">
+            <option>PhD</option>
+            <option>M.Tech thesis project</option>
+            <option>Postdoc</option>
+            <option>Internship or B.Tech project</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="f-bg">Your background <span class="req">required</span></label>
+          <span class="hint">Degree, institution, year, and the tools you actually use.</span>
+          <textarea id="f-bg" name="background"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="f-paper">Which of my papers did you read? <span class="req">required</span></label>
+          <span class="hint">Title or DOI is fine.</span>
+          <input id="f-paper" name="paper" type="text">
+        </div>
+
+        <div class="field">
+          <label for="f-q">What question did it raise for you? <span class="req">required</span></label>
+          <span class="hint">One question, in your own words. This matters more than the rest of the form.</span>
+          <textarea id="f-q" name="question"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="f-cv">A link to your CV or profile</label>
+          <span class="hint">Google Drive, a personal site, Scholar — anything I can open. Optional.</span>
+          <input id="f-cv" name="cv_url" type="url" placeholder="https://">
+        </div>
+
+        <div class="hp" aria-hidden="true">
+          <label for="f-hp">Leave this field empty</label>
+          <input id="f-hp" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <button type="submit">Send to Dr. Regonda</button>
+        <p class="form-note">Goes straight into his spreadsheet and emails him. He reads them in batches, so give it a week or two before following up. If you would rather just write, <a href="mailto:satishr@ce.iith.ac.in">satishr@ce.iith.ac.in</a> is fine too.</p>
+      </form>
+
+      <h2 style="margin-top:var(--s-8)">Funding routes</h2>
+      <ul class="plain" style="margin-top:var(--s-4)">
+        <li>Prime Minister's Research Fellowship (PMRF)</li>
+        <li>CSIR / UGC-NET Junior Research Fellowship</li>
+        <li>DST INSPIRE</li>
+        <li>SERB National Post-Doctoral Fellowship</li>
+        <li>Institute teaching assistantships at IIT Hyderabad</li>
+      </ul>
+
+      <div class="cant">
+        <h2>What I can't do</h2>
+        <ul class="plain" style="margin-top:var(--s-4)">
+          <li>Review CVs for programmes I am not involved in.</li>
+          <li>Write letters for people I have not taught or supervised.</li>
+          <li>Reply to messages that do not name a paper.</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <dl class="collar">
+    <dt>Office</dt>
+    <dd>Room B-212, Department of Civil Engineering, IIT Hyderabad, Kandi, Sangareddy 502285, Telangana, India</dd>
+    <dt>Contact</dt>
+    <dd><a href="mailto:satishr@ce.iith.ac.in">satishr@ce.iith.ac.in</a></dd>
+    <dt>Elsewhere</dt>
+    <dd><a href="#">Google Scholar</a> · <a href="#">ORCID</a> · <a href="https://in.linkedin.com/in/satish-regonda-3a08a115">LinkedIn</a> · <a href="#">IITH faculty page</a> · <a href="https://raftwaters.com">RAFT</a></dd>
+    <dt>This site</dt>
+    <dd><a href="#">About</a> · <a href="#join">Join the group</a> · <a href="#press">Press</a> · <a href="#news">News</a> · <a href="#">Colophon</a></dd>
+    <dt>Next update</dt>
+    <dd>01:30 and 13:30 IST daily, and whenever he presses publish</dd>
+    <dt>Colophon</dt>
+    <dd>Set in Piazzolla (Huerta Tipográfica) and Martian Mono (Evil Martians). The accent #166157 is a stop on the IPCC AR6 precipitation colormap; #8C5A24 is its dry pole, and marks a gap in the record. No dark mode: this is a paper object. No JavaScript, no cookies, no analytics beacon, no third-party requests.</dd>
+  </dl>
+</footer>

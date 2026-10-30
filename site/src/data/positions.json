@@ -1,0 +1,14 @@
+[
+  { "kind": "appointment", "org": "IIT Hyderabad", "role": "Chairperson, Rural Development Centre", "start": "2023-10", "end": "2026-08", "order": 15 },
+  { "kind": "appointment", "org": "IIT Hyderabad", "role": "Associate Professor, Department of Civil Engineering", "start": "2022-09", "end": "", "order": 10 },
+  { "kind": "appointment", "org": "IIT Hyderabad", "role": "Head of Department, Department of Climate Change", "start": "2019-04", "end": "2022-04", "order": 20 },
+  { "kind": "appointment", "org": "IIT Hyderabad", "role": "Assistant Professor, Department of Civil Engineering", "start": "2017-02", "end": "2022-08", "order": 25 },
+  { "kind": "appointment", "org": "Johns Hopkins University", "role": "Associate Research Scientist, Earth and Planetary Sciences", "city": "Baltimore, Maryland", "start": "2015-03", "end": "2016-12", "order": 30 },
+  { "kind": "appointment", "org": "World Bank", "role": "Hydroclimate Consultant", "city": "Washington, DC", "start": "2014-05", "end": "2016-12", "order": 40 },
+  { "kind": "appointment", "org": "NWS / NOAA", "role": "Research Hydrologist, Office of Hydrologic Development", "city": "Silver Spring, Maryland", "start": "2007-10", "end": "2013-11", "order": 50 },
+  { "kind": "appointment", "org": "NOAA", "role": "National Research Council Postdoctoral Research Associate", "city": "Silver Spring, Maryland", "start": "2006-10", "end": "2007-10", "order": 60 },
+
+  { "kind": "education", "org": "University of Colorado Boulder", "role": "Ph.D., Water Resources Engineering", "start": "2006", "end": "2006", "note": "Thesis: Intra-annual to inter-decadal variability in the Upper Colorado hydroclimatology — diagnosis, forecasting and implications for water resources management", "order": 100 },
+  { "kind": "education", "org": "IIT Kanpur", "role": "M.Tech., Hydraulics and Water Resources Engineering", "start": "2002", "end": "2002", "note": "Thesis: Investigation of chaotic behaviour in hydrologic time series", "order": 110 },
+  { "kind": "education", "org": "Kakatiya Institute of Technology and Sciences, Warangal", "role": "B.Tech., Civil Engineering", "start": "2000", "end": "2000", "note": "Project: Computerised stochastic modelling of annual streamflow of the river Krishna", "order": 120 }
+]

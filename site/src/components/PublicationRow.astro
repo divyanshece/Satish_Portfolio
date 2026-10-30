@@ -1,0 +1,75 @@
+---
+import { ext } from "../lib/links";
+import { markAuthors, doiUrl } from "../lib/text";
+
+export interface Props {
+  pub: any;
+  showYear?: boolean;
+  linkTitle?: boolean;
+  /** Set on the first row of a year, so the spine on /publications/ can jump here. */
+  anchorId?: string;
+}
+const { pub, showYear = true, linkTitle = true, anchorId } = Astro.props;
+const authors = markAuthors(pub.authors, pub.year);
+/* Built as one string. Written inline, JSX swallows the space before the
+   volume and the citation reads "Urban Climate67". */
+const citation = [pub.venue, pub.volume].filter(Boolean).join(" ")
+  + (pub.pages ? `, ${pub.pages}` : "");
+const href = `/publications/${pub.id}/`;
+const openable = pub.open_access === "cc-by" || pub.open_access === "green";
+---
+<div class="rail-row" id={anchorId}>
+  {showYear ? <time class="yr" datetime={String(pub.year)}>{pub.year}</time> : <div class="yr"></div>}
+  <div>
+    {linkTitle
+      ? <a class="pub-title" href={href}>{pub.title}</a>
+      : <span class="pub-title">{pub.title}</span>}
+
+    <div class="pub-au">
+      {/* A student co-author is set bold in the accent rather than carrying a
+          mark. The degree still reaches a screen reader. */}
+      {authors.map((a, i) => (
+        <>
+          {i > 0 && ", "}
+          <span class:list={{ me: a.isSelf, trainee: !!a.mark }}>{a.name}</span>
+          {a.mark && <span class="visually-hidden"> ({a.label})</span>}
+        </>
+      ))}
+    </div>
+
+    <div class="pub-venue">{citation}</div>
+
+    <div class="pub-links">
+      {pub.doi && <a href={doiUrl(pub.doi)} {...ext(doiUrl(pub.doi))}>doi:{pub.doi}</a>}
+      {pub.url && !pub.doi && <a href={pub.url} {...ext(pub.url)}>read</a>}
+      {openable && <span class="oa">open access</span>}
+    </div>
+  </div>
+</div>
+
+<style>
+  .rail-row { scroll-margin-top: 5rem; }
+  .pub-title {
+    font-size: var(--t-lead); line-height: 1.35; letter-spacing: -.008em;
+    display: block; color: var(--ink); text-decoration: none;
+  }
+  a.pub-title:hover { color: var(--accent); text-decoration: underline; text-decoration-thickness: .06em; text-underline-offset: .16em; }
+  .pub-au { font-size: var(--t-small); color: var(--ink-mute); margin-top: var(--s-2); }
+  /* His own name bold in the accent; a student co-author bold in the ink. The
+     two read as different people at a glance and neither needs a glyph
+     hanging off it. */
+  .pub-au .me { color: var(--accent); font-weight: 600; }
+  .pub-au .trainee { color: var(--ink); font-weight: 600; }
+  .pub-venue { font-size: var(--t-small); font-style: italic; color: var(--ink-mute); margin-top: .15rem; }
+  .pub-links {
+    font-family: var(--mono); font-size: .75rem; letter-spacing: .03em;
+    margin-top: var(--s-2); display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: baseline;
+  }
+  /* A DOI is one long unbreakable token in a monospace face. On a 360px
+     phone it is the only thing on the site wide enough to push the page
+     sideways, so it is allowed to break. */
+  .pub-links a { color: var(--ink-mute); text-decoration-color: var(--rule-strong);
+    overflow-wrap: anywhere; }
+  .pub-links a:hover { color: var(--accent); }
+  .oa { color: var(--ink-mute); }
+</style>

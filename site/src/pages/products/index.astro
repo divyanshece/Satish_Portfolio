@@ -1,0 +1,311 @@
+---
+/**
+ * The products shelf.
+ *
+ * Two products are shown rather than described: SnapFlood by its own screen,
+ * VarshaAnalytics by its own demo, running. The three R/Shiny tools are a set
+ * and are laid out as one — they are the working end of three projects, not
+ * three products competing for the same attention.
+ *
+ * Which products are featured is derived from the data, not typed here: a row
+ * earns the large treatment by naming a screen in FEATURED below.
+ */
+
+import Base from "../../layouts/Base.astro";
+import { ext } from "../../lib/links";
+import BandArt from "../../components/BandArt.astro";
+import { products, settings, counts, fill } from "../../lib/content";
+import { hydronyms } from "../../lib/text";
+import { collectionJsonLd, SITE } from "../../lib/seo";
+
+const standfirst = fill(settings.products_standfirst, { n: counts.products });
+
+/** The two rows we can show rather than describe, and what we show them with. */
+type Shot =
+  | { kind: "image"; src: string; w: number; h: number; cap: string; alt: string; narrow: true }
+  | { kind: "video"; src: string; poster: string; w: number; h: number; cap: string; alt: string };
+
+const FEATURED: Record<string, Shot> = {
+  snapflood: {
+    kind: "image",
+    src: "/img/snapflood-screen.webp",
+    w: 780,
+    h: 1060,
+    narrow: true,
+    cap: "SnapFlood on the web, September 2026.",
+    alt:
+      "The SnapFlood home screen on a phone. A heading reads Flood Documentation, " +
+      "Snap the Flood, over an illustration of rain falling on a flooded street, " +
+      "with Google Play and App Store buttons below it.",
+  },
+  varshaanalytics: {
+    kind: "video",
+    src: "/img/varshaanalytics.mp4",
+    poster: "/img/varshaanalytics-poster.webp",
+    w: 1200,
+    h: 880,
+    cap: "VarshaAnalytics, extracting IMD rainfall for the GHMC boundary.",
+    alt:
+      "The VarshaAnalytics interface stepping through an extraction: a shapefile for " +
+      "Greater Hyderabad is opened, the region is confirmed on a map, IMD rainfall is " +
+      "downloaded for it, and an analytics dashboard opens.",
+  },
+};
+
+const featured = products.filter((p) => FEATURED[p.slug]);
+const rest = products.filter((p) => !FEATURED[p.slug]);
+
+/** The fact row is counted, never typed. */
+const inStores = products.filter((p) =>
+  (p.links ?? []).some((l: any) => /play\.google|apps\.apple/.test(l.url))
+).length;
+const shiny = products.filter((p) => p.kind === "R / Shiny").length;
+
+const collectionJson = JSON.stringify(
+  collectionJsonLd({
+    url: `${SITE}/products/`,
+    name: "Products",
+    description: standfirst,
+    items: products.map((p) => ({
+      name: p.name,
+      url: p.page ? `${SITE}/products/${p.slug}/` : (p.links?.[0]?.url ?? `${SITE}/products/`),
+    })),
+  })
+).replace(/</g, "\\u003c");
+---
+
+<Base
+  title="Products"
+  description="Products and tools from Dr. Satish K. Regonda's group at IIT Hyderabad: the SnapFlood reporting app, VarshaAnalytics, and R/Shiny tools for forecasters."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={collectionJson} />
+  </Fragment>
+
+  <div class="band band-deep">
+    <div class="wide">
+      <div class="ident">
+        <div>
+      <h1>Products</h1>
+      <p class="standfirst" set:html={hydronyms(standfirst)} />
+      <p class="band-facts micro">
+        <span><b>{counts.products}</b> tools</span>
+        <span><b>{inStores}</b> in the app stores</span>
+        <span><b>{shiny}</b> in R and Shiny</span>
+        <span>All free to use</span>
+      </p>
+
+      {/* Three products and a set of tools, all below the fold. */}
+      <nav class="jump" aria-label="On this page">
+        {featured.map((p) => <a href={`#${p.slug}`}>{p.name}</a>)}
+        {rest.length > 0 && <a href="#shiny">Tools in R and Shiny</a>}
+      </nav>
+        </div>
+
+        <BandArt art="products" />
+      </div>
+    </div>
+  </div>
+
+  <div class="wide">
+    {featured.map((p, i) => {
+      const shot = FEATURED[p.slug];
+      const detail = p.page ? `/products/${p.slug}/` : null;
+      return (
+        <article id={p.slug} class:list={["feature", shot.kind === "video" ? "wide-shot" : "tall-shot", { flip: i % 2 === 1 }]}>
+          <figure class="shot">
+            <div class:list={["well", { tall: shot.kind === "image" }]}>
+              {shot.kind === "video" ? (
+                <>
+                  <video
+                    class="motion-loop"
+                    width={shot.w}
+                    height={shot.h}
+                    poster={shot.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={shot.alt}
+                  >
+                    <source src={shot.src} type="video/mp4" />
+                  </video>
+                  <img
+                    class="motion-still"
+                    src={shot.poster}
+                    width={shot.w}
+                    height={shot.h}
+                    alt={shot.alt}
+                  />
+                </>
+              ) : (
+                <img
+                  src={shot.src}
+                  width={shot.w}
+                  height={shot.h}
+                  loading="lazy"
+                  decoding="async"
+                  alt={shot.alt}
+                />
+              )}
+            </div>
+            <figcaption>{shot.cap}</figcaption>
+          </figure>
+
+          <div class="say">
+            <h2>{p.name}</h2>
+            <p class="state micro">
+              {p.state_lines.map((s: string, k: number) => (
+                <>{k > 0 && <span class="sep" aria-hidden="true"></span>}{s}</>
+              ))}
+            </p>
+            <p class="blurb" set:html={hydronyms(p.blurb)} />
+            <p class="acts">
+              {(p.links ?? []).map((l: any) => <a href={l.url} {...ext(l.url)}>{l.label}</a>)}
+              {detail && <a href={detail}>How it works<span class="visually-hidden"> — {p.name}</span></a>}
+              {p.absent_note && <span class="absent">{p.absent_note}</span>}
+            </p>
+          </div>
+        </article>
+      );
+    })}
+
+    {rest.length > 0 && (
+      <section class="tools">
+        <h2 id="shiny">Tools in R and Shiny</h2>
+        <p class="tools-note">
+          The working end of three projects, published so the method can be tried rather
+          than only read about.
+        </p>
+        <ul class="toolset">
+          {rest.map((p) => (
+            <li>
+              <h3>{p.name}</h3>
+              <p set:html={hydronyms(p.blurb)} />
+              <p class="acts">
+                {(p.links ?? []).map((l: any) => <a href={l.url} {...ext(l.url)}>{l.label}</a>)}
+                {p.absent_note && <span class="absent">{p.absent_note}</span>}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  /* The words on the left, the picture on the right. */
+  .ident {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--s-8);
+    align-items: center;
+  }
+  @media (max-width: 62rem) {
+    .ident { grid-template-columns: minmax(0, 1fr); gap: var(--s-6); }
+  }
+
+  /* ---------- the two featured products ---------- */
+
+  /* Shown, not described. The sides alternate so the page has a rhythm
+     rather than a template, and each one is sized to its own medium: a
+     phone screen is tall and narrow, a desktop capture is wide. */
+  .feature {
+    display: grid;
+    gap: var(--s-8);
+    align-items: center;
+    padding-block: var(--s-9);
+    border-bottom: 1px solid var(--rule);
+  }
+  /* The columns are cut to the medium, not to a template: a phone screen is
+     tall and needs a narrow track, a desktop capture is wide and needs the
+     long one. In both the narrow track comes first in the grid; .flip then
+     moves the picture into the second one. */
+  .feature.tall-shot { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); }
+  .feature.wide-shot { grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); }
+  .feature.flip .shot { order: 2; }
+
+  .shot { margin: 0; }
+  .well.tall img { max-width: 19rem; }
+  figcaption { margin-top: var(--s-3); }
+
+  .say h2 { font-size: 2rem; line-height: 1.15; letter-spacing: -.018em; }
+
+  .state {
+    color: var(--ink-mute);
+    margin-top: var(--s-3);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  /* A rule, not a middle dot: the separator every generated page reaches for. */
+  .sep { width: 1rem; border-top: 1px solid var(--rule-strong); }
+
+  .blurb {
+    font-size: var(--t-lead);
+    line-height: 1.45;
+    letter-spacing: -.005em;
+    margin-top: var(--s-5);
+    max-width: 30rem;
+  }
+
+  .acts {
+    font-family: var(--mono);
+    font-size: var(--t-meta);
+    letter-spacing: .02em;
+    margin-top: var(--s-5);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3) var(--s-5);
+  }
+
+  /* ---------- the R/Shiny set ---------- */
+
+  .tools { padding-block: var(--s-9) var(--s-8); }
+  .tools h2 { font-size: var(--t-h2); }
+  .tools-note {
+    color: var(--ink-mute);
+    margin-top: var(--s-3);
+    max-width: 34rem;
+  }
+
+  .toolset {
+    list-style: none;
+    margin: var(--s-6) 0 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+  /* Name, what it does, and the way in — three columns, so the set reads as
+     an index rather than as three cards of the same size. */
+  .toolset li {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr) 11rem;
+    gap: var(--s-5);
+    align-items: baseline;
+    padding-block: var(--s-5);
+    border-bottom: 1px solid var(--rule);
+  }
+  .toolset h3 { font-size: 1.25rem; }
+  .toolset p { font-size: var(--t-small); color: var(--ink-mute); max-width: 36rem; }
+  .toolset .acts { margin-top: 0; justify-content: flex-end; text-align: right; }
+
+  @media (max-width: 62rem) {
+    /* Both variants are named: .feature alone loses to .feature.tall-shot
+       on specificity, media query or not. */
+    .feature.tall-shot, .feature.wide-shot {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--s-6);
+      padding-block: var(--s-8);
+    }
+    /* Order is reset so every product reads screen-then-words on a phone. */
+    .feature.flip .shot { order: 0; }
+    .well.tall { padding-inline: var(--s-5); }
+    .say h2 { font-size: 1.75rem; }
+    .blurb { font-size: var(--t-body); }
+    .toolset li { grid-template-columns: minmax(0, 1fr); gap: var(--s-2); }
+    .toolset .acts { margin-top: var(--s-2); justify-content: flex-start; text-align: left; }
+  }
+</style>

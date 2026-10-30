@@ -1,0 +1,63 @@
+[
+  { "slug": "ghmc-rads", "title": "GHMC-RADS — Rainfall Analytics and Decision Support Platform",
+    "funder": "Greater Hyderabad Municipal Corporation", "role": "PI",
+    "start_year": 2026, "end_year": null, "status": "ongoing",
+    "theme": "urban-flooding-hyderabad",
+    "summary": "Real-time rainfall monitoring and decision support for urban flood management in Hyderabad, joining rainfall observations to meteorological and geospatial data for emergency response, stormwater management and operational planning.",
+    "public_output": false, "order": 10 },
+
+  { "slug": "aiswaryam", "title": "AISwARYAM — AI for Sustainable Infrastructure and Resource Planning, Analysis and Monitoring",
+    "funder": "IndiaAI Mission, Ministry of Electronics and Information Technology",
+    "role": "Leads the urban flood component",
+    "start_year": 2024, "end_year": 2025, "status": "completed",
+    "theme": "urban-flooding-hyderabad",
+    "summary": "An IIT Hyderabad initiative under the Government of India's IndiaAI Mission, guided by the vision of making AI in India and making AI work for India.",
+    "public_output": false, "order": 20 },
+
+  { "slug": "cgodavari", "title": "CGodvari — Centre for Godavari river basin management and studies",
+    "funder": "Ministry of Jal Shakti, Government of India", "role": "Co-PI",
+    "start_year": 2024, "end_year": null, "status": "ongoing",
+    "theme": "streamflow-forecasting",
+    "summary": "A centre for management and studies of the Godavari river basin.",
+    "public_output": false, "order": 30 },
+
+  { "slug": "drsti", "title": "DRSTI — Dynamic range estimation and simulation of tides with immersive visualisation",
+    "funder": "DRDO", "role": "Co-PI",
+    "start_year": 2025, "end_year": null, "status": "ongoing",
+    "public_output": false, "order": 40 },
+
+  { "slug": "brahmaputra-forecasting", "title": "Real-time 2D flood inundation forecasting for the Brahmaputra River basin",
+    "funder": "Monsoon Mission, India", "role": "Leads the project at IIT Hyderabad",
+    "partners": "A collaboration with four other institutes",
+    "start_year": 2023, "end_year": 2026, "status": "ongoing",
+    "theme": "streamflow-forecasting",
+    "summary": "Hydrologic, hydrodynamic and statistical-dynamical approaches to real-time two-dimensional flood inundation forecasting.",
+    "public_output": false, "order": 50 },
+
+  { "slug": "samvad-godavari", "title": "Samvad in the Godavari — mentoring students along the Godavari basin",
+    "funder": "DST", "role": "Co-PI",
+    "start_year": null, "end_year": null, "status": "ongoing",
+    "summary": "Mentoring disenfranchised higher education and university students along the Godavari basin in Telangana.",
+    "public_output": false, "order": 60 },
+
+  { "slug": "urban-flood-uav", "title": "Urban flood modelling — a web-based decision tool integrating UAV information",
+    "funder": "DST", "partners": "With IIT Bhubaneswar", "role": "Lead PI",
+    "start_year": 2018, "end_year": 2021, "status": "completed",
+    "theme": "urban-flooding-hyderabad",
+    "public_output": true, "order": 70 },
+
+  { "slug": "operational-hydrologic-india", "title": "An experimental operational hydrologic modelling and forecasting system for river basin hydrology and extremes for India",
+    "funder": "Monsoon Mission, India", "role": "Led the project at IIT Hyderabad",
+    "start_year": 2018, "end_year": 2021, "status": "completed",
+    "theme": "streamflow-forecasting",
+    "public_output": true, "order": 80 },
+
+  { "slug": "krishna-serayu-extremes", "title": "Climate extremes, societal resiliency and the Krishna River Basin",
+    "funder": "Asia-Pacific Network for Global Change Research",
+    "partners": "With Jenderal Soedirman University, Jawa Tengah, Indonesia",
+    "role": "Leads the project at IIT Hyderabad",
+    "start_year": 2018, "end_year": 2021, "status": "completed",
+    "theme": "monsoon-hydroclimatology",
+    "summary": "Understanding space-time variability of climate extremes for societal resiliency in Indonesia and India. A focus group discussion workshop for the Krishna basin was held in January 2020.",
+    "public_output": true, "order": 90 }
+]

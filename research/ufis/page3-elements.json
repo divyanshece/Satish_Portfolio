@@ -1,0 +1,1119 @@
+[
+ {
+  "t": "J",
+  "d": 0,
+  "x": 163.0,
+  "y": 80.5,
+  "w": 546.0,
+  "h": 912.7,
+  "rot": 0,
+  "id": "LBHHrMBDBGr48Vzp",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 64.0,
+   "C": 64.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 499.6,
+  "y": 453.7,
+  "w": 133.9,
+  "h": 149.4,
+  "rot": 0,
+  "id": "LBv9dTyD4qfwfFNv",
+  "media": "MAHN798ONxI",
+  "file": "01d5a1db27a30808d25978e3fa979b78.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -7.8,
+   "D": 149.4,
+   "C": 149.4,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 581.0,
+  "y": 460.2,
+  "w": 41.8,
+  "h": 46.6,
+  "rot": 0,
+  "id": "LBv0w27sZQ30S08R",
+  "media": "MAHN76rBRIo",
+  "file": "cb60f17459b6e156370f2fdad7965e4e.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -2.4,
+   "D": 46.6,
+   "C": 46.6,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 544.1,
+  "y": 501.2,
+  "w": 37.4,
+  "h": 41.7,
+  "rot": 0,
+  "id": "LBjs0sRbQLDZqdQX",
+  "media": "MAHN7-s4b6Y",
+  "file": "5f54331ea274a1e1a628934a6cdb99a7.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": -0.0,
+   "B": -2.2,
+   "D": 41.7,
+   "C": 41.7,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 581.0,
+  "y": 533.5,
+  "w": 48.1,
+  "h": 53.7,
+  "rot": 0,
+  "id": "LBjRJy3hPCvXGXSx",
+  "media": "MAHN7338XK8",
+  "file": "076f50fa65b2df3ef21a08b781ded652.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -2.8,
+   "D": 53.7,
+   "C": 53.7,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 483.9,
+  "y": 460.2,
+  "w": 45.7,
+  "h": 51.0,
+  "rot": 0,
+  "id": "LBCbn36f8c19ZP08",
+  "media": "MAHN75YnXfA",
+  "file": "0433d5893eab869be1fb508d0372e899.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -2.7,
+   "D": 51.0,
+   "C": 51.0,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 475.7,
+  "y": 533.5,
+  "w": 51.7,
+  "h": 59.2,
+  "rot": 0,
+  "id": "LB5ZH66BFYTlh7vx",
+  "media": "MAHN707LGb0",
+  "file": "659a67300af07fdf550e8c1a75894511.png",
+  "mtype": "RASTER",
+  "nat": [
+   2142,
+   2400
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -3.0,
+   "D": 57.7,
+   "C": 64.6,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 493.2,
+  "y": 290.9,
+  "w": 136.9,
+  "h": 134.9,
+  "rot": 0,
+  "id": "LBmYW3n6p1frpvWm",
+  "media": "MAHN7p7g8nM",
+  "file": "aeecec48d7dc304015a3bec4d34a9643.png",
+  "mtype": "RASTER",
+  "nat": [
+   296,
+   256
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -13.5,
+   "D": 166.3,
+   "C": 143.8,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 504.9,
+  "y": 118.1,
+  "w": 57.6,
+  "h": 112.6,
+  "rot": 0,
+  "id": "LBbfvJ4ctypkjsRD",
+  "media": "MAHN8PES-nM",
+  "file": "af5f7597d8a964f32acaa0e51c9c532d.jpg",
+  "mtype": "RASTER",
+  "nat": [
+   1079,
+   2187
+  ],
+  "crop": {
+   "A": -0.7,
+   "B": 0.0,
+   "D": 57.6,
+   "C": 116.7,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 497.4,
+  "y": 110.3,
+  "w": 71.0,
+  "h": 124.5,
+  "rot": 0,
+  "id": "LB18w6zQsrYrxrb9",
+  "media": "MAHN8BZBQGM",
+  "file": "124033ddb14d85aaccab7e9c91c9cead.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": -2.4,
+   "B": -29.2,
+   "D": 131.0,
+   "C": 131.0,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 638.8,
+  "y": 125.5,
+  "w": 124.8,
+  "h": 26.6,
+  "rot": 0,
+  "id": "LBymt46mz4TSBjj9",
+  "text": "Snapflood TM",
+  "size": "24px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 676.9,
+  "y": 147.1,
+  "w": 381.8,
+  "h": 33.3,
+  "rot": 0,
+  "id": "LBDN7ywsJQfjNZdt",
+  "text": "Community & Social Information",
+  "size": "29.3333px",
+  "color": "#ff4d00",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 199.3,
+  "y": 89.8,
+  "w": 132.9,
+  "h": 112.9,
+  "rot": 0,
+  "id": "LBzZXXMHcSXVRgwT",
+  "media": "MAHN77HRX_M",
+  "file": "29385b70bea0426985621c1494822fec.png",
+  "mtype": "RASTER",
+  "nat": [
+   239,
+   203
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 132.9,
+   "C": 112.9,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 191.8,
+  "y": 217.9,
+  "w": 99.1,
+  "h": 131.6,
+  "rot": 0,
+  "id": "LBg8qv3M5kLgxR7p",
+  "media": "MAHN79r6I3I",
+  "file": "4b755fa304ebe713e4abd6fa43ba667a.png",
+  "mtype": "RASTER",
+  "nat": [
+   146,
+   194
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 99.1,
+   "C": 131.6,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 178.0,
+  "y": 387.0,
+  "w": 162.9,
+  "h": 200.4,
+  "rot": 0,
+  "id": "LBk7YzbntgJb8Q6w",
+  "media": "MAHN76MbSJs",
+  "file": "461dbd80271b72e5b1a1907927d564f8.png",
+  "mtype": "RASTER",
+  "nat": [
+   187,
+   230
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 162.9,
+   "C": 200.4,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 161.1,
+  "y": 736.2,
+  "w": 307.8,
+  "h": 912.7,
+  "rot": 0,
+  "id": "LByG7MsHPkknNKx8",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 64.0,
+   "C": 64.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 166.2,
+  "y": 762.8,
+  "w": 249.4,
+  "h": 238.8,
+  "rot": 0,
+  "id": "LB7S7TxVBKD47tlZ",
+  "media": "MAHN73X6fWo",
+  "file": "2895ce7b1b1232680873e758431a55f5.png",
+  "mtype": "RASTER",
+  "nat": [
+   752,
+   484
+  ],
+  "crop": {
+   "A": -6.9,
+   "B": -71.2,
+   "D": 399.1,
+   "C": 256.8,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 474.6,
+  "y": 769.8,
+  "w": 239.2,
+  "h": 194.7,
+  "rot": 0,
+  "id": "LBfn7v2RZ6GZ0J1B",
+  "media": "MAHN71n9d2Q",
+  "file": "09d6795d266d9afa6ba600a426e70b41.png",
+  "mtype": "RASTER",
+  "nat": [
+   438,
+   256
+  ],
+  "crop": {
+   "A": -18.2,
+   "B": -78.4,
+   "D": 364.3,
+   "C": 212.9,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 761.1,
+  "y": 771.9,
+  "w": 216.1,
+  "h": 163.1,
+  "rot": 0,
+  "id": "LBnPJHGBvdWg3SnC",
+  "media": "MAHN7w8V8HQ",
+  "file": "167199acc02d9f862624d38e4d3476ba.png",
+  "mtype": "RASTER",
+  "nat": [
+   528,
+   348
+  ],
+  "crop": {
+   "A": -0.0,
+   "B": -6.2,
+   "D": 247.4,
+   "C": 163.1,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 890.1,
+  "y": 767.1,
+  "w": 122.3,
+  "h": 122.3,
+  "rot": 0,
+  "id": "LBmRYkFZ7Hbmffxm",
+  "media": "MAHN8H_YADg",
+  "file": "e71121d4ad7d61da2673b6b302c4aa4b.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 122.3,
+   "C": 122.3,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 890.1,
+  "y": 906.9,
+  "w": 110.8,
+  "h": 110.8,
+  "rot": 0,
+  "id": "LB9b57Gl6lYywxjb",
+  "media": "MAHN8EDTmQY",
+  "file": "01997aaa4b6f4de5c38c1d1211d042c2.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 110.8,
+   "C": 110.8,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 842.8,
+  "y": 1115.9,
+  "w": 753.4,
+  "h": 237.2,
+  "rot": 0,
+  "id": "LBm4xF52rkJpftnF",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 64.0,
+   "C": 64.0
+  }
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 865.6,
+  "y": 1676.5,
+  "w": 153.5,
+  "h": 112.2,
+  "rot": 0,
+  "id": "LBFHWdF6lZVwllKX",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 140.42,
+   "C": 102.592
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 1006.2,
+  "y": 1658.4,
+  "w": 171.7,
+  "h": 60.9,
+  "rot": 0,
+  "id": "LBzFGQ7N7ZD9DqFm",
+  "text": "Stakeholders of different types",
+  "size": "26.6667px",
+  "color": "#c55a11",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 159.3,
+  "y": 1115.9,
+  "w": 753.4,
+  "h": 529.2,
+  "rot": 0,
+  "id": "LBhFrQvL0zktcMzd",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 64.0,
+   "C": 64.0
+  }
+ },
+ {
+  "t": "H",
+  "d": 0,
+  "x": 207.8,
+  "y": 1700.1,
+  "w": 161.2,
+  "h": 167.5,
+  "rot": 0,
+  "id": "LBXRJfft5gDYkmb4",
+  "a": 165.3346914753552
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 865.6,
+  "y": 1166.7,
+  "w": 125.4,
+  "h": 123.6,
+  "rot": 0,
+  "id": "LB40T08xHRCrYJv4",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 158.452,
+   "C": 156.173
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 1006.2,
+  "y": 1126.6,
+  "w": 215.4,
+  "h": 60.9,
+  "rot": 0,
+  "id": "LBKDwsrL01ZmvLNv",
+  "text": "Disaster Management",
+  "size": "26.6667px",
+  "color": "#c55a11",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "H",
+  "d": 0,
+  "x": 710.2,
+  "y": 1419.0,
+  "w": 91.3,
+  "h": 78.3,
+  "rot": 0,
+  "id": "LBJjnGH8DvqSnBXS",
+  "a": 78.34103474862695
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 404.8,
+  "y": 1059.5,
+  "w": 41.4,
+  "h": 57.6,
+  "rot": -90,
+  "id": "LBnc60M6tS1gZCms",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 77.263,
+   "C": 107.565
+  }
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 562.0,
+  "y": 654.7,
+  "w": 56.0,
+  "h": 78.0,
+  "rot": -90,
+  "id": "LBgXzG66vQf4k5yj",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 77.263,
+   "C": 107.565
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 503.1,
+  "y": 1508.3,
+  "w": 156.8,
+  "h": 149.1,
+  "rot": 0,
+  "id": "LBWxhPJStccFrj7C",
+  "media": "MAHOoPjwhHY",
+  "file": "f49a4b5034bcbb00cfc04de60ad3b64f.png",
+  "mtype": "RASTER",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "A": -0.0,
+   "B": 0.0,
+   "D": 156.8,
+   "C": 156.8,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 384.1,
+  "y": 189.3,
+  "w": 288.7,
+  "h": 33.3,
+  "rot": 0,
+  "id": "LB7NWz6FBZ3K5FBc",
+  "text": "Observation & Sensing",
+  "size": "29.3333px",
+  "color": "#ff4d00",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 323.2,
+  "y": 102.8,
+  "w": 122.7,
+  "h": 26.6,
+  "rot": 0,
+  "id": "LBCkwr2MrTwzRTMK",
+  "text": "Satellite",
+  "size": "24px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 245.4,
+  "y": 292.4,
+  "w": 122.7,
+  "h": 79.9,
+  "rot": 0,
+  "id": "LBHTcVQYsWQCZY6Z",
+  "text": "Automatic Weather Stations",
+  "size": "24px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 186.1,
+  "y": 462.0,
+  "w": 160.7,
+  "h": 53.3,
+  "rot": 0,
+  "id": "LBzcLQT0J01L13HY",
+  "text": "Hydro-metereological",
+  "size": "24px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 106.6,
+  "y": 230.6,
+  "w": 212.0,
+  "h": 44.7,
+  "rot": 0,
+  "id": "LB6mRW4clk2YPQzg",
+  "text": "Data Inputs",
+  "size": "39.9999px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 678.3,
+  "y": 758.8,
+  "w": 268.2,
+  "h": 66.6,
+  "rot": 0,
+  "id": "LBSN2j0ZKj4350dK",
+  "text": "Hydrological & Hydraulic Models",
+  "size": "29.3333px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 1018.8,
+  "y": 759.5,
+  "w": 274.1,
+  "h": 33.3,
+  "rot": 0,
+  "id": "LBsv1tnzk0Js61Yz",
+  "text": "AI/ML/DL Models",
+  "size": "29.3334px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 404.0,
+  "y": 748.9,
+  "w": 282.4,
+  "h": 66.6,
+  "rot": 0,
+  "id": "LBQKtzlDcvQr3rVs",
+  "text": "Weather Forecasting Models",
+  "size": "29.3333px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 106.6,
+  "y": 647.8,
+  "w": 493.8,
+  "h": 45.7,
+  "rot": 0,
+  "id": "LBSXy3XPyM3KXX3J",
+  "text": "Models & Forecasting",
+  "size": "40px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 110.4,
+  "y": 1190.7,
+  "w": 603.9,
+  "h": 45.7,
+  "rot": 0,
+  "id": "LB1lTWmfVYtqXQ3R",
+  "text": "Tools: Products & Services",
+  "size": "40px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "J",
+  "d": 0,
+  "x": 865.6,
+  "y": 1416.8,
+  "w": 142.5,
+  "h": 123.8,
+  "rot": 0,
+  "id": "LBcfjrlhgvm7YTfM",
+  "a": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 124.518,
+   "C": 108.222
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 1006.2,
+  "y": 1385.8,
+  "w": 229.1,
+  "h": 60.9,
+  "rot": 0,
+  "id": "LBg6f61wqcxF7LnD",
+  "text": "Mitigation strategies & Policy Making",
+  "size": "26.6667px",
+  "color": "#c55a11",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 796.2,
+  "y": 1269.3,
+  "w": 437.5,
+  "h": 45.7,
+  "rot": 0,
+  "id": "LBJjvFr6nL9D2NNC",
+  "text": "Decision Support & Policy",
+  "size": "40px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 549.6,
+  "y": 1669.9,
+  "w": 188.8,
+  "h": 62.8,
+  "rot": 0,
+  "id": "LBpj8wLl5rFqnXCK",
+  "text": "Web Dashboards",
+  "size": "28px",
+  "color": "#eb493a",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 400.7,
+  "y": 1665.1,
+  "w": 196.1,
+  "h": 53.3,
+  "rot": 0,
+  "id": "LBKs98nsQMK5RRWL",
+  "text": "Alerts Via SMS/Social Media",
+  "size": "24.0001px",
+  "color": "#eb493a",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 614.3,
+  "y": 1193.1,
+  "w": 214.0,
+  "h": 59.0,
+  "rot": 0,
+  "id": "LBhbQxJJSLHPsGCt",
+  "text": "Flood Extents & inundation Map",
+  "size": "26.6666px",
+  "color": "#eb493a",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 443.3,
+  "y": 1187.3,
+  "w": 219.8,
+  "h": 158.9,
+  "rot": 0,
+  "id": "LBp04QxghmKpHsdy",
+  "media": "MAHN89ng3es",
+  "file": "74c156b8b4e283ea849f455bbf5dac18.png",
+  "mtype": "RASTER",
+  "nat": [
+   180,
+   138
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": -13.7,
+   "D": 233.4,
+   "C": 179.0,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 774.5,
+  "y": 95.9,
+  "w": 231.1,
+  "h": 228.6,
+  "rot": 0,
+  "id": "LBZLrVNCgr3HfD3k",
+  "media": "MAHN88AUSDY",
+  "file": "bed646f905f339a2160abd0ddb51b35f.png",
+  "mtype": "RASTER",
+  "nat": [
+   279,
+   276
+  ],
+  "crop": {
+   "A": 0.0,
+   "B": 0.0,
+   "D": 231.1,
+   "C": 228.6,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 1022.4,
+  "y": 129.2,
+  "w": 474.2,
+  "h": 33.3,
+  "rot": 0,
+  "id": "LBtm4kWS2TPyFT8F",
+  "text": "GeoSpatial & Infrastructure Information",
+  "size": "29.3333px",
+  "color": "#ff4d00",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 766.0,
+  "y": 321.9,
+  "w": 302.7,
+  "h": 241.2,
+  "rot": 0,
+  "id": "LB2GVwk2vV7xWPff",
+  "text": "Soil Map\nStreamFlow Data\nStormWater Network Data\nDigital Elevation Modules\nLand Use Land Cover\nRoad Networks",
+  "size": "24px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": null
+ },
+ {
+  "t": "U",
+  "d": 0,
+  "x": 437.3,
+  "y": 80.5,
+  "w": 546.0,
+  "h": 4.0,
+  "rot": 0,
+  "id": "LBWRtRwW8Qd94s56",
+  "a": 4
+ },
+ {
+  "t": "U",
+  "d": 0,
+  "x": 726.8,
+  "y": 80.5,
+  "w": 546.0,
+  "h": 3.8,
+  "rot": 0,
+  "id": "LBZD7CVw9RS8XZc2",
+  "a": 4
+ },
+ {
+  "t": "H",
+  "d": 0,
+  "x": 206.2,
+  "y": 1141.5,
+  "w": 331.4,
+  "h": 204.4,
+  "rot": 0,
+  "id": "LBHydtcC43nK0pp0",
+  "a": 214.8102193023036
+ },
+ {
+  "t": "U",
+  "d": 0,
+  "x": 421.9,
+  "y": 1203.4,
+  "w": 529.2,
+  "h": 3.8,
+  "rot": -90,
+  "id": "LBX2QrBbrtpHNTWq",
+  "a": 4
+ },
+ {
+  "t": "H",
+  "d": 0,
+  "x": 212.7,
+  "y": 1492.6,
+  "w": 182.0,
+  "h": 154.9,
+  "rot": 0,
+  "id": "LBd4YCClK17wgrwZ",
+  "a": 179.78270941208365
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 391.4,
+  "y": 1464.7,
+  "w": 254.1,
+  "h": 60.9,
+  "rot": 0,
+  "id": "LBlZqHgkdB4M5BcZ",
+  "text": "Snapflood TM Mobile App",
+  "size": "26.6667px",
+  "color": "#eb493a",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 495.7,
+  "y": 188.7,
+  "w": 70.8,
+  "h": 131.7,
+  "rot": 0,
+  "id": "LBKxKbMcXfVbK9HP",
+  "media": "MAHN786J1D8",
+  "file": "071f855392b5cd4c0a968c9492b688d0.png",
+  "mtype": "RASTER",
+  "nat": [
+   588,
+   588
+  ],
+  "crop": {
+   "A": -20.7,
+   "B": -50.7,
+   "D": 170.9,
+   "C": 170.9,
+   "E": 0.0
+  }
+ },
+ {
+  "t": "K",
+  "d": 0,
+  "x": 32.6,
+  "y": 462.0,
+  "w": 1011.0,
+  "h": 60.0,
+  "rot": 0,
+  "id": "LBGhtNjnKd5YHPgg",
+  "text": "URBAN FLOOD INFORMATION SYSTEM (UFIS)",
+  "size": "50.6665px",
+  "color": "#002060",
+  "weight": "bold",
+  "font": "YAFcfhdOoGk,0",
+  "align": "center"
+ },
+ {
+  "t": "I",
+  "d": 0,
+  "x": 0.0,
+  "y": 1681.6,
+  "w": 238.4,
+  "h": 114.1,
+  "rot": 0,
+  "id": "LBJRkhy1zT9fPXDh",
+  "media": "MAHTjeJW6uk",
+  "file": "4a39912bba335f169108899b4aef433c.png",
+  "mtype": "RASTER",
+  "nat": [
+   942,
+   416
+  ],
+  "crop": {
+   "A": -3.0,
+   "B": -14.4,
+   "D": 265.1,
+   "C": 117.1,
+   "E": 0.0
+  }
+ }
+]

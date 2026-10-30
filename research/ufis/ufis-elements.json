@@ -1,0 +1,1355 @@
+[
+ {
+  "key": "fr-inputs",
+  "kind": "frame",
+  "x": 80.48006835330716,
+  "y": 162.9924127275766,
+  "w": 545.9684142754326,
+  "h": 912.7293791004092,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "phone-black",
+  "kind": "img",
+  "x": 453.7387179155106,
+  "y": 499.55225222333013,
+  "w": 133.90112299231953,
+  "h": 149.44725673636685,
+  "file": "phone-black.webp",
+  "src": "01d5a1db27a30808d25978e3fa979b78.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 27,
+   "top": 0,
+   "width": 459,
+   "height": 512
+  },
+  "outW": 268,
+  "cover": false
+ },
+ {
+  "key": "whatsapp",
+  "kind": "img",
+  "x": 460.2340566867584,
+  "y": 580.9729651641599,
+  "w": 41.77652442710536,
+  "h": 46.62684548186223,
+  "file": "whatsapp.webp",
+  "src": "cb60f17459b6e156370f2fdad7965e4e.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 27,
+   "top": 0,
+   "width": 459,
+   "height": 512
+  },
+  "outW": 84,
+  "cover": false
+ },
+ {
+  "key": "x",
+  "kind": "img",
+  "x": 501.1667647003623,
+  "y": 544.1436556997704,
+  "w": 37.35739659561233,
+  "h": 41.69464986747721,
+  "file": "x.webp",
+  "src": "5f54331ea274a1e1a628934a6cdb99a7.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 27,
+   "top": 0,
+   "width": 459,
+   "height": 512
+  },
+  "outW": 75,
+  "cover": false
+ },
+ {
+  "key": "linkedin",
+  "kind": "img",
+  "x": 533.45904306752,
+  "y": 580.9729651641599,
+  "w": 48.117552642324995,
+  "h": 53.704077176975375,
+  "file": "linkedin.webp",
+  "src": "076f50fa65b2df3ef21a08b781ded652.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 27,
+   "top": 0,
+   "width": 459,
+   "height": 512
+  },
+  "outW": 96,
+  "cover": false
+ },
+ {
+  "key": "facebook",
+  "kind": "img",
+  "x": 460.2340566867594,
+  "y": 483.8986959821182,
+  "w": 45.71378519653871,
+  "h": 51.02122850045197,
+  "file": "facebook.webp",
+  "src": "0433d5893eab869be1fb508d0372e899.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 27,
+   "top": 0,
+   "width": 459,
+   "height": 512
+  },
+  "outW": 91,
+  "cover": false
+ },
+ {
+  "key": "bluesky",
+  "kind": "img",
+  "x": 533.4590430675199,
+  "y": 475.7285533907478,
+  "w": 51.67572751887826,
+  "h": 59.19137109182242,
+  "file": "bluesky.webp",
+  "src": "659a67300af07fdf550e8c1a75894511.png",
+  "nat": [
+   2142,
+   2400
+  ],
+  "crop": {
+   "left": 111,
+   "top": 0,
+   "width": 1919,
+   "height": 2198
+  },
+  "outW": 103,
+  "cover": false
+ },
+ {
+  "key": "community",
+  "kind": "img",
+  "x": 290.9268826393882,
+  "y": 493.16443000039976,
+  "w": 136.86911609263677,
+  "h": 134.9456680093183,
+  "file": "community.webp",
+  "src": "aeecec48d7dc304015a3bec4d34a9643.png",
+  "nat": [
+   296,
+   256
+  ],
+  "crop": {
+   "left": 24,
+   "top": 0,
+   "width": 244,
+   "height": 240
+  },
+  "outW": 244,
+  "cover": false
+ },
+ {
+  "key": "app-shot-a",
+  "kind": "img",
+  "x": 118.0919853112917,
+  "y": 504.8855008905161,
+  "w": 57.56130327278015,
+  "h": 112.63134597749303,
+  "file": "app-shot-a.webp",
+  "src": "af5f7597d8a964f32acaa0e51c9c532d.jpg",
+  "nat": [
+   1079,
+   2187
+  ],
+  "crop": {
+   "left": 0,
+   "top": 13,
+   "width": 1079,
+   "height": 2110
+  },
+  "outW": 115,
+  "cover": false
+ },
+ {
+  "key": "phone-frame",
+  "kind": "img",
+  "x": 110.3141117691425,
+  "y": 497.4285530131932,
+  "w": 71.03755982770579,
+  "h": 124.51760664621634,
+  "file": "phone-frame.webp",
+  "src": "124033ddb14d85aaccab7e9c91c9cead.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 114,
+   "top": 9,
+   "width": 278,
+   "height": 487
+  },
+  "outW": 142,
+  "cover": false
+ },
+ {
+  "key": "lbl-snapflood",
+  "kind": "text",
+  "x": 125.51141778054608,
+  "y": 638.830836671196,
+  "w": 124.78354612947375,
+  "h": 26.646963838971445,
+  "text": "Snapflood TM",
+  "size": 24,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Snapflood TM\n"
+  ]
+ },
+ {
+  "key": "sec-community",
+  "kind": "text",
+  "x": 147.07421121879668,
+  "y": 676.8979278697267,
+  "w": 381.7743013616333,
+  "h": 33.30870479871431,
+  "text": "Community & Social Information",
+  "size": 29.33,
+  "color": "#ff4d00",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Community & Social Information\n"
+  ]
+ },
+ {
+  "key": "satellite",
+  "kind": "img",
+  "x": 89.79887246517035,
+  "y": 199.345900166084,
+  "w": 132.9205972468049,
+  "h": 112.8990846908008,
+  "file": "satellite.webp",
+  "src": "29385b70bea0426985621c1494822fec.png",
+  "nat": [
+   239,
+   203
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 239,
+   "height": 203
+  },
+  "outW": 239,
+  "cover": false
+ },
+ {
+  "key": "aws",
+  "kind": "img",
+  "x": 217.92336475971692,
+  "y": 191.7591833597553,
+  "w": 99.05552264217127,
+  "h": 131.62172186699468,
+  "file": "aws.webp",
+  "src": "4b755fa304ebe713e4abd6fa43ba667a.png",
+  "nat": [
+   146,
+   194
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 146,
+   "height": 194
+  },
+  "outW": 146,
+  "cover": false
+ },
+ {
+  "key": "hydromet",
+  "kind": "img",
+  "x": 386.9860759696369,
+  "y": 177.96340365551163,
+  "w": 162.92040213589735,
+  "h": 200.38338230618393,
+  "file": "hydromet.webp",
+  "src": "461dbd80271b72e5b1a1907927d564f8.png",
+  "nat": [
+   187,
+   230
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 187,
+   "height": 230
+  },
+  "outW": 187,
+  "cover": false
+ },
+ {
+  "key": "fr-models",
+  "kind": "frame",
+  "x": 736.1638315546267,
+  "y": 161.08304316151225,
+  "w": 307.8065473608695,
+  "h": 912.7293791004092,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "weather",
+  "kind": "img",
+  "x": 762.8269769718648,
+  "y": 166.20960933203543,
+  "w": 249.3604006796986,
+  "h": 238.77959436663974,
+  "file": "weather.webp",
+  "src": "2895ce7b1b1232680873e758431a55f5.png",
+  "nat": [
+   752,
+   484
+  ],
+  "crop": {
+   "left": 134,
+   "top": 13,
+   "width": 470,
+   "height": 450
+  },
+  "outW": 470,
+  "cover": false
+ },
+ {
+  "key": "hydro",
+  "kind": "img",
+  "x": 769.767955510353,
+  "y": 474.64157187789607,
+  "w": 239.24300827795776,
+  "h": 194.72434070024207,
+  "file": "hydro.webp",
+  "src": "09d6795d266d9afa6ba600a426e70b41.png",
+  "nat": [
+   438,
+   256
+  ],
+  "crop": {
+   "left": 94,
+   "top": 22,
+   "width": 288,
+   "height": 234
+  },
+  "outW": 288,
+  "cover": false
+ },
+ {
+  "key": "ai-network",
+  "kind": "img",
+  "x": 771.9417993730578,
+  "y": 761.1053382354276,
+  "w": 216.05087242506033,
+  "h": 163.0581069161957,
+  "file": "ai-network.webp",
+  "src": "167199acc02d9f862624d38e4d3476ba.png",
+  "nat": [
+   528,
+   348
+  ],
+  "crop": {
+   "left": 13,
+   "top": 0,
+   "width": 461,
+   "height": 348
+  },
+  "outW": 432,
+  "cover": false
+ },
+ {
+  "key": "book-gears",
+  "kind": "img",
+  "x": 767.130893128733,
+  "y": 890.1179209306074,
+  "w": 122.25856652059895,
+  "h": 122.25856652059906,
+  "file": "book-gears.webp",
+  "src": "e71121d4ad7d61da2673b6b302c4aa4b.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 512,
+   "height": 512
+  },
+  "outW": 245,
+  "cover": false
+ },
+ {
+  "key": "ai-head",
+  "kind": "img",
+  "x": 906.9450694523273,
+  "y": 890.1179209306075,
+  "w": 110.80172755960666,
+  "h": 110.80172755960666,
+  "file": "ai-head.webp",
+  "src": "01997aaa4b6f4de5c38c1d1211d042c2.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 512,
+   "height": 512
+  },
+  "outW": 222,
+  "cover": false
+ },
+ {
+  "key": "fr-decision",
+  "kind": "frame",
+  "x": 1115.9422516611983,
+  "y": 842.8148842913575,
+  "w": 753.3639848268039,
+  "h": 237.18511570864248,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "stakeholders",
+  "kind": "img",
+  "x": 1676.52555243108,
+  "y": 865.6408888313899,
+  "w": 153.502878798003,
+  "h": 112.15045820855102,
+  "file": "stakeholders.webp",
+  "src": "b6b6fa5327e501e1fba39c3b03b93c06.jpg",
+  "nat": [
+   322,
+   235
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 322,
+   "height": 235
+  },
+  "outW": 307,
+  "cover": true
+ },
+ {
+  "key": "lbl-stakeholders",
+  "kind": "text",
+  "x": 1658.359752421133,
+  "y": 1006.2051160116754,
+  "w": 171.6686788079502,
+  "h": 60.907345917648996,
+  "text": "Stakeholders of different types",
+  "size": 26.67,
+  "color": "#c55a11",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Stakeholders of different types\n"
+  ]
+ },
+ {
+  "key": "fr-tools",
+  "kind": "frame",
+  "x": 1115.9422516611985,
+  "y": 159.29559868965822,
+  "w": 753.3639848268041,
+  "h": 529.1607142781701,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "alert-phone",
+  "kind": "img",
+  "x": 1745.2852637294318,
+  "y": 228.70865859351855,
+  "w": 115.96485412391212,
+  "h": 142.4002473270202,
+  "file": "alert-phone.webp",
+  "src": "90af6655d0783dc90081d899fd41eda5.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 52,
+   "top": 0,
+   "width": 417,
+   "height": 512
+  },
+  "outW": 232,
+  "cover": false
+ },
+ {
+  "key": "telegram",
+  "kind": "img",
+  "x": 1700.0574158125885,
+  "y": 207.75947713435562,
+  "w": 72.2247336825846,
+  "h": 72.2247336825846,
+  "file": "telegram.webp",
+  "src": "817e27301dd0f81d9066e705aa6df6a5.jpg",
+  "nat": [
+   225,
+   225
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 225,
+   "height": 225
+  },
+  "outW": 144,
+  "cover": true
+ },
+ {
+  "key": "whatsapp-2",
+  "kind": "img",
+  "x": 1700.0574158125883,
+  "y": 297.22417142047664,
+  "w": 78.01122647016632,
+  "h": 78.0112264701662,
+  "file": "whatsapp-2.webp",
+  "src": "cb60f17459b6e156370f2fdad7965e4e.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 512,
+   "height": 512
+  },
+  "outW": 156,
+  "cover": false
+ },
+ {
+  "key": "disaster",
+  "kind": "img",
+  "x": 1166.7410626792396,
+  "y": 865.6408888313899,
+  "w": 125.39823062179929,
+  "h": 123.59463983350327,
+  "file": "disaster.webp",
+  "src": "2afc75efa084beee01996f786b2557bf.png",
+  "nat": [
+   159,
+   142
+  ],
+  "crop": {
+   "left": 7,
+   "top": 0,
+   "width": 144,
+   "height": 142
+  },
+  "outW": 144,
+  "cover": true
+ },
+ {
+  "key": "lbl-disaster",
+  "kind": "text",
+  "x": 1126.6405099149847,
+  "y": 1006.2051160116754,
+  "w": 215.36725211987266,
+  "h": 60.907345917648996,
+  "text": "Disaster Management",
+  "size": 26.67,
+  "color": "#c55a11",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Disaster Management\n"
+  ]
+ },
+ {
+  "key": "ar-down",
+  "kind": "arrow",
+  "x": 1419.0044938933574,
+  "y": 718.2708434959279,
+  "w": 50.47922880694501,
+  "h": 70.27682392114,
+  "dir": "down",
+  "fill": "#4472c4",
+  "stroke": "#172c51",
+  "path": "M0 68.93H19.32V0H57.95V68.93H77.26L38.63 107.57Z",
+  "vb": [
+   77.263,
+   107.565
+  ]
+ },
+ {
+  "key": "ar-up",
+  "kind": "arrow",
+  "x": 1459.835155455684,
+  "y": 710.206632668441,
+  "w": 50.47922880694501,
+  "h": 70.27682392114,
+  "dir": "up",
+  "fill": "#4472c4",
+  "stroke": "#172c51",
+  "path": "M0 68.93H19.32V0H57.95V68.93H77.26L38.63 107.57Z",
+  "vb": [
+   77.263,
+   107.565
+  ]
+ },
+ {
+  "key": "ar-b",
+  "kind": "arrow",
+  "x": 1051.3886376867192,
+  "y": 412.9240116135954,
+  "w": 57.632088565753605,
+  "h": 41.39662584349762,
+  "dir": "right",
+  "fill": "#4472c4",
+  "stroke": "#172c51",
+  "path": "M0 68.93H19.32V0H57.95V68.93H77.26L38.63 107.57Z",
+  "vb": [
+   77.263,
+   107.565
+  ]
+ },
+ {
+  "key": "ar-a",
+  "kind": "arrow",
+  "x": 643.7502840048024,
+  "y": 572.9554195079803,
+  "w": 77.96677801365128,
+  "h": 56.00285566558582,
+  "dir": "right",
+  "fill": "#4472c4",
+  "stroke": "#172c51",
+  "path": "M0 68.93H19.32V0H57.95V68.93H77.26L38.63 107.57Z",
+  "vb": [
+   77.263,
+   107.565
+  ]
+ },
+ {
+  "key": "dashboard",
+  "kind": "img",
+  "x": 1508.3312405853353,
+  "y": 503.061989926014,
+  "w": 156.7935795885146,
+  "h": 149.09232866466778,
+  "file": "dashboard.webp",
+  "src": "f49a4b5034bcbb00cfc04de60ad3b64f.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 512,
+   "height": 487
+  },
+  "outW": 314,
+  "cover": false
+ },
+ {
+  "key": "sec-observation",
+  "kind": "text",
+  "x": 189.33297978571952,
+  "y": 384.0568496414751,
+  "w": 288.69621474910167,
+  "h": 33.30870479871431,
+  "text": "Observation & Sensing",
+  "size": 29.33,
+  "color": "#ff4d00",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Observation & Sensing\n"
+  ]
+ },
+ {
+  "key": "lbl-satellite",
+  "kind": "text",
+  "x": 102.83816695627797,
+  "y": 323.2065097184293,
+  "w": 122.69331948287058,
+  "h": 26.646963838971445,
+  "text": "Satellite",
+  "size": 24,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Satellite\n"
+  ]
+ },
+ {
+  "key": "lbl-aws",
+  "kind": "text",
+  "x": 292.3566715798248,
+  "y": 245.3582323667011,
+  "w": 122.69331948287058,
+  "h": 79.94089151691433,
+  "text": "Automatic Weather Stations",
+  "size": 24,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Automatic Weather Stations\n"
+  ]
+ },
+ {
+  "key": "lbl-hydromet",
+  "kind": "text",
+  "x": 461.9844489275954,
+  "y": 186.06509717610555,
+  "w": 160.65732458129114,
+  "h": 53.29392767794289,
+  "text": "Hydro-metereological",
+  "size": 24,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Hydro-metereological\n"
+  ]
+ },
+ {
+  "key": "hd-inputs",
+  "kind": "text",
+  "x": 230.5600969675627,
+  "y": 106.60018680106721,
+  "w": 211.9520440651948,
+  "h": 44.7288321582735,
+  "text": "Data Inputs",
+  "size": 40,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Data Inputs\n"
+  ]
+ },
+ {
+  "key": "lbl-hydro",
+  "kind": "text",
+  "x": 758.8315426148749,
+  "y": 678.3094148786233,
+  "w": 268.18118892015235,
+  "h": 66.61740959742862,
+  "text": "Hydrological & Hydraulic Models",
+  "size": 29.33,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Hydrological & Hydraulic Models\n"
+  ]
+ },
+ {
+  "key": "lbl-ai",
+  "kind": "text",
+  "x": 759.5174748890269,
+  "y": 1018.8075745310736,
+  "w": 274.0506189263376,
+  "h": 33.30870479871431,
+  "text": "AI/ML/DL Models",
+  "size": 29.33,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "AI/ML/DL Models\n"
+  ]
+ },
+ {
+  "key": "lbl-weather",
+  "kind": "text",
+  "x": 748.8681629934038,
+  "y": 403.9578044652039,
+  "w": 282.3978844833152,
+  "h": 66.61740959742862,
+  "text": "Weather Forecasting Models",
+  "size": 29.33,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Weather Forecasting Models\n"
+  ]
+ },
+ {
+  "key": "hd-models",
+  "kind": "text",
+  "x": 647.7534064696387,
+  "y": 106.6001868010672,
+  "w": 493.7720466452608,
+  "h": 45.68050943823676,
+  "text": "Models & Forecasting",
+  "size": 40,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Models & Forecasting\n"
+  ]
+ },
+ {
+  "key": "hd-tools",
+  "kind": "text",
+  "x": 1190.6822119886913,
+  "y": 110.40689592092028,
+  "w": 603.8840641718181,
+  "h": 45.68050943823676,
+  "text": "Tools: Products & Services",
+  "size": 40,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Tools: Products & Services\n"
+  ]
+ },
+ {
+  "key": "mitigation",
+  "kind": "img",
+  "x": 1416.806811934139,
+  "y": 865.6408888313899,
+  "w": 142.45251807607687,
+  "h": 123.80938026011653,
+  "file": "mitigation.webp",
+  "src": "25380f133f80b131f028a580b78633fb.jpg",
+  "nat": [
+   200,
+   200
+  ],
+  "crop": {
+   "left": 0,
+   "top": 13,
+   "width": 200,
+   "height": 174
+  },
+  "outW": 200,
+  "cover": true
+ },
+ {
+  "key": "lbl-mitigation",
+  "kind": "text",
+  "x": 1385.7849169131678,
+  "y": 1006.2051160116754,
+  "w": 229.0941451136625,
+  "h": 60.90734591764901,
+  "text": "Mitigation strategies & Policy Making",
+  "size": 26.67,
+  "color": "#c55a11",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Mitigation strategies & Policy Making\n"
+  ]
+ },
+ {
+  "key": "hd-decision",
+  "kind": "text",
+  "x": 1269.2986881945876,
+  "y": 796.1610856567738,
+  "w": 437.4687655551799,
+  "h": 45.68050943823676,
+  "text": "Decision Support & Policy",
+  "size": 40,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Decision Support & Policy\n"
+  ]
+ },
+ {
+  "key": "lbl-dash",
+  "kind": "text",
+  "x": 1669.8832065736665,
+  "y": 549.5676149253723,
+  "w": 188.75513108210714,
+  "h": 62.81070047757554,
+  "text": "Web Dashboards",
+  "size": 28,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Web Dashboards\n"
+  ]
+ },
+ {
+  "key": "lbl-alerts",
+  "kind": "text",
+  "x": 1665.1248201738504,
+  "y": 400.71120204083223,
+  "w": 196.1252976794937,
+  "h": 53.29392767794289,
+  "text": "Alerts Via SMS/Social Media",
+  "size": 24,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Alerts Via SMS/Social Media\n"
+  ]
+ },
+ {
+  "key": "lbl-flood",
+  "kind": "text",
+  "x": 1193.0713972168503,
+  "y": 614.2784833370856,
+  "w": 213.96338861731968,
+  "h": 59.00399135772248,
+  "text": "Flood Extents & inundation Map",
+  "size": 26.67,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Flood Extents & inundation Map\n"
+  ]
+ },
+ {
+  "key": "flood-map",
+  "kind": "img",
+  "x": 1187.2631931723722,
+  "y": 443.3245951576683,
+  "w": 219.77159266179774,
+  "h": 158.85233319107516,
+  "file": "flood-map.webp",
+  "src": "74c156b8b4e283ea849f455bbf5dac18.png",
+  "nat": [
+   180,
+   138
+  ],
+  "crop": {
+   "left": 11,
+   "top": 0,
+   "width": 169,
+   "height": 122
+  },
+  "outW": 169,
+  "cover": false
+ },
+ {
+  "key": "geospatial",
+  "kind": "img",
+  "x": 95.86102281203112,
+  "y": 774.4707751796634,
+  "w": 231.0815783583912,
+  "h": 228.59683020399984,
+  "file": "geospatial.webp",
+  "src": "bed646f905f339a2160abd0ddb51b35f.png",
+  "nat": [
+   279,
+   276
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 279,
+   "height": 276
+  },
+  "outW": 279,
+  "cover": false
+ },
+ {
+  "key": "sec-geo",
+  "kind": "text",
+  "x": 129.20720774071765,
+  "y": 1022.3706917338669,
+  "w": 474.17749572195066,
+  "h": 33.30870479871431,
+  "text": "GeoSpatial & Infrastructure Information",
+  "size": 29.33,
+  "color": "#ff4d00",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "GeoSpatial & Infrastructure Information\n"
+  ]
+ },
+ {
+  "key": "list-geo",
+  "kind": "text",
+  "x": 321.8641988059908,
+  "y": 765.9637034577486,
+  "w": 302.6809292628223,
+  "h": 241.1930898338901,
+  "text": "Soil Map\nStreamFlow Data\nStormWater Network Data\nDigital Elevation Modules\nLand Use Land Cover\nRoad Networks",
+  "size": 24,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "start",
+  "lines": [
+   "Soil Map\n",
+   "StreamFlow Data\n",
+   "StormWater Network Data\n",
+   "Digital Elevation Modules\n",
+   "Land Use Land Cover\n",
+   "Road Networks\n"
+  ]
+ },
+ {
+  "key": "ln",
+  "kind": "line",
+  "x1": 80.48006835330716,
+  "y1": 438.3807109351608,
+  "x2": 626.4484826287396,
+  "y2": 440.29008050122513,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "ln-2",
+  "kind": "line",
+  "x1": 80.48006835330726,
+  "y1": 728.8482895391811,
+  "x2": 626.4484826287396,
+  "y2": 728.8482895391811,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "lbl-uhi",
+  "kind": "text",
+  "x": 1320.3248901580682,
+  "y": 272.89074668030764,
+  "w": 101.0669499383664,
+  "h": 25.695286559008178,
+  "text": "UHI Maps",
+  "size": 21.57,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "start",
+  "lines": [
+   "UHI Maps\n"
+  ]
+ },
+ {
+  "key": "lbl-rain",
+  "kind": "text",
+  "x": 1294.7965608771028,
+  "y": 218.4349509839914,
+  "w": 125.6436019393685,
+  "h": 25.695286559008178,
+  "text": "Rainfall Maps",
+  "size": 21.57,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "start",
+  "lines": [
+   "Rainfall Maps\n"
+  ]
+ },
+ {
+  "key": "map-rain",
+  "kind": "img",
+  "x": 1141.5254531148996,
+  "y": 206.20768146118945,
+  "w": 130.16872200542525,
+  "h": 96.69102262645907,
+  "file": "map-rain.webp",
+  "src": "cacbcb7750e4f4d21933bbb718719a5a.png",
+  "nat": [
+   882,
+   654
+  ],
+  "crop": {
+   "left": 69,
+   "top": 60,
+   "width": 697,
+   "height": 518
+  },
+  "outW": 260,
+  "cover": false
+ },
+ {
+  "key": "map-uhi",
+  "kind": "img",
+  "x": 1159.6073214342016,
+  "y": 263.6392009501067,
+  "w": 136.69248284440073,
+  "h": 99.36626264055405,
+  "file": "map-uhi.webp",
+  "src": "73ddbd946f1286ac1ea967760efa1ce2.png",
+  "nat": [
+   531,
+   386
+  ],
+  "crop": {
+   "left": 0,
+   "top": 0,
+   "width": 531,
+   "height": 386
+  },
+  "outW": 273,
+  "cover": false
+ },
+ {
+  "key": "map-risk",
+  "kind": "img",
+  "x": 1210.997894552218,
+  "y": 311.9095151588016,
+  "w": 131.7916861617689,
+  "h": 98.72817151631682,
+  "file": "map-risk.webp",
+  "src": "7ac93d121b0cc4c02148b4a5deed15e7.png",
+  "nat": [
+   2400,
+   1714
+  ],
+  "crop": {
+   "left": 393,
+   "top": 108,
+   "width": 1763,
+   "height": 1321
+  },
+  "outW": 264,
+  "cover": false
+ },
+ {
+  "key": "lbl-risk",
+  "kind": "text",
+  "x": 1317.7009718741758,
+  "y": 323.94218593703,
+  "w": 155.27282365397616,
+  "h": 77.08585967702453,
+  "text": "Risk & vulnerability maps",
+  "size": 21.57,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Risk & vulnerability maps\n"
+  ]
+ },
+ {
+  "key": "ln-3",
+  "kind": "line",
+  "x1": 1467.991201934168,
+  "y1": 688.4563129678284,
+  "x2": 1467.991201934168,
+  "y2": 159.29559868965845,
+  "stroke": "#ed7d31",
+  "dash": [
+   6,
+   1
+  ],
+  "sw": 4
+ },
+ {
+  "key": "app-shot-a-2",
+  "kind": "img",
+  "x": 1502.285765426445,
+  "y": 221.97493482575607,
+  "w": 71.50151742584103,
+  "h": 139.90844003203676,
+  "file": "app-shot-a-2.webp",
+  "src": "af5f7597d8a964f32acaa0e51c9c532d.jpg",
+  "nat": [
+   1079,
+   2187
+  ],
+  "crop": {
+   "left": 0,
+   "top": 13,
+   "width": 1079,
+   "height": 2110
+  },
+  "outW": 143,
+  "cover": false
+ },
+ {
+  "key": "phone-frame-2",
+  "kind": "img",
+  "x": 1492.6242440746005,
+  "y": 212.71206101507713,
+  "w": 88.24145794335845,
+  "h": 154.67331896997948,
+  "file": "phone-frame-2.webp",
+  "src": "124033ddb14d85aaccab7e9c91c9cead.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 114,
+   "top": 9,
+   "width": 278,
+   "height": 487
+  },
+  "outW": 176,
+  "cover": false
+ },
+ {
+  "key": "app-shot-b",
+  "kind": "img",
+  "x": 1595.3084532307491,
+  "y": 218.52988988269172,
+  "w": 73.71125890640565,
+  "h": 144.4572592300319,
+  "file": "app-shot-b.webp",
+  "src": "362d4bb3abf52263c28f74fab367d363.jpg",
+  "nat": [
+   1069,
+   2207
+  ],
+  "crop": {
+   "left": 0,
+   "top": 68,
+   "width": 1069,
+   "height": 2095
+  },
+  "outW": 147,
+  "cover": false
+ },
+ {
+  "key": "phone-frame-3",
+  "kind": "img",
+  "x": 1586.3871560511109,
+  "y": 212.94866068095726,
+  "w": 88.24145794335845,
+  "h": 154.67331896997948,
+  "file": "phone-frame-3.webp",
+  "src": "124033ddb14d85aaccab7e9c91c9cead.png",
+  "nat": [
+   512,
+   512
+  ],
+  "crop": {
+   "left": 114,
+   "top": 9,
+   "width": 278,
+   "height": 487
+  },
+  "outW": 176,
+  "cover": false
+ },
+ {
+  "key": "lbl-app",
+  "kind": "text",
+  "x": 1464.6594390779935,
+  "y": 391.41391165001846,
+  "w": 254.09431761560842,
+  "h": 60.907345917649,
+  "text": "Snapflood TM Mobile App",
+  "size": 26.67,
+  "color": "#eb493a",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "Snapflood TM Mobile App\n"
+  ]
+ },
+ {
+  "key": "varshamitra",
+  "kind": "img",
+  "x": 188.72715394235803,
+  "y": 495.7335961367093,
+  "w": 70.79437845824242,
+  "h": 131.67711317492757,
+  "file": "varshamitra.webp",
+  "src": "071f855392b5cd4c0a968c9492b688d0.png",
+  "nat": [
+   588,
+   588
+  ],
+  "crop": {
+   "left": 175,
+   "top": 71,
+   "width": 244,
+   "height": 453
+  },
+  "outW": 142,
+  "cover": false
+ },
+ {
+  "key": "title",
+  "kind": "text",
+  "x": 461.9844489275955,
+  "y": 32.600186801067196,
+  "w": 1010.9893466005567,
+  "h": 60,
+  "text": "URBAN FLOOD INFORMATION SYSTEM (UFIS)",
+  "size": 50.67,
+  "color": "#002060",
+  "weight": "bold",
+  "align": "center",
+  "lines": [
+   "URBAN FLOOD INFORMATION SYSTEM (UFIS)\n"
+  ]
+ },
+ {
+  "key": "iith-logo",
+  "kind": "img",
+  "x": 1681.6280668539005,
+  "y": 0,
+  "w": 238.37193314609954,
+  "h": 114.10171482226124,
+  "file": "iith-logo.webp",
+  "src": "4a39912bba335f169108899b4aef433c.png",
+  "nat": [
+   942,
+   416
+  ],
+  "crop": {
+   "left": 51,
+   "top": 11,
+   "width": 847,
+   "height": 405
+  },
+  "outW": 477,
+  "cover": false
+ }
+]
