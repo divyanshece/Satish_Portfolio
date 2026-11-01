@@ -12,7 +12,8 @@
     "sync": "node scripts/sync-from-google.mjs",
     "grep-check": "node scripts/grep-check.mjs",
     "seo-check": "node scripts/seo-check.mjs",
-    "rivers": "node scripts/rivers.mjs"
+    "rivers": "node scripts/rivers.mjs",
+    "abstracts": "node scripts/fetch-abstracts.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",

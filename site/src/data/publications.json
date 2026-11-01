@@ -37,7 +37,8 @@
     "volume": "62",
     "issue": "2",
     "date": "2026-02",
-    "order": 20
+    "order": 20,
+    "abstract": "Urban floods are increasing in frequency, causing significant socio-economic impacts, especially where risk mitigation is limited. Conventional hydrologic and hydraulic models identify flood-prone areas but demand extensive data and computation, whereas risk mapping offers a data-efficient alternative by integrating elements at risk such as population and infrastructure. This study develops a probabilistic framework for consequence-specific urban flood risk mapping, defining risk as the product of hazard and vulnerability probabilities. Hazard maps are generated from three rainfall events using non-exceedance probabilities of best-fit distributions. Similarly, indicator-specific vulnerabilities are estimated for each consequence and are combined via a linear aggregation. Indicator weights are derived using a novel Empirical-Improved Analytical Hierarchy Process (E-IAHP), replacing subjective judgments with a statistical measure (absolute correlation coefficient in this study), thereby ensuring objectivity and computational efficiency. The framework is flexible across temporal scales and can incorporate additional hazard attributes when required. The approach produces tailored risk maps for three urban flood consequences, that is, disruption of emergency service, traffic disruption, and economic losses of buildings, revealing distinct spatial patterns across central, south-central and northern wards. Event specific crowdsourced flood locations provide indirect validation of the estimated risk patterns. Overall the framework demonstrates its adaptability for real-time flood assessment and broader disaster management applications."
   },
   {
     "id": "2026-hybrid-hydrologic-framework",
@@ -57,7 +58,8 @@
     "volume": "63",
     "pages": "103053",
     "date": "2026-02",
-    "order": 30
+    "order": 30,
+    "abstract": "Study region: Narmada River Basin, India. Spatial resolution and calibration strategies are two key aspects of semi-distributed streamflow modeling. Further, to enhance the skill, post-processing of model estimates is crucial to correct biases and potential model inadequacies. To this end, this study assesses these aspects: (i) four spatial resolutions to identify the best resolution, (ii) two multi-site calibration approaches for flow estimations - Basin specific (BS) and Sequential ungauged basin (SQ), and (iii) Random Forest (RF), a machine learning technique, to model the errors from the hydrological model for post-processing. To address these, a framework combining a hydrological model, Sacramento Soil Moisture Accounting (SAC-SMA), and a hydraulic routing scheme, Kinematic wave routing, was developed and employed for six diverse sub-basins. The medium resolution was chosen due to its performance and lower computational requirements, and streamflows were estimated using two calibration approaches. Of these, SQ demonstrated NSE improvements ranging from 0.05 to 0.37 for all flows and 0.08–0.69 for high flows compared to BS. Error modeling improved overall model performance, with BS showing relatively greater improvements. The results indicate that a modeling framework using medium resolution combined with BS calibration and error-correction is both computationally efficient and skillful. Further, validation of the framework on two locations indicates its strong potential to estimate streamflows in ungauged basins. • Medium resolution configuration (29 sub-basins) is chosen for streamflow estimation. • A novel calibration technique is developed to account for routing in calibration. • Modeling of error improved original streamflow estimates. • Improvement via error modeling is high for the poorly performed calibration approach. • The proposed framework has potential for streamflow estimation in data-poor regions."
   },
   {
     "id": "2026-telegram-bot-flood-info",
@@ -74,7 +76,8 @@
     "open_access": "cc-by-nc-nd",
     "issn": "2948-2100",
     "date": "2026-07-02",
-    "order": 40
+    "order": 40,
+    "abstract": "Cities serve as major economic centers and experience significant socio-economic impacts from urban flooding, necessitating user-friendly decision-support tools. This study presents an R-based automated, web-messaging-based quasi-operational near real-time framework for rainfall and flood information dissemination. The framework integrates automated data acquisition and develops rainfall and consequence-specific flood risk maps using a probabilistic hazard-vulnerability approach; offering a scalable tool in resource-constrained cities, with potential extension to finer temporal scales."
   },
   {
     "id": "2025-urban-floods-changing-climate",
@@ -92,7 +95,8 @@
     "note": "Edited by A. Prakash and M. D’Souza. Routledge.",
     "theme": "urban-flooding-hyderabad",
     "open_access": "closed",
-    "order": 5
+    "order": 5,
+    "abstract": "This book explores climate action and justice in India, a country which has been facing extreme climate events and complex sociopolitical challenges arising from climate change. It offers diverse perspectives and insights into India's evolving climate landscape, policies, grassroots initiatives, and response to climate vulnerability and inequality. The book scrutinises policy efficacy, addresses community vulnerabilities and perspectives, and showcases innovative sustainable development strategies. It draws upon climate adaptation literature to underscore the significance of global cooperation in tackling climate change challenges. With a focus on inclusivity and global collaboration, the book will serve as a great resource for policymakers, researchers, and stakeholders in navigating the complexities of climate action and justice in India. Part of the Innovations, Practice and the Future of Public Policy in India series, this open access volume will be of interest to public and climate policy professionals, social science professionals, and students working on climate change, climate action and justice, public policy, social sciences, environmental science, geography, and South Asia studies. This book is freely available as a downloadable Open Access PDF at http://www.taylorfrancis.com under a Creative Commons (CC-BY-NC-ND) 4.0 license."
   },
   {
     "id": "2025-rainfall-forecasts-irrigation",
@@ -113,7 +117,8 @@
     "volume": "151",
     "issue": "12",
     "date": "2025-12",
-    "order": 50
+    "order": 50,
+    "abstract": "Despite the availability of India meteorological department (IMD) weather forecasts for more than a decade, their effective utilization in irrigation schedules and crop simulations is least practiced. To bridge this gap, we propose a farmer-centric approach wherein IMD published short-term rainfall forecasts (with 1–5 days lead) are represented in three formats (two qualitative: binary, categorical; and one quantitative: numerical) and further used in irrigation schedules. For each combination of forecast representation and lead time, water balance and crop simulations were performed on a daily basis (120 days) and the results are compared with conventional irrigation (which does not account for rainfall forecast) and perfect forecast irrigation (ideal) scenarios, with the objective to advocate the optimal forecast scenario for use in irrigation. Applicability of the proposed framework is tested on a water-intense rice crop for one crop season (Jun–Oct, 2022). Conventional irrigation has resulted in the highest use of irrigation (1,320 mm) and percolation (1,647 mm) yet achieved a low yield (6.67 t ha−1), highlighting the need for considering forecast-driven irrigation. All forecast scenarios have overestimated the rainfall, recommending low irrigation amounts. Reliability of binary forecast is found to be high at all lead times (accuracy > 0.48, bias 15 mm), numerical rainfall forecast has resulted in optimal irrigation amounts and relatively higher yield (7.1 t ha−1). Our results suggest that data representation of IMD rainfall forecasts has precedence over lead time in scheduling irrigation and simulating crop yield."
   },
   {
     "id": "2025-infrared-seepage-earthen-dams",
@@ -134,7 +139,8 @@
     "volume": "15",
     "issue": "1",
     "date": "2025-07-02",
-    "order": 60
+    "order": 60,
+    "abstract": "Early and precise seepage detection is crucial for maintaining the safety and integrity of dams and preventing potential disasters associated with dam failure. This study focuses on detecting seepage in earthen dams using an infrared thermography-based approach, a non-invasive and non-contact technique. The seepage phenomenon was recreated on a laboratory-scale model of an earthen dam with two distinct downstream surfaces: one with soil cover and the other with grass turfing. Extensive infrared thermography analysis indicated that temperature variations could serve as key indicators for seepage identification. Results revealed an interesting pattern with temperatures at seepage locations being either lower or higher than the surrounding soil depending on the time of imaging. The latter typically occurs after 14:30 h. when solar loading is below 800 watts/m 2 . For the earthen embankment geometry considered (side slopes of 1 V:1.87 H), camera viewing angles between 45﻿° and 55° were found optimal, as temperature measurements from the infrared camera closely matched spot readings from installed thermal sensors. Additionally, experiments on downstream surfaces with varying surface erosion depths revealed significant temperature gradients in infrared images, with areas of severe erosion displaying marked differences compared to regions with minimal erosion. The findings encourage the broader use of infrared thermography for detecting seepage and erosion in earthen dams."
   },
   {
     "id": "2025-crowdsourced-flood-impact",
@@ -214,7 +220,8 @@
     "issue": "6",
     "pages": "765-781",
     "date": "2024-04-25",
-    "order": 100
+    "order": 100,
+    "abstract": "Calibration and regionalization are two key tasks in hydrological modelling, and the availability of increased data and computing resources has enhanced our ability to complete these tasks. This paper addresses both tasks, i.e. (i) it proposes novel model structure-based calibration strategies with the goal to improve estimation of high streamflows, and (ii) it explores the association of soil hydraulic properties with optimal parameters to estimate streamflows in ungauged catchments. Both tasks are demonstrated by employing a conceptual hydrological model, Sacramento Soil Moisture Accounting (SAC-SMA), on multiple catchments in the Narmada River Basin. The initial calibrated model exhibited good model performance, with high flows being underestimated. Seven calibration strategies via revising parameter space are explored, and improvement in high flow performance is observed at nine out of 12 catchments. Estimated streamflows based on soil hydraulic parameters demonstrate regionalization potential. The results indicate successful application of the proposed methods which are transferable to other basins."
   },
   {
     "id": "2023-synoptic-patterns-hyderabad",
@@ -234,7 +241,8 @@
     "issue": "15",
     "pages": "7032-7049",
     "date": "2023-12-15",
-    "order": 110
+    "order": 110,
+    "abstract": "Synoptic fingerprinting of flood driving rainfall events over the Hyderabad city, India were assessed through an unsupervised machine learning technique—self-organizing maps (SOM) for the period 1979–2020. Flood dates were identified using nonscientific data sources, and then large-scale climate variables, that is, integrated vapour transport (IVT) and geopotential height at 500 hPa (Z500) along with rainfall at daily scale were considered. SOM was applied on IVT and results indicated large spatial scale- and season-specific mechanisms in addition to local circulation systems—this highlights SOM's ability to cluster circulation mechanisms as per the relevance. The rainy seasons, that is, monsoon and postmonsoon showed well-known moisture pathways. While synoptic systems can be easily linked with monsoon and postmonsoon mechanisms, it is interesting to note that the local systems exist even during the monsoon and postmonsoon season in addition to the summer season. Spatial patterns of Z500 corresponding to SOM nodes of IVT showed the presence of low-pressure systems (LPSs), tropical cyclones and trough systems. Further analysis was performed, and a total of 35 atmospheric rivers (ARs) were identified. Plots of back trajectories for the selected AR events indicated that Arabian Sea is the main source of moisture in the monsoon season followed by Bay of Bengal for postmonsoon and tropical cyclones in summer season events. Additionally, moisture from land is also observed as another source of moisture. Back-trajectory analysis further indicated AR-LPS interaction during the monsoon and ARs feeding moisture to LPSs. Overall, well-known and season-specific synoptic systems that brought significant rainfall to the study region were identified by the SOM. The proposed framework is adaptable for different locations, and as floods in cities across the globe are on the rise, these findings will have a prominent role in urban flood forecasting and management."
   },
   {
     "id": "2023-imerg-hyderabad",
@@ -256,7 +264,8 @@
     "issn": "1525-755X",
     "issue": "6",
     "date": "2023-06",
-    "order": 120
+    "order": 120,
+    "abstract": "Satellite-based rainfall estimates are a great resource for data-scarce regions, including urban regions, because of its finer resolution. Integrated Multi-satellitE Retrievals for GPM (IMERG) is a widely used product and is evaluated at a city scale for the Hyderabad region using two different ground truths, i.e., India Meteorological Department (IMD) gridded rainfall and Telangana State Development Planning Society (TSDPS) automatic weather station (AWS) measured rainfall. The IMERG rainfall estimates are evaluated on multiple spatial and temporal scales as well as on a rainfall event scale. Both continuous and categorical verification metrics suggest good performance of IMERG on the daily scale; however, relatively decreased performance was observed on the hourly scale. Underestimated and overestimated IMERG estimates with respect to IMD gridded rainfall and AWS measured rainfall, respectively, suggest the performance depends on type of ground truth. Unlike categorical metrics, RMSE and PBIAS have a pattern implying a systematic error with respect to rainfall amount. Further, sample size, diurnal variations, and season are found to have a role in IMERG estimates’ performance. Temporal aggregation of hourly to daily time scales showed the improved IMERG performance; however, no spatial-scale dependence was observed among zonewise and Hyderabad region–wise rainfall estimates. Comparison of raw and bias-corrected IMERG rainfall-based intensity–duration–frequency (IDF) curves with corresponding hourly rain gauge IDF curves showcases the value addition via simple bias correction techniques. Overall, the study suggests the IMERG estimates can be used as an alternative data source, and it can be further improved by modifying the retrieval algorithm. Significance Statement Many urban regions are typically data sparse, which limits scientific understanding and reliable engineering designs of various urban hydrometeorology-relevant tasks, including climatological and extreme rainfall characterization, flood hazard assessment, and stormwater management systems. Satellite rainfall estimates come as a great resource and Integrated Multi-satellitE Retrievals for GPM (IMERG) acts as a best alternative. The Hyderabad region, the sixth-largest metropolitan area in India, is selected to analyze the widely used satellite estimates, i.e., retrievals for GPM. The study observed inaccuracies in the IMERG estimates that varied with rainfall magnitudes and space and time scales; nonetheless, the estimates can be used as an alternative data source for decision-making such as whether rain exceeds a certain threshold or not."
   },
   {
     "id": "2023-serayu-copula",
@@ -298,7 +307,8 @@
     "issn": "0733-9496",
     "issue": "2",
     "date": "2023-02",
-    "order": 140
+    "order": 140,
+    "abstract": "The effectiveness of irrigation schedules and crop growth models is largely dependent on the accuracies associated with the most uncertain input parameter, viz. weather forecasts. This research is focused on quantifying the inaccuracies associated with the India Meteorological Department (IMD) issuing short-term weather forecasts (with 1–5 days lead time), and their propagation into irrigation models, with an objective to select the optimal parameters for use with simulation. While precipitation (P) forecasts were directly used, remaining meteorological forecasts were converted to reference evapotranspiration (ET0) forecasts. The effectiveness of the ‘P’ and ‘ET0’ forecasts was found to be low at all lead times. We applied two popular bias correction methods: linear scaling (LS) and empirical quantile mapping (EQM), and observed a marginal improvement in forecast skill. Bias-corrected, forecast-driven irrigation scenarios, along with conventional irrigation (that ignores weather forecast), and a hypothetical perfect 5-day forecast-based irrigation (as reference) system were tested on a water-intensive paddy crop for two growing seasons (S1: monsoon and S2: winter). Conventional irrigation resulted in the highest use of irrigation water (820 mm in S1, 880 mm in S2) and percolation loss (1,140 mm in S1, 680 mm in S2), while achieving a low relative yield (0.88 in S1, 0.87 in S2). LS-corrected forecasts outperformed other scenarios with 20.24%±4.21% and 1.25%±1.51% savings in irrigation costs for S1 and S2, respectively. While IMD forecasts greatly improved irrigation schedules in the monsoon season, their usage for winter crops was found to be trivial. Our findings conclude that LS-corrected IMD forecasts were moderately reliable over multiple lead times and can serve as a valuable addition to irrigation scheduling, provided the contribution of ‘P’ to the total water balance is significant."
   },
   {
     "id": "2022-high-res-rainfall-hyderabad",
@@ -339,7 +349,8 @@
     "volume": "147",
     "issue": "8",
     "date": "2021-08",
-    "order": 160
+    "order": 160,
+    "abstract": "Crop simulation models in conjunction with weather forecasts help in understanding soil-water-plant interactions in real time, and thus in effective management of irrigation water. However, selection of the optimal forecast horizon for use with irrigation scheduling is challenging in the context of uncertainties associated with weather forecasts. This study is aimed at evaluating the effectiveness of the Indian Meteorological Department (IMD) short-term weather forecasts with different forecast horizons (1, 3, and 5 days) in simulating crop water and yield dynamics of rice. Rule-based irrigation is triggered by specifying thresholds on the current day’s ponding depth (do), precipitation (Po), and evapotranspiration (ETo) as well as their forecast values (∑i=1nPi; ∑i=1nETi; n=1,3,5). The IMD forecasts of temperature, humidity, wind speed, and cloud cover were translated into ETo forecasts using the Penman-Monteith equation and region-specific crop coefficients. The Soil–Water–Atmosphere–Plant (SWAP) model was modified to simulate soil–water and plant growth conditions by considering the three forecast scenarios along with conventional irrigation (ignoring weather forecast), and a hypothetical perfect 5-day forecast (reference). Experiments were conducted in four paddy fields in a command area of south India for two monsoon seasons (2018 and 2019) to calibrate and parameterize the SWAP model. The accuracy of forecast variables is increased with increase in length of forecast horizon (root-mean-square error = 12.5±0.98, skill score = 0.6%±0.03% at 1-day lead to 5.9±2.5, 22.4%±7.8% at 5-day lead) due to averaging. Conventional irrigation has resulted in the highest use of irrigation water (912±12.5 mm), percolation losses (1,245±19.5 mm), and electricity (806.5±100.5 kW), achieving a low yield (2,331±138 kg ha−1). Irrigation scheduling with 5-day forecast horizon outperformed other scenarios (69% water saving and 23% higher yield), and is slightly inferior to the hypothetical perfect forecast. Our results conclude that IMD forecasts, though moderately reliable at multiple lead times, can serve as a valuable tool in scheduling irrigation activities for sustainable management."
   },
   {
     "id": "2021-multi-resolution-sabari",
@@ -359,7 +370,8 @@
     "issue": "9",
     "pages": "1224",
     "date": "2021-04-28",
-    "order": 170
+    "order": 170,
+    "abstract": "One of the challenges in rainfall-runoff modeling is the identification of an appropriate model spatial resolution that allows streamflow estimation at customized locations of the river basin. In lumped modeling, spatial resolution is not an issue as spatial variability is not accounted for, whereas in distributed modeling grid or cell resolution can be related to spatial resolution but its application is limited because of its large data requirements. Streamflow estimation at the data-poor customized locations is not possible in lumped modeling, whereas it is challenging in distributed modeling. In this context, semi-distributed modeling offers a solution including model resolution and estimation of streamflow at customized locations of a river basins with less data requirements. In this study, the Hydrologic Engineering Center-Hydrologic Modeling System (HEC-HMS) model is employed in semi-distribution mode on river basins of six different spatial resolutions. The model was calibrated and validated for fifteen and three selected flood events, respectively, of three types, i.e., single peak (SP), double peak (DP)- and multiple peaks (MP) at six different spatial resolution of the Sabari River Basin (SRB), a sub-basin of the Godavari basin, India. Calibrated parameters were analyzed to understand hydrologic parameter variability in the context of spatial resolution and flood event aspects. Streamflow hydrographs were developed, and various verification metrics and model scores were calculated for reference- and calibration- scenarios. During the calibration phase, the median of correlation coefficient and NSE for all 15 events of all six configurations was 0.90 and 0.69, respectively. The estimated streamflow hydrographs from six configurations suggest the model’s ability to simulate the processes efficiently. Parameters obtained from the calibration phase were used to generate an ensemble of streamflow at multiple locations including basin outlet as part of the validation. The estimated ensemble of streamflows appeared to be realistic, and both single-valued and ensemble verification metrics indicated the model’s good performance. The results suggested better performance of lumped modeling followed by the semi-distributed modeling with a finer spatial resolution. Thus, the study demonstrates a method that can be applied for real-time streamflow forecast at interior locations of a basin, which are not necessarily data rich."
   },
   {
     "id": "2021-water-food-nexus-hyderabad",
@@ -380,7 +392,8 @@
     "issue": "5",
     "pages": "637",
     "date": "2021-02-27",
-    "order": 180
+    "order": 180,
+    "abstract": "Cities are complex and evolving systems with various factors playing key roles, e.g., population increase, the migration of population, the availability of resources, and the flexibility of policies. Consumers’ socioeconomic status is also an important aspect that needs to be studied in the context of a self-reliant urban city in its resource consumption. In this regard, the association between water–food and socio-economic attributes was analyzed based on the consumer-centric approach for the Hyderabad Metro Development Authority (HMDA) region, India. In this study, the embedded water content in food consumption was estimated and analyzed for nine food groups and twelve economic classes of the HMDA region. The middle economic classes were found to correspond to ~80% of embedded water content in the HMDA region, followed by the upper and lower economic classes. Except for cereals, per capita, the water consumption of all food groups increased with the spending power of the economic class. The green, blue, and grey consumption water footprints (WFs) suggested that much of the water that is being consumed in the HMDA region is precipitation-driven, followed by surface and groundwater resources. Limited water resources, water resource variability, climate change consequences including future climate projections, uncertainty in data, WF estimates, and region’s future growth imply a detailed study in drafting policies to become a self-reliant region."
   },
   {
     "id": "2021-2d-inundation-godavari",
@@ -400,7 +413,8 @@
     "issue": "2",
     "pages": "191",
     "date": "2021-01-14",
-    "order": 190
+    "order": 190,
+    "abstract": "Most flood inundation models do not come with an uncertainty analysis component chiefly because of the complexity associated with model calibration. Additionally, the fact that the models are both data- and compute-intensive, and since uncertainty results from multiple sources, adds another layer of complexity for model use. In the present study, flood inundation modeling was performed in the Godavari River Basin using the Hydrologic Engineering Center—River Analysis System 2D (HEC-RAS 2D) model. The model simulations were generated for six different scenarios that resulted from combinations of different geometric, hydraulic and hydrologic conditions. Thus, the resulted simulations account for multiple sources of uncertainty. The SRTM-30 m and MERIT-90 m Digital elevation Model (DEM), two sets of Manning’s roughness coefficient (Manning’s n) and observed and estimated boundary conditions, were used to reflect geometric, hydraulic and hydrologic uncertainties, respectively. The HEC-RAS 2D model ran in an unsteady state mode for the abovementioned six scenarios for the selected three flood events that were observed in three different years, i.e., 1986, 2005 and 2015. The water surface elevation (H) was compared in all scenarios as well as with the observed values at selected locations. In addition, ‘H’ values were analyzed for two different structures of the computational model. The average correlation coefficient (r) between the observed and simulated H values is greater than 0.85, and the highest r, i.e., 0.95, was observed for the combination of MERIT-90 m DEM and optimized (obtained via trial and error) Manning’s n. The analysis shows uncertainty in the river geometry information, and the results highlight the varying role of geometric, hydraulic and hydrologic conditions in the water surface elevation estimates. In addition to the role of the abovementioned, the study recommends a systematic model calibration and river junction modeling to understand the hydrodynamics upstream and downstream of the junction."
   },
   {
     "id": "2016-cfsv2-conus",
@@ -421,7 +435,8 @@
     "issn": "0094-8276",
     "issue": "12",
     "date": "2016-06-28",
-    "order": 200
+    "order": 200,
+    "abstract": "Dynamically based seasonal forecasts are prone to systematic spatial biases due to imperfections in the underlying global climate model (GCM). This can result in low-forecast skill when the GCM misplaces teleconnections or fails to resolve geographic barriers, even if the prediction of large-scale dynamics is accurate. To characterize and address this issue, this study applies objective climate regionalization to identify discrepancies between the Climate Forecast System Version 2 (CFSv2) and precipitation observations across the Contiguous United States (CONUS). Regionalization shows that CFSv2 1 month forecasts capture the general spatial character of warm season precipitation variability but that forecast regions systematically differ from observation in some transition zones. CFSv2 predictive skill for these misclassified areas is systematically reduced relative to correctly regionalized areas and CONUS as a whole. In these incorrectly regionalized areas, higher skill can be obtained by using a regional-scale forecast in place of the local grid cell prediction."
   },
   {
     "id": "2014-hefs-verification-1",
@@ -520,7 +535,8 @@
     "volume": "95",
     "issue": "1",
     "pages": "79-98",
-    "order": 240
+    "order": 240,
+    "abstract": "NOAA's National Weather Service (NWS) is implementing a short- to long-range Hydrologic Ensemble Forecast Service (HEFS). The HEFS addresses the need to quantify uncertainty in hydrologic forecasts for flood risk management, water supply management, streamflow regulation, recreation planning, and ecosystem management, among other applications. The HEFS extends the existing hydrologic ensemble services to include short-range forecasts, incorporate additional weather and climate information, and better quantify the major uncertainties in hydrologic forecasting. It provides, at forecast horizons ranging from 6 h to about a year, ensemble forecasts and verification products that can be tailored to users' needs. Based on separate modeling of the input and hydrologic uncertainties, the HEFS includes 1) the Meteorological Ensemble Forecast Processor, which ingests weather and climate forecasts from multiple numerical weather prediction models to produce bias-corrected forcing ensembles at the hydrologic basin scales; 2) the Hydrologic Processor, which inputs the forcing ensembles into hydrologic, hydraulic, and reservoir models to generate streamflow ensembles; 3) the hydrologic Ensemble Postprocessor, which aims to account for the total hydrologic uncertainty and correct for systematic biases in streamflow; 4) the Ensemble Verification Service, which verifies the forcing and streamflow ensembles to help identify the main sources of skill and error in the forecasts; and 5) the Graphics Generator, which enables forecasters to create a large array of ensemble and related products. Examples of verification results from multiyear hind-casting illustrate the expected performance and limitations of HEFS. Finally, future scientific and operational challenges to fully embrace and practice the ensemble paradigm in hydrology and water resources services are discussed."
   },
   {
     "id": "2011-gunnison-decision-support",
@@ -540,7 +556,8 @@
     "issue": "5",
     "pages": "428-438",
     "date": "2011-09",
-    "order": 250
+    "order": 250,
+    "abstract": "Numerous studies have developed new methods for skillful long-lead seasonal streamflow forecasts, especially in the western United States, and most assume that the streamflow forecast skills translate into improved water resources decision making, but there has been little comprehensive demonstration of this. This translation is not straightforward because the decision system is nonlinear. This paper develops a prototype decision support system (DSS) to systematically evaluate the translation of streamflow forecast skills to water resource operational variables and decision variables in the Gunnison River basin (GRB). The DSS consists of two main modules: (1) a multimodel ensemble streamflow forecast module that uses large-scale climate information and issues forecast ensembles, and (2) a decision support module (developed in the generalized decision tool, RiverWare) that captures the seasonal operations and management of the GRB water resources system. Ensembles of streamflow forecast scenarios drive the decision support module, resulting in an ensemble of various variables pertaining to operations of the reservoirs. The DSS is run with streamflow forecast ensembles for the spring season issued on January 1 and April 1 and also the climatological and observed streamflows. The skills of the various variables, e.g., power generated and end of season reservoir storages, are computed. The results demonstrate that the skills from the streamflow forecasts are well transferred to the operational variables, enabling more effective decision making as early as January, when the snow information is partial at best. This integrated and comprehensive prototype DSS is believed to be one of the early attempts to demonstrate the utility of streamflow forecasts in a decision-making context. This DSS framework can be easily transferred to other basins."
   },
   {
     "id": "2006-categorical-streamflow-forecasts",
@@ -561,7 +578,8 @@
     "volume": "42",
     "issue": "9",
     "date": "2006-09",
-    "order": 260
+    "order": 260,
+    "abstract": "Categorical forecasts of streamflow are important for effective water resources management. Typically, these are obtained by generating ensemble forecasts of streamflow and counting the proportion of ensembles in the desired category. Here we develop a simple and direct method to produce categorical streamflow forecasts at multiple sites. The method involves predicting the probability of the leading mode (or principal component) of the basin streamflows above a given threshold and subsequently translating the predicted probabilities to all the sites in the basin. The categorical probabilistic forecasts are obtained via logistic regression using a set of large-scale climate predictors. Application to categorical forecasts of the spring (April–June) streamflows at six locations in the Gunnison River Basin exhibited significant long-lead forecast skill."
   },
   {
     "id": "2006-multimodel-gunnison",
@@ -583,7 +601,8 @@
     "issn": "0043-1397",
     "issue": "9",
     "date": "2006-09",
-    "order": 270
+    "order": 270,
+    "abstract": "We propose a multimodel ensemble forecast framework for streamflow forecasts at multiple locations that incorporates large-scale climate information. It has four broad steps: (1) Principal component analysis is performed on the spatial streamflows to identify the dominant modes of variability. (2) Potential predictors of the dominant streamflow modes are identified from several large-scale climate features and snow water equivalent information. (3) Objective criterion is used to select a suite of candidate nonlinear regression models each with different predictors. (4) Ensemble forecasts of the dominant streamflow modes are generated from the candidate models and are combined objectively to produce a multimodel ensemble, which are then back transformed to produce spatially coherent streamflow forecasts at all the locations. The utility of the framework is demonstrated in the skillful forecast of spring seasonal streamflows at six locations in the Gunnison River Basin at several lead times. The generated ensemble streamflow forecast provides valuable and useful information for optimal management and planning of water resources in the basin."
   },
   {
     "id": "2005-ensemble-streamflow-forecasting",
@@ -624,7 +643,8 @@
     "issn": "1607-7946",
     "issue": "3",
     "date": "2005-03-17",
-    "order": 280
+    "order": 280,
+    "abstract": "We present a nonparametric approach based on local polynomial regression for ensemble forecast of time series. The state space is first reconstructed by embedding the univariate time series of the response variable in a space of dimension (D) with a delay time (τ). To obtain a forecast from a given time point t, three steps are involved: (i) the current state of the system is mapped on to the state space, known as the feature vector, (ii) a small number (K=α*n, α=fraction (0,1] of the data, n=data length) of neighbors (and their future evolution) to the feature vector are identified in the state space, and (iii) a polynomial of order p is fitted to the identified neighbors, which is then used for prediction. A suite of parameter combinations (D, τ, α, p) is selected based on an objective criterion, called the Generalized Cross Validation (GCV). All of the selected parameter combinations are then used to issue a T-step iterated forecast starting from the current time t, thus generating an ensemble forecast which can be used to obtain the forecast probability density function (PDF). The ensemble approach improves upon the traditional method of providing a single mean forecast by providing the forecast uncertainty. Further, for short noisy data it can provide better forecasts. We demonstrate the utility of this approach on two synthetic (Henon and Lorenz attractors) and two real data sets (Great Salt Lake bi-weekly volume and NINO3 index). This framework can also be used to forecast a vector of response variables based on a vector of predictors."
   },
   {
     "id": "2005-seasonal-cycle-shifts",
@@ -646,7 +666,8 @@
     "issue": "2",
     "pages": "372-384",
     "date": "2005-01-15",
-    "order": 290
+    "order": 290,
+    "abstract": "Analyses of streamflow, snow mass temperature, and precipitation in snowmelt-dominated river basins in the western United States indicate an advance in the timing of peak spring season flows over the past 50 years. Warm temperature spells in spring have occurred much earlier in recent years, which explains in part the trend in the timing of the spring peak flow. In addition, a decrease in snow water equivalent and a general increase in winter precipitation are evident for many stations in the western United States. It appears that in recent decades more of the precipitation is coming as rain rather than snow. The trends are strongest at lower elevations and in the Pacific Northwest region, where winter temperatures are closer to the melting point; it appears that in this region in particular, modest shifts in temperature are capable of forcing large shifts in basin hydrologic response. It is speculated that these trends could be potentially a manifestation of the general global warming trend in recent decades and also due to enhanced ENSO activity. The observed trends in hydroclimatology over the western United States can have significant impacts on water resources planning and management."
   },
   {
     "id": "2004-temporal-scaling-chaotic",
@@ -666,6 +687,7 @@
     "issue": "3",
     "issn": "0262-6667",
     "date": "2004-06",
-    "order": 300
+    "order": 300,
+    "abstract": "Identification of the presence of scaling in the river flow process has been a challenging problem in hydrology. Studies conducted thus far have viewed this problem essentially from a stochastic perspective, because the river flow process has traditionally been assumed to be a result of a very large number of variables. However, recent studies employing nonlinear deterministic and chaotic dynamic concepts have reported that the river flow process could also be the outcome of a deterministic system with only a few dominant variables. In the wake of such reports, a preliminary attempt is made in this study to investigate the type of scaling behaviour in the river flow process (i.e. chaotic or stochastic). The investigation is limited only to temporal scaling. Flow data of three different scales (daily, 5-day and 7-day) observed in each of three rivers in the USA: the Kentucky River in Kentucky, the Merced River in California and the Stillaguamish River in Washington, are analysed. It is assumed that the dynamic behaviour of the river flow process at these individual scales provides clues about the scaling behaviour between these scales. The correlation dimension is used as an indicator to distinguish between chaotic and stochastic behaviours. The results are mixed with regard to the type of flow behaviour at individual scales and, hence, to the type of scaling behaviour, as some data sets show chaotic behaviour while others show stochastic behaviour. They suggest that characterization (chaotic or stochastic) of river flow should be a necessary first step in any scaling study, as it could provide important information on the appropriate approach for data transformation purposes."
   }
 ]

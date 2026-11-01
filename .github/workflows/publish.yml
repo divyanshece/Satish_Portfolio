@@ -4,8 +4,9 @@
 # published by one person from a spreadsheet at any hour, and code cannot reach
 # the live site without passing a gate.
 #
-#   content-publish   Reads the Google Sheet, commits any change back, builds
-#                     the site and uploads it to Cloudflare Pages. Runs on a
+#   content-publish   Reads the Google Sheet, looks up any missing abstract,
+#                     commits any change back, builds the site and uploads it
+#                     to Cloudflare Pages. Runs on a
 #                     push to main, when he ticks the publish box, twice a day
 #                     on a schedule, and by hand from the Actions tab.
 #
@@ -126,12 +127,28 @@ jobs:
           # made this file invalid the first time it was ever allowed to run.
           SYNC_SUMMARY_FILE: ${{ runner.temp }}/sync-summary.json
 
+      # A paper added to the sheet arrives with no abstract, and Google Scholar
+      # will not index a paper page that has none. This asks Crossref and
+      # OpenAlex for one so that nobody has to remember to paste it. It never
+      # overwrites an abstract that is already there, and it never fails the
+      # job: an unreachable API means a page that is merely less visible, which
+      # must not stand between him and a publish.
+      - name: Look up any missing abstracts
+        id: abstracts
+        continue-on-error: true
+        run: npm run abstracts
+
       # The committed JSON is the site's real content, and the sheet is the way
       # it gets edited. Committing here is what makes the repository a complete
       # copy, so the site can be rebuilt years from now with no Google account.
       # [skip ci] keeps this commit from starting another publish.
+      #
+      # Either source of change is worth committing. Without the abstracts
+      # clause, an abstract found on a run where the sheet itself did not change
+      # would ship to the live site and never reach the repository, so the next
+      # publish would look it up all over again.
       - name: Commit the content back
-        if: steps.sync.outputs.changed == 'true'
+        if: steps.sync.outputs.changed == 'true' || steps.abstracts.outputs.changed == 'true'
         run: |
           set -euo pipefail
           git config user.name "content-bot"

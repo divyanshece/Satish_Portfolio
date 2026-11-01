@@ -163,6 +163,19 @@ const COLLECTIONS = [
       { name: "note", required: false, type: TEXT },
       { name: "open_access", required: false, type: TEXT },
       { name: "exclude", required: false, type: BOOL },
+      /* These five were in src/data/publications.json and not in this map, so
+         the first real sync would have blanked them on all 32 records. `date`,
+         `issn` and `order` were already in use; `abstract` and
+         `meta_description` are used from 2026-11-01. The abstract is the one
+         that matters most — Google Scholar will not index a paper page that
+         carries bibliographic data and nothing else, so losing it silently
+         would make 32 pages ineligible again without anything appearing to
+         break. */
+      { name: "date", required: false, type: TEXT },
+      { name: "issn", required: false, type: TEXT },
+      { name: "order", required: false, type: NUMBER },
+      { name: "abstract", required: false, type: TEXT, keepEmpty: true },
+      { name: "meta_description", required: false, type: TEXT },
     ],
   },
   {
