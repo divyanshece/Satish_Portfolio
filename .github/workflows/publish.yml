@@ -99,9 +99,6 @@ jobs:
       run:
         working-directory: site
 
-    env:
-      SYNC_SUMMARY_FILE: ${{ runner.temp }}/sync-summary.json
-
     steps:
       - name: Check out the site
         uses: actions/checkout@v4
@@ -125,6 +122,9 @@ jobs:
           GOOGLE_SA_KEY_B64: ${{ secrets.GOOGLE_SA_KEY_B64 }}
           SHEET_ID: ${{ secrets.SHEET_ID }}
           SHEETS_DISABLED: ${{ vars.SHEETS_DISABLED }}
+          # `runner` is legal in a step's env and not in a job's, which is what
+          # made this file invalid the first time it was ever allowed to run.
+          SYNC_SUMMARY_FILE: ${{ runner.temp }}/sync-summary.json
 
       # The committed JSON is the site's real content, and the sheet is the way
       # it gets edited. Committing here is what makes the repository a complete
@@ -173,10 +173,18 @@ jobs:
         run: |
           set -euo pipefail
           SUMMARY='{}'
+          SYNC_SUMMARY_FILE="${RUNNER_TEMP}/sync-summary.json"
           if [ -f "${SYNC_SUMMARY_FILE}" ]; then SUMMARY=$(cat "${SYNC_SUMMARY_FILE}"); fi
-          BUILD_SKIPPED=$(grep -F '— skipped ' "${RUNNER_TEMP}/build.log" 2>/dev/null \
+          # `|| true` on the grep, not on the pipeline. A grep that matches
+          # nothing exits 1, but jq has already printed a valid [] by then, so
+          # a trailing `|| echo '[]'` appended a SECOND [] and handed --argjson
+          # the text "[]\n[]". That is not JSON, so jq failed, set -e killed the
+          # step, and this step runs before the deploy — every publish in which
+          # the build skipped nothing, which is the ordinary case, would have
+          # stopped here without deploying.
+          BUILD_SKIPPED=$( { grep -F '— skipped ' "${RUNNER_TEMP}/build.log" 2>/dev/null || true; } \
             | sed 's/^ *//' \
-            | jq -R -s 'split("\n") | map(select(length > 0))' || echo '[]')
+            | jq -R -s 'split("\n") | map(select(length > 0))' )
           jq -n \
             --arg generated "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
             --arg run_url "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" \

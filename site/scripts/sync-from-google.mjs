@@ -766,6 +766,25 @@ function writeIfChanged(file, value) {
 }
 
 function writeSummary(summary) {
+  /* The step output the workflow branches on.
+   *
+   * publish.yml guards "Commit the content back" with
+   * `if: steps.sync.outputs.changed == 'true'`, and nothing used to write that
+   * output, so the guard was never true and the commit step could never run.
+   * A sheet edit would have reached the live site and then been forgotten: the
+   * next build would read the old committed JSON and quietly undo it. The file
+   * summary below is for the Apps Script and is read from the deployed site;
+   * this line is for the workflow, and the two are written together so they
+   * cannot disagree about whether anything changed. */
+  const out = process.env.GITHUB_OUTPUT;
+  if (out) {
+    try {
+      fs.appendFileSync(out, `changed=${summary.changed === true}\n`, "utf8");
+    } catch (err) {
+      console.warn(`  (could not write the step output: ${err.message})`);
+    }
+  }
+
   const target = process.env.SYNC_SUMMARY_FILE;
   if (!target) return;
   try {
