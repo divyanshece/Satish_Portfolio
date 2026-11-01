@@ -6,15 +6,17 @@ Every count here was checked against `src/data/` and `dist/` on 2026-10-11.
 
 ## Blocking launch
 
-Item 1 is one click and nothing on this site can be found until it is done.
-Items 2b, 3 and 4 are ours and can be started today — none of them wait on the domain.
+The domain answers as of 2026-11-01. What stands between the site and the public
+is the nameserver swap (1b) and the Pages project behind it. Items 3 and 4 are
+ours and wait on nothing.
 
 
 | # | Item | Who | Why it blocks |
 |---|---|---|---|
-| 1 | **Clear the `clientHold` on `satishregonda.in`** | Whoever holds the GoDaddy login | The domain is registered and paid to 2029 with nameservers assigned, but the registry is holding it out of DNS pending ICANN registrant-email verification. Until someone clicks that link the domain resolves nowhere and no hosting decision matters. **Re-checked 2026-10-11: still no A record and no NS, so the hold has not been cleared.** |
+| 1 | ~~Clear the `clientHold`~~ **resolved 2026-11-01** | — | The hold is gone. `satishregonda.in` answers from `ns77`/`ns78.domaincontrol.com`, NOERROR, SOA serial 2026090300. The two A records it returns (`3.33.130.190`, `15.197.148.33`) both reverse to `awsglobalaccelerator.com` — GoDaddy's parking front end, not anything of ours. No MX and no SPF exist, which confirms no mail is carried on this domain and the nameserver swap below breaks nothing. |
+| 1b | **Repoint the nameservers at Cloudflare** | Whoever holds the GoDaddy login | The Cloudflare zone is being created now. Until GoDaddy's two nameservers are replaced with the pair Cloudflare assigns, Cloudflare is not authoritative for the domain, the Pages custom domain sits at Pending, and no certificate is issued. This is the last step that is not ours. |
 | 2 | **Name a second owner** | Dr. Regonda | A colleague or senior PhD student with access to Cloudflare, GitHub and the Google Cloud project, who receives every failure email and holds a printed runbook. A site whose bus factor is one is not delivered. |
-| 2b | **Initialise a git repository** | Us | There is still no repository anywhere in this project — `git status` fails at the project root. Cloudflare Pages deploys from one, so nothing can be published until the code is in version control. |
+| 2b | ~~Initialise a git repository~~ **resolved 2026-11-01** | — | `github.com/divyanshece/Satish_Portfolio`, first commit `955b576`, pushed. `research/source-docs/` is held out by the root `.gitignore` so his mobile number does not travel with the code. One thing is still wrong: the Actions workflow sits at `site/.github/workflows/publish.yml`, where GitHub does not look for it. It moves to the repository root, with `working-directory: site`, once the Cloudflare secrets exist — not before, or its cron fails twice a day into his inbox. |
 | 3 | **Create the Google workbook** | Us, then handed to him | `docs/SHEET-SCHEMA.md` is the exact layout. Until it exists, `npm run sync` has nothing to read and the site builds from the committed JSON — which works, but leaves him unable to edit anything. **The People tab must carry `photo`, `linkedin` and `blurb`, and Teaching must carry `credits` and `note`** — these were added to the sync map on 2026-10-10, and a sheet without those columns would blank every photograph on the first sync. |
 | 4 | **Deploy the join form's email receiver** | Us, signed in to the Google account that will keep the applications | Paste `apps-script/Form.gs` into a new Apps Script project, run `testSetup` once (it asks for permission, creates the applications sheet and emails Dr. Regonda a sample), then Deploy → Web app → Execute as Me, Anyone, and put the `/exec` address in `PUBLIC_JOIN_FORM_URL` in Cloudflare Pages. No settings to fill in. Until then `/join/` shows his email address and his four points instead of the form. |
 

@@ -19,19 +19,18 @@
 # state in which a visitor sees a half-published or broken site: they see the
 # last good version, or the new good version, and nothing in between.
 #
-# WHERE THIS FILE HAS TO LIVE
-# ---------------------------
-# GitHub only runs workflows found in `.github/workflows/` at the root of the
-# repository. This file assumes the repository root is the directory holding
-# package.json. If the site is checked in one level down instead, as
-# `<repo>/site/`, then move this file to `<repo>/.github/workflows/publish.yml`
-# and add, under `jobs.<job>`:
+# WHERE THIS FILE LIVES
+# ---------------------
+# At the repository root, because GitHub only runs workflows found in
+# `.github/workflows/` there. The site itself is checked in one level down, in
+# `site/`, so each job sets `defaults.run.working-directory: site` and every
+# `run:` path below (npm ci, src/data, dist) is relative to `site/package.json`.
 #
-#     defaults:
-#       run:
-#         working-directory: site
-#
-# Every path below (npm ci, src/data, dist) is relative to package.json.
+# `defaults.run` does NOT reach `uses:` steps. Any action given a path needs it
+# spelled from the repository root instead — `site/.node-version`,
+# `site/package-lock.json`, and `workingDirectory: site` on wrangler-action.
+# Getting one of those wrong fails the run with a file-not-found that reads as
+# if the file were missing from the repository.
 #
 # Secrets this needs (Settings, Secrets and variables, Actions):
 #   GOOGLE_SA_KEY_B64       base64 of the read-only service account key
@@ -85,6 +84,10 @@ jobs:
     permissions:
       contents: write # to commit the synced JSON back to the repository
 
+    defaults:
+      run:
+        working-directory: site
+
     env:
       SYNC_SUMMARY_FILE: ${{ runner.temp }}/sync-summary.json
 
@@ -95,8 +98,9 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: .node-version
+          node-version-file: site/.node-version
           cache: npm
+          cache-dependency-path: site/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -189,6 +193,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: site
           command: >-
             pages deploy dist
             --project-name=${{ vars.CLOUDFLARE_PROJECT || 'satishregonda-in' }}
@@ -227,6 +232,10 @@ jobs:
       group: pr-${{ github.event.pull_request.number }}
       cancel-in-progress: true
 
+    defaults:
+      run:
+        working-directory: site
+
     steps:
       - name: Check out the branch
         uses: actions/checkout@v4
@@ -234,8 +243,9 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: .node-version
+          node-version-file: site/.node-version
           cache: npm
+          cache-dependency-path: site/package-lock.json
 
       - name: Install dependencies
         run: npm ci
