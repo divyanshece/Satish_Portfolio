@@ -5,9 +5,15 @@
 # the live site without passing a gate.
 #
 #   content-publish   Reads the Google Sheet, commits any change back, builds
-#                     the site and uploads it to Cloudflare Pages. Runs when he
-#                     ticks the publish box, twice a day on a schedule, and by
-#                     hand from the Actions tab.
+#                     the site and uploads it to Cloudflare Pages. Runs on a
+#                     push to main, when he ticks the publish box, twice a day
+#                     on a schedule, and by hand from the Actions tab.
+#
+#                     Note what the push trigger means: a commit pushed straight
+#                     to main deploys without a hard gate, because grep-check
+#                     and seo-check are warnings in this job by design. The hard
+#                     gate lives in code-pr and only a pull request passes
+#                     through it.
 #
 #   code-pr           Runs on pull requests. House style and a full build, both
 #                     hard gates. It never talks to Google and never deploys.
@@ -47,6 +53,11 @@
 name: publish
 
 on:
+  # A code change landing on main. The content-bot's own sync commit carries
+  # [skip ci], which is what stops this trigger from answering itself.
+  push:
+    branches: [main]
+
   # Ticking publish_now in the sheet sends this. See apps-script/Code.gs.
   repository_dispatch:
     types: [publish]

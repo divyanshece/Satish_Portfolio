@@ -1,0 +1,108 @@
+---
+/**
+ * The home page portrait, as a slow cross-fade between three photographs.
+ *
+ * WHY THIS IS CSS AND NOT A CAROUSEL
+ * ----------------------------------
+ * The site ships zero client-side JavaScript and its Content-Security-Policy
+ * says `script-src 'none'`, so there is no script to advance a slide. There is
+ * also not one inline style anywhere in src/, because `style-src 'self'` blocks
+ * a style attribute as surely as it blocks a script — which rules out Astro's
+ * define:vars as a way of passing timings in. So the timing is written out
+ * below as static CSS, and the slide list and the delays have to be kept in
+ * step by hand.
+ *
+ * THE TIMING
+ * ----------
+ * Three slides, each held five seconds with a one-second cross-fade, so the
+ * whole cycle is eighteen seconds. Each slide's keyframes occupy 0–7s of that
+ * cycle — fade in, hold, fade out — and the delays stagger them six seconds
+ * apart, which is what makes one fade out exactly as the next fades in:
+ *
+ *     slide 1   delay −1s    visible  0– 6s  and again 17–18s
+ *     slide 2   delay  5s    visible  5–12s
+ *     slide 3   delay 11s    visible 11–18s
+ *
+ * The first slide's negative delay starts it already faded in, so the page
+ * never paints an empty plate on load.
+ *
+ * ADDING OR REMOVING A PHOTOGRAPH means editing SLIDES *and* the cycle length
+ * and the nth-child delays below. They cannot be derived from one another
+ * without a style attribute, so they are kept next to each other instead.
+ *
+ * MOTION IS OPT-IN. Outside `prefers-reduced-motion: no-preference` no
+ * animation is declared at all and the first slide simply stays put — the same
+ * way Trajectory, RiverMap and UfisDiagram all behave.
+ *
+ * This renders the stack only. The surrounding <figure class="port"> and
+ * <div class="plate"> stay in the page, so the page keeps its own layout CSS
+ * for them and the global plate frame is untouched.
+ */
+
+export interface Props {
+  /** Describes the first slide, which is the one a still reader sees. The
+   *  other two are the same man in the same week, so they are marked
+   *  decorative and hidden: opacity means nothing to a screen reader, and
+   *  three filled alts here would announce him three times over. */
+  alt: string;
+}
+const { alt } = Astro.props;
+
+const SLIDES = [
+  "/img/portrait-desk.webp",
+  "/img/portrait.jpg",
+  "/img/portrait-campus-home.webp",
+];
+---
+
+<div class="stack">
+  {SLIDES.map((src, i) => (
+    <img
+      class="slide"
+      src={src}
+      alt={i === 0 ? alt : ""}
+      aria-hidden={i === 0 ? undefined : "true"}
+      width="704"
+      height="880"
+      decoding="async"
+      loading={i === 0 ? "eager" : "lazy"}
+      fetchpriority={i === 0 ? "high" : "low"}
+    />
+  ))}
+</div>
+
+<style>
+  /* Every slide is absolutely positioned, so the ratio is what holds the
+     height open. It is the photographs' own 4:5. */
+  .stack {
+    position: relative;
+    aspect-ratio: 704 / 880;
+  }
+  .stack img {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Still by default: one photograph, no animation declared at all. */
+  .slide { opacity: 0 }
+  .slide:first-child { opacity: 1 }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .slide { animation: portrait-cycle 18s linear infinite }
+    .slide:nth-child(1) { animation-delay: -1s }
+    .slide:nth-child(2) { animation-delay: 5s }
+    .slide:nth-child(3) { animation-delay: 11s }
+  }
+
+  @keyframes portrait-cycle {
+    0%     { opacity: 0 }
+    5.56%  { opacity: 1 }  /* 1s — faded in  */
+    33.33% { opacity: 1 }  /* 6s — hold ends */
+    38.89% { opacity: 0 }  /* 7s — faded out */
+    100%   { opacity: 0 }
+  }
+</style>

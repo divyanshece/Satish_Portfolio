@@ -13,6 +13,7 @@ import Intake from "../components/Intake.astro";
 import Claim from "../components/Claim.astro";
 import ProductRow from "../components/ProductRow.astro";
 import PersonJsonLd from "../components/PersonJsonLd.astro";
+import PortraitCycle from "../components/PortraitCycle.astro";
 import {
   settings,
   research,
@@ -31,10 +32,15 @@ const description =
    why nothing here is counted. The full claims are further down the page. */
 const themeIndex = research.map((t) => ({ slug: t.slug, label: t.short }));
 
+/* The portrait cycles through three photographs, and only the first carries a
+   label — see the note in PortraitCycle.astro on why three filled alts would
+   announce the same man three times to a screen reader. So this describes that
+   first slide, which is also what a reader who has asked for reduced motion
+   sees and the only one that never moves. */
 const PORTRAIT_ALT =
-  "Dr. Satish K. Regonda at his desk in his office at IIT Hyderabad, working at a laptop, " +
-  "with an irrigation map of Telangana pinned on the wall behind him and a globe " +
-  "standing beside it.";
+  "Dr. Satish K. Regonda at the desk in his office at IIT Hyderabad, an open laptop " +
+  "before him, an irrigation map of Telangana pinned on the wall behind and a globe " +
+  "standing at the end of the desk.";
 
 
 /* ---- products ------------------------------------------------------ */
@@ -66,13 +72,7 @@ const raftSiteLabel = raftSite.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
         <figure class="port">
           <div class="plate">
-            <img
-              src="/img/portrait.jpg"
-              alt={PORTRAIT_ALT}
-              width="704"
-              height="880"
-              decoding="async"
-            />
+            <PortraitCycle alt={PORTRAIT_ALT} />
           </div>
         </figure>
       </div>

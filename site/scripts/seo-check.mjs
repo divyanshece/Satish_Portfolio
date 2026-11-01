@@ -141,9 +141,25 @@ for (const file of files) {
     else if (!/rel="[^"]*noopener/.test(tag)) fail(`target="_blank" with no rel=noopener: ${href}`);
   }
 
-  /* images: alt, and a box reserved before they load */
+  /* Images: a label, and a box reserved before they load.
+   *
+   * An image either describes something, in which case it needs a non-empty
+   * alt, or it is decorative, in which case it needs an empty alt AND
+   * aria-hidden so a screen reader skips it rather than announcing a nameless
+   * graphic. An empty alt on its own is the thing neither of those: it hides
+   * the image from assistive technology while claiming nothing about why.
+   *
+   * Note the shape of an empty alt in the built HTML. Astro renders alt="" as
+   * a bare `alt`, which is valid HTML and identical in meaning, so both
+   * spellings are matched here. The old rule tested for `alt=` alone, which
+   * rejected every correctly-marked decorative image and accepted every
+   * carelessly-blanked one — exactly backwards. */
   for (const [, tag] of html.matchAll(/<img\s+([^>]*)>/gi)) {
-    if (!/\balt=/.test(tag)) fail(`<img> with no alt: ${tag.slice(0, 80)}`);
+    const described = /\balt="[^"]+"/.test(tag);
+    const emptyAlt = /\balt(?:=""|(?=[\s/])|$)/.test(tag);
+    const hidden = /\baria-hidden="true"/.test(tag);
+    if (!described && !(emptyAlt && hidden))
+      fail(`<img> with no alt: ${tag.slice(0, 80)}`);
     if (!/\bwidth=/.test(tag) || !/\bheight=/.test(tag))
       fail(`<img> with no width/height: ${tag.slice(0, 80)}`);
   }

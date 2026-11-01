@@ -5,7 +5,10 @@
  * src/styles/ufis-coords.css); the media fills it.
  *
  * Alt text is empty on purpose — every piece sits next to its own label in
- * the DOM, so a screen reader hears the label once rather than twice.
+ * the DOM, so a screen reader hears the label once rather than twice. The
+ * image carries aria-hidden to say so outright, the way the video beside it
+ * always has: an empty alt alone only withholds a name, while aria-hidden
+ * takes the image out of the tree, and seo-check now asks for both.
  */
 import { ART, videoFor } from "../lib/ufis";
 
@@ -24,7 +27,7 @@ const cls = ["art", `k-${id}`, mp4 ? "has-video" : "", extra ?? ""].filter(Boole
 ---
 
 <span class={cls}>
-  <img src={src} width={w} height={h} alt="" loading="lazy" decoding="async" />
+  <img src={src} width={w} height={h} alt="" aria-hidden="true" loading="lazy" decoding="async" />
   {mp4 && (
     <video src={mp4} poster={src} autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
   )}
